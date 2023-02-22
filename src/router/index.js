@@ -7,12 +7,22 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: HomeView
     },
     {
       path: '/pedidos',
       name: 'Pedidos',
+      component: PedidosView
+    },
+    {
+      path: '/purchase',
+      name: 'Pedidos',
+      component: PedidosView
+    },
+    {
+      path: '/products/detail',
+      name: 'DetailProduct',
       component: PedidosView
     },
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
