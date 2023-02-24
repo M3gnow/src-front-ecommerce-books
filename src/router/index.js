@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PedidosView from '../views/PedidosView.vue'
 import DetailProductView from '../views/DetailProductView.vue'
+import CreateClientView from '../views/CreateClientView'
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,6 +28,11 @@ const router = createRouter({
       name: 'DetailProduct',
       component: DetailProductView
     },
+    {
+      path: '/cliente/cadastro',
+      name: 'Cliente',
+      component: CreateClientView
+    }
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },
     // { path: '/schools', component: Schools, meta: { authorization:  false } },
