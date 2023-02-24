@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PedidosView from '../views/PedidosView.vue'
+import DetailProductView from '../views/DetailProductView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -23,7 +24,7 @@ const router = createRouter({
     {
       path: '/products/detail',
       name: 'DetailProduct',
-      component: PedidosView
+      component: DetailProductView
     },
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },
