@@ -13,10 +13,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser,faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
-
+library.add(faUser,faCartShopping)
 
 createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(router, bootstrap).mount('#app')
-
-library.add(faUser)

@@ -201,7 +201,7 @@
         <Label class="form-text">(Após a finalização do cadastro é possivel adicionar mais de um endereço de entrega,
           basta acessar o seu perfil.)</label>
       </label>
-      <div id="divEnderecoResidencial">
+      <div id="divEnderecoEntrega">
         <div class="row">
           <div class="col-sm">
             <label for="basic-url" class="form-label">Identificação <label class="form-text"> (Utilize um nome composto na
