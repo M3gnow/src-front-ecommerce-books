@@ -47,7 +47,11 @@
       
       <div class="d-flex justify-content-between p-3 pt-0">
         <a href="#" class="btn btn-outline-info btn-lg">Detalhes</a>
-        <a href="#" class="btn btn-outline-success btn-lg">Comprar</a>
+        <router-link to="/purchase">
+          <div class="btn btn-outline-success btn-lg">
+            Comprar
+          </div>
+        </router-link>
       </div>
     </div>
 
@@ -66,7 +70,11 @@
       
       <div class="d-flex justify-content-between p-3 pt-0">
         <a href="#" class="btn btn-outline-info btn-lg">Detalhes</a>
-        <a href="#" class="btn btn-outline-success btn-lg">Comprar</a>
+        <router-link to="/purchase">
+          <div class="btn btn-outline-success btn-lg">
+            Comprar
+          </div>
+        </router-link>
       </div>
     </div>
 
@@ -85,7 +93,11 @@
       
       <div class="d-flex justify-content-between p-3 pt-0">
         <a href="#" class="btn btn-outline-info btn-lg">Detalhes</a>
-        <a href="#" class="btn btn-outline-success btn-lg">Comprar</a>
+        <router-link to="/purchase">
+          <div class="btn btn-outline-success btn-lg">
+            Comprar
+          </div>
+        </router-link>
       </div>
     </div>
 
@@ -104,7 +116,11 @@
       
       <div class="d-flex justify-content-between p-3 pt-0">
         <a href="#" class="btn btn-outline-info btn-lg">Detalhes</a>
-        <a href="#" class="btn btn-outline-success btn-lg">Comprar</a>
+        <router-link to="/purchase">
+          <div class="btn btn-outline-success btn-lg">
+            Comprar
+          </div>
+        </router-link>
       </div>
     </div>
 

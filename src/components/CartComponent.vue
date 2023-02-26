@@ -79,6 +79,13 @@
             <div>Total Final</div>
             <div>R$ 2400</div>
         </div>
+
+        <button type="button" class="btn btn-outline-success mt-2" data-bs-dismiss="offcanvas" aria-label="Close">
+            <!-- Finalizar Compra -->
+            <router-link to="/purchase" class="forceHover colorForce">
+                Finalizar Compra
+            </router-link>
+        </button>
     </div>
 </template>
 
@@ -108,6 +115,17 @@ export default {
 img {
     height: 110px;
     width: 70px;
+}
+
+.colorForce {
+    color: #198754;
+    text-decoration: none !important
+}
+
+.forceHover:hover {
+    color: var(--bs-btn-hover-color);
+    background-color: var(--bs-btn-hover-bg);
+    border-color: var(--bs-btn-hover-border-color);
 }
 
 </style>
