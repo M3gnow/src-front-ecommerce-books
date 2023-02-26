@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <label for="basic-url" class="form-label fs-3">Alterar dados pessoais</label>
+        <label class="form-label fs-3">Alterar dados pessoais</label>
         <div class="row">
             <div class="col-sm-4">
                 <label for="basic-url" class="form-label">CPF</label>
@@ -40,7 +40,6 @@
 
         <div class="row" id="divContato">
             <label for="basic-url" class="form-label">Contato</label>
-            <div class="form-text">Você pode adicionar mais contatos.</div>
             <div class="col-sm-4">
                 <label for="basic-url" class="form-label">Tipo de telefone</label>
                 <div class="input-group">
@@ -62,9 +61,6 @@
                 <div class="input-group">
                     <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
                 </div>
-            </div>
-            <div class="col-sm-2">
-                <button class="btn btn-outline-warning">Adicionar contato</button>
             </div>
         </div>
 

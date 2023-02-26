@@ -1,35 +1,30 @@
 <template>
-    <div class="bg">
+        <div class="bg">
         <div class="container">
             <br>
-            <div class=" bg-light text-center">
-                <div class="fs-1">Andrew Oliveira</div>
-                <div class="fs-2">1 Lesbook pontos.</div>
-            </div>
             <br>
             <div class="">
                 <div class="row d-flex justify-content-between p-3">
                     <router-link to="/cliente/editar" type="button" class="btn btn-light border text-reset">
-                        <label for="basic-url" class="form-label fs-3">Meus dados</label>
-                        <div class="form-text">Gerencie seus dados pessoais.</div>
+                        <label for="basic-url" class="form-label fs-3">Livros</label>
+                        <div class="form-text">Gerencie os livros.</div>
                     </router-link>
                 </div>
                 <div class="row d-flex justify-content-between p-3">
                     <router-link to="/cliente/senha" type="button" class="btn btn-light border text-reset">
-                        <label for="basic-url" class="form-label fs-3">Segurança</label>
-                        <div class="form-text">Altere sua senha.</div>
+                        <label for="basic-url" class="form-label fs-3">Cliente</label>
+                        <div class="form-text">Gerencie os clientes.</div>
                     </router-link>
                 </div>
                 <div class="row d-flex justify-content-between p-3">
                     <router-link to="/cliente/cartoes" type="button" class="btn btn-light border text-reset">
-                        <label for="basic-url" class="form-label fs-3">Meus cartões</label>
-                        <div class="form-text">Gerencie seus cartões.</div>
+                        <label for="basic-url" class="form-label fs-3">Pedidos</label>
+                        <div class="form-text">Gerencie pedidos de compra e troca.</div>
                     </router-link>
                 </div>
                 <div class="row d-flex justify-content-between p-3">
                     <router-link to="/cliente/enderecos" type="button" class="btn btn-light border text-reset">
-                        <label for="basic-url" class="form-label fs-3">Meus endereços</label>
-                        <div class="form-text">Altere seus endereços ou adicione outros.</div>
+                        <label for="basic-url" class="form-label fs-3">Dashboard</label>
                     </router-link>
                 </div>
             </div>
@@ -38,11 +33,11 @@
 </template>
 
 <script>
-
-export default {
-    name: "ProfileClientView"
+export default{
+    name: "AdministratorPanelView"
 }
 </script>
+
 <style>
 .bg{
     background-color: rgba(94, 91, 91, 0.192);

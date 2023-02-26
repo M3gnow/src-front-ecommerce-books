@@ -3,8 +3,8 @@
     <div class="container">
       <router-link to="/" class="navbar-brand">LesBooks</router-link>
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-dark" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Buscar produtos, autores e muito mais" aria-label="Search">
+        <button class="btn btn-outline-dark" type="submit">Pesquisar</button>
       </form>
     </div>
 
@@ -28,14 +28,14 @@
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><router-link class="dropdown-item" href="#" to="/">Painel de administador</router-link></li>
+          <li><router-link class="dropdown-item" href="#" to="/adm">Painel de administador</router-link></li>
           <li>
             <hr class="dropdown-divider">
           </li>
           <li><router-link class="dropdown-item" href="#" to="/">Sair</router-link></li>
         </ul>
       </div>
-      <router-link class="p-2 nav-link active" type="button" to="/">
+      <router-link class="p-2 nav-link active" type="button" to="/compras">
         Compras
       </router-link>
       <router-link class="p-2 nav-link active" type="button" to="/">
