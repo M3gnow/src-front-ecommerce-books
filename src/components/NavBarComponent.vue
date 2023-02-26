@@ -38,17 +38,35 @@
       <router-link class="p-2 nav-link active" type="button" to="/">
         Compras
       </router-link>
-      <router-link class="p-2 nav-link active" type="button" to="/">
+      <div class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
         <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-      </router-link>
+      </div>
+      
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">Meu carrinho 
+              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <Cart/>
+        </div>
+      </div>
     </div>
   </nav>
+
+  
 </template>
 
 <script>
-export default {
-  name: "NavBarComponent"
+import Cart from './CartComponent.vue'
 
+export default {
+  name: 'NavBarComponent',
+  components: {
+    Cart
+  }
 }
 </script>
 

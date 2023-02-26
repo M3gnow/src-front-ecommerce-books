@@ -31,15 +31,21 @@
     </div>
   </div>
 
-  <div class="container d-flex justify-content-between mt-3">
-    
+  <div class="container d-flex justify-content-between mt-3 p-3">
     <div class="card border-warning  text-bg-light" style="width: 18rem;">
       <img src="https://m.media-amazon.com/images/I/91y1jCIfhSL.jpg" class="img-fluid rounded-start card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">Scrum A arte de fazer o dobro do trabalho na metade do tempo</h5>
         <p class="card-text">O Scrum é um framework de gerenciamento que as equipes usam para se auto-organizar e trabalhar em direção ...</p>
       </div>
-      <div class="d-flex justify-content-between p-3">
+      <div class="d-flex p-3">
+        <a href="#" class="btn btn-outline-warning btn-lg col-md-12" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+          Adicionar ao Carrinho
+        </a>
+      </div>
+      
+      <div class="d-flex justify-content-between p-3 pt-0">
         <a href="#" class="btn btn-outline-info btn-lg">Detalhes</a>
         <a href="#" class="btn btn-outline-success btn-lg">Comprar</a>
       </div>
@@ -51,7 +57,14 @@
         <h5 class="card-title">Scrum A arte de fazer o dobro do trabalho na metade do tempo</h5>
         <p class="card-text">O Scrum é um framework de gerenciamento que as equipes usam para se auto-organizar e trabalhar em direção ...</p>
       </div>
-      <div class="d-flex justify-content-between p-3">
+      <div class="d-flex p-3">
+        <a href="#" class="btn btn-outline-warning btn-lg col-md-12" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+          Adicionar ao Carrinho
+        </a>
+      </div>
+      
+      <div class="d-flex justify-content-between p-3 pt-0">
         <a href="#" class="btn btn-outline-info btn-lg">Detalhes</a>
         <a href="#" class="btn btn-outline-success btn-lg">Comprar</a>
       </div>
@@ -63,7 +76,14 @@
         <h5 class="card-title">Scrum A arte de fazer o dobro do trabalho na metade do tempo</h5>
         <p class="card-text">O Scrum é um framework de gerenciamento que as equipes usam para se auto-organizar e trabalhar em direção ...</p>
       </div>
-      <div class="d-flex justify-content-between p-3">
+      <div class="d-flex p-3">
+        <a href="#" class="btn btn-outline-warning btn-lg col-md-12" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+          Adicionar ao Carrinho
+        </a>
+      </div>
+      
+      <div class="d-flex justify-content-between p-3 pt-0">
         <a href="#" class="btn btn-outline-info btn-lg">Detalhes</a>
         <a href="#" class="btn btn-outline-success btn-lg">Comprar</a>
       </div>
@@ -75,9 +95,30 @@
         <h5 class="card-title">Scrum A arte de fazer o dobro do trabalho na metade do tempo</h5>
         <p class="card-text" max="30">O Scrum é um framework de gerenciamento que as equipes usam para se auto-organizar e trabalhar em direção ...</p>
       </div>
-      <div class="d-flex justify-content-between p-3">
+      <div class="d-flex p-3">
+        <a href="#" class="btn btn-outline-warning btn-lg col-md-12" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+          Adicionar ao Carrinho
+        </a>
+      </div>
+      
+      <div class="d-flex justify-content-between p-3 pt-0">
         <a href="#" class="btn btn-outline-info btn-lg">Detalhes</a>
         <a href="#" class="btn btn-outline-success btn-lg">Comprar</a>
+      </div>
+    </div>
+
+    
+    <!-- Menu Right Cart Shopping -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasRightLabel">Meu carrinho 
+            <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+          <Cart/>
       </div>
     </div>
     
@@ -85,9 +126,13 @@
 </template>
 
 <script>
-// (textDescription.slice(0, 110)) + " ..."
-export default {
+import Cart from '../components/CartComponent.vue'
 
+export default {  
+  name: 'HomeView',
+  components: {
+    Cart
+  }
 }
 </script>
 
