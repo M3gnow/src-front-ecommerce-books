@@ -10,6 +10,9 @@ import CardsClientView from '../views/CardsClientView'
 import EditCardClientView from '../views/EditCardClientView'
 import ChangePasswordView from '../views/ChangePasswordView'
 import EditPersonalDataClientView from '../views/EditPersonalDataClientView'
+import PurchasesView from '../views/PurchasesView'
+import DetailPurchaseView from '../views/DetailPurchaseView'
+import AdministratorPanelView from '../views/AdministratorPanelView'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -61,19 +64,35 @@ const router = createRouter({
     },
     {
       path: '/cliente/cartoes/editar',
-      name: 'ClientCards',
+      name: 'EditClientCards',
       component: EditCardClientView
     }
     ,
     {
       path: '/cliente/senha',
       name: 'ClientPassword',
-      component:ChangePasswordView
+      component: ChangePasswordView
     },
     {
       path: '/cliente/editar',
       name: 'ClientPersonalData',
-      component:EditPersonalDataClientView
+      component: EditPersonalDataClientView
+    },
+    {
+      path: '/compras',
+      name: 'Purchases',
+      component: PurchasesView
+    },
+    {
+      path: '/compras/detalhe',
+      name: 'DetailPurchase',
+      component: DetailPurchaseView
+    }
+    ,
+    {
+      path: '/adm',
+      name: 'AdminPanel',
+      component: AdministratorPanelView
     }
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },
