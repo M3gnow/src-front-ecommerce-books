@@ -14,6 +14,9 @@ import PurchasesView from '../views/PurchasesView'
 import DetailPurchaseView from '../views/DetailPurchaseView'
 import AdministratorPanelView from '../views/AdministratorPanelView'
 import PurchaseView from '../views/PurchaseView'
+import PurchaseAddressView from '../views/PurchaseAddressView'
+import PurchaseCreateAddressView from '../views/PurchaseCreateAddressView'
+import PurchaseCardView from '../views/PurchaseCardView'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -92,6 +95,21 @@ const router = createRouter({
       path: '/purchase',
       name: 'Purchase',
       component: PurchaseView
+    },
+    {
+      path: '/purchase/address/delivery',
+      name: 'PurchaseCreateAddress',
+      component: PurchaseCreateAddressView
+    },
+    {
+      path: '/purchase/address',
+      name: 'PurchaseAddress',
+      component: PurchaseAddressView
+    },
+    {
+      path: '/purchase/payments',
+      name: 'PurchaseCard',
+      component: PurchaseCardView
     }
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },

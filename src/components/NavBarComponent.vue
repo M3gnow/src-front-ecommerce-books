@@ -72,6 +72,6 @@ export default {
 
 <style scoped>
 .navbar {
-  background-color: yellow;
+  background-color: #fff159;
 }
 </style>
