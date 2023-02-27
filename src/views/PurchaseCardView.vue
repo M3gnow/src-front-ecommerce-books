@@ -68,13 +68,13 @@
         </div>
 
         <div class="col-md-12 d-flex justify-content-start mt-3">
-            <router-link to="/" class="me-3"> 
+            <router-link to="/purchase/verify" class="me-3"> 
                 <div class="btn btn-primary">
                     Continuar
                 </div>
             </router-link>
 
-            <router-link to="/"> 
+            <router-link to="/purchase/card"> 
                 <div class="btn btn-light">
                     Adicionar cartão
                 </div>

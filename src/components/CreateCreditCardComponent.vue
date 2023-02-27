@@ -1,10 +1,10 @@
 <template>
-    <div class="container ">
+    <div>
         <div>
             <h5>Adicione um novo cartão</h5>
         </div>
 
-        <div class="card cardCreateForm p-5 mt-3 col-md-8">
+        <div class="card cardCreateForm p-5 mt-3">
             <div class="d-flex">
                 <div class="col-md-7">
                     <div class="col-md-12">
