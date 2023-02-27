@@ -53,11 +53,16 @@
                 <div class="card col-md-3">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                     <div class="card-body">
-                        <h5 class="card-title">Calcular o prazo de entrega</h5>
-                        <input type="text" class="form-control" placeholder="Digite seu CEP">
-                        <p class="card-text pt-2">Estoque disponível</p>
+                        <div>
+                            <h5 class="card-title">Calcular prazo de entrega</h5>
+                        </div>
+
+                        <div class="mt-3">
+                            <input type="text" class="form-control" placeholder="Digite seu CEP">
+                            <p class="card-text pt-2">Estoque disponível</p>
+                        </div>
                         
-                        <div class="container pt-3">
+                        <div class="container pt-3 mt-2">
                             <div class="row">
                                 <a href="#" class="btn btn-outline-success">Comprar agora</a>
                             </div>

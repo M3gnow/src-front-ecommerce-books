@@ -13,6 +13,12 @@ import EditPersonalDataClientView from '../views/EditPersonalDataClientView'
 import PurchasesView from '../views/PurchasesView'
 import DetailPurchaseView from '../views/DetailPurchaseView'
 import AdministratorPanelView from '../views/AdministratorPanelView'
+import PurchaseView from '../views/PurchaseView'
+import PurchaseAddressView from '../views/PurchaseAddressView'
+import PurchaseCreateAddressView from '../views/PurchaseCreateAddressView'
+import PurchaseCardView from '../views/PurchaseCardView'
+import PurchaseCreateCardView from '../views/PurchaseCreateCardView'
+import PurchaseVerifyView from '../views/PurchaseVerifyView'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -24,11 +30,6 @@ const router = createRouter({
     },
     {
       path: '/pedidos',
-      name: 'Pedidos',
-      component: PedidosView
-    },
-    {
-      path: '/purchase',
       name: 'Pedidos',
       component: PedidosView
     },
@@ -66,8 +67,7 @@ const router = createRouter({
       path: '/cliente/cartoes/editar',
       name: 'EditClientCards',
       component: EditCardClientView
-    }
-    ,
+    },
     {
       path: '/cliente/senha',
       name: 'ClientPassword',
@@ -87,12 +87,41 @@ const router = createRouter({
       path: '/compras/detalhe',
       name: 'DetailPurchase',
       component: DetailPurchaseView
-    }
-    ,
+    },
     {
       path: '/adm',
       name: 'AdminPanel',
       component: AdministratorPanelView
+    },
+    {
+      path: '/purchase',
+      name: 'Purchase',
+      component: PurchaseView
+    },
+    {
+      path: '/purchase/address/delivery',
+      name: 'PurchaseCreateAddress',
+      component: PurchaseCreateAddressView
+    },
+    {
+      path: '/purchase/address',
+      name: 'PurchaseAddress',
+      component: PurchaseAddressView
+    },
+    {
+      path: '/purchase/payments',
+      name: 'PurchaseCard',
+      component: PurchaseCardView
+    },
+    {
+      path: '/purchase/card',
+      name: 'PurchaseCreateCard',
+      component: PurchaseCreateCardView
+    },
+    {
+      path: '/purchase/verify',
+      name: 'PurchaseVerify',
+      component: PurchaseVerifyView
     }
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },

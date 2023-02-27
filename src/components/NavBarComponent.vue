@@ -38,10 +38,11 @@
       <router-link class="p-2 nav-link active" type="button" to="/compras">
         Compras
       </router-link>
-      <div class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+      <div class="btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
         <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">24</span>
       </div>
-      
+
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasRightLabel">Meu carrinho 
@@ -72,6 +73,6 @@ export default {
 
 <style scoped>
 .navbar {
-  background-color: yellow;
+  background-color: #fff159;
 }
 </style>
