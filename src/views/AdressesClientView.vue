@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row">
+                <div class="row p-2">
                     <div class="col-sm-11">
                         <div class="form-label">
                             Rua monte alto, 343
@@ -38,7 +38,7 @@
                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <div class="card">
+                        <div class="card mt-2">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-11">
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card mt-2">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-11">
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card mt-2">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-11">
@@ -98,7 +98,11 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="d-flex flex-end mt-2">
+                            <div class="btn btn-outline-success">
+                                + Novo endereço
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

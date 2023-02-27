@@ -9,6 +9,9 @@
     </div>
 
     <div class="container d-flex justify-content-end ">
+      <router-link class="p-2 nav-link active" type="button" to="/cliente/cadastro">
+        Crie sua conta
+      </router-link>
       <div class="dropdown">
         <router-link class="p-2 nav-link dropdown-toggle" type="button" role="button" to="/" data-bs-toggle="dropdown"
           aria-expanded="false">

@@ -6,8 +6,16 @@
 
         <div class="card cardCreateForm p-5 mt-3">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 d-flex justify-content-between mt-4">
                     <div class="col-md-5">
+                        <label for="basic-url" class="form-label"><b>Identifique seu endereço</b></label>
+                        <div class="input-group inputSize">
+                            <input type="text" class="form-control inputColor" value="Novo apartamento" disabled="true" id="txtCPF"
+                                aria-describedby="basic-addon3">
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 me-4">
                         <label for="basic-url" class="form-label"><b>CEP</b></label>
                         <div class="input-group inputSize">
                             <input type="text" class="form-control inputColor" value="08582-640" disabled="true" id="txtCPF"
@@ -15,7 +23,25 @@
                         </div>
                     </div>
                 </div>
-                
+
+                <div class="col-md-12 d-flex justify-content-between mt-4">
+                    <div class="col-md-5">
+                        <label for="basic-url" class="form-label"><b>Tipo de Residencia</b></label>
+                        <div class="input-group inputSize">
+                            <input type="text" class="form-control inputColor" value="08582-640" disabled="true" id="txtCPF"
+                                aria-describedby="basic-addon3">
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 me-4">
+                        <label for="basic-url" class="form-label"><b>Tipo de Logradouro</b></label>
+                        <div class="input-group inputSize">
+                            <input type="text" class="form-control inputColor" value="08582-640" disabled="true" id="txtCPF"
+                                aria-describedby="basic-addon3">
+                        </div>
+                    </div>
+                </div>
+                 
                 <div class="col-md-12 d-flex justify-content-between mt-4">
                     <div class="col-md-5">
                         <label for="basic-url" class="form-label"><b>Estado</b></label>
@@ -34,7 +60,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 mt-4">
+                <div class="col-md-12 d-flex justify-content-between mt-4">
                     <div class="col-md-5">
                         <label for="basic-url" class="form-label"><b>Bairro</b></label>
                         <div class="input-group inputSize">
@@ -42,19 +68,26 @@
                                 aria-describedby="basic-addon3">
                         </div>
                     </div>
+
+                    <div class="col-md-5 me-4">
+                        <label for="basic-url" class="form-label"><b>Pais</b></label>
+                        <div class="input-group inputSize">
+                            <input type="text" class="form-control inputColor" value="Jardim Tropical" disabled="true" id="txtCPF"
+                                aria-describedby="basic-addon3">
+                        </div>
+                    </div>
                 </div>
-                
 
                 <div class="col-md-12 d-flex justify-content-between mt-4">
                     <div class="col-md-5">
-                        <label for="basic-url" class="form-label"><b>Rua/Avenida</b></label>
+                        <label for="basic-url" class="form-label"><b>Logradouro</b></label>
                         <div class="input-group inputSize">
                             <input type="text" class="form-control inputColor" value="Rua Quitandinha" disabled="true" id="txtCPF"
                                 aria-describedby="basic-addon3">
                         </div>
                     </div>
 
-                    <div class="col-md-5">
+                    <div class="col-md-5 me-4">
                         <label for="basic-url" class="form-label"><b>Número</b></label>
                         <div class="input-group inputSize">
                             <input type="text" class="form-control inputColor" value="84" disabled="true" id="txtCPF"
@@ -63,7 +96,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 mt-4">
+                <!-- <div class="col-md-12 mt-4">
                     <div class="col-md-5">
                         <label for="basic-url" class="form-label"><b>Complemento</b></label>
                         <div class="input-group inputSize">
@@ -71,7 +104,7 @@
                                 aria-describedby="basic-addon3">
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
