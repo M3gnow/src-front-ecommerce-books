@@ -30,8 +30,8 @@
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                        aria-expanded="false" aria-controls="collapseOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                         Endereços de entrega
                     </button>
                 </h2>
@@ -100,6 +100,10 @@
                         </div>
 
                     </div>
+                    <div class="row d-flex justify-content-between p-3">
+                        <router-link to="/" type="button" class="btn btn-outline-warning">Adicionar novo
+                            endereço</router-link>
+                    </div>
                 </div>
             </div>
             <div class="accordion-item">
@@ -130,6 +134,11 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row d-flex justify-content-between p-3">
+                        <router-link to="/" type="button" class="btn btn-outline-warning">Adicionar novo
+                            endereço</router-link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,6 +149,4 @@ export default {
     name: "AdressesClientView"
 }
 </script>
-<style>
-
-</style>
+<style></style>

@@ -5,9 +5,15 @@
             <br>
             <div class="">
                 <div class="row d-flex justify-content-between p-3">
-                    <router-link to="/cliente/editar" type="button" class="btn btn-light border text-reset">
+                    <router-link to="/livros" type="button" class="btn btn-light border text-reset">
                         <label for="basic-url" class="form-label fs-3">Livros</label>
                         <div class="form-text">Gerencie os livros.</div>
+                    </router-link>
+                </div>
+                <div class="row d-flex justify-content-between p-3">
+                    <router-link to="/cliente/editar" type="button" class="btn btn-light border text-reset">
+                        <label for="basic-url" class="form-label fs-3">Estoque</label>
+                        <div class="form-text">Gerencie o estoque de livros.</div>
                     </router-link>
                 </div>
                 <div class="row d-flex justify-content-between p-3">

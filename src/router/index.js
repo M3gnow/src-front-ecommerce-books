@@ -19,6 +19,9 @@ import PurchaseCreateAddressView from '../views/PurchaseCreateAddressView'
 import PurchaseCardView from '../views/PurchaseCardView'
 import PurchaseCreateCardView from '../views/PurchaseCreateCardView'
 import PurchaseVerifyView from '../views/PurchaseVerifyView'
+import BooksView from '../views/BooksView'
+
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -122,6 +125,11 @@ const router = createRouter({
       path: '/purchase/verify',
       name: 'PurchaseVerify',
       component: PurchaseVerifyView
+    },
+    {
+      path: '/livros',
+      name: 'Books',
+      component: BooksView
     }
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },

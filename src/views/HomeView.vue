@@ -69,7 +69,7 @@
       </div>
       
       <div class="d-flex justify-content-between p-3 pt-0">
-        <a href="#" class="btn btn-outline-info btn-lg">Detalhes</a>
+        <router-link class="btn btn-outline-info btn-lg" to="/products/detail">Detalhes</router-link>
         <router-link to="/purchase">
           <div class="btn btn-outline-success btn-lg">
             Comprar

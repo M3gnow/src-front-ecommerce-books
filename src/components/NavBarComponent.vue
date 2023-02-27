@@ -35,6 +35,9 @@
           <li><router-link class="dropdown-item" href="#" to="/">Sair</router-link></li>
         </ul>
       </div>
+      <router-link class="p-2 nav-link active" type="button" to="/cliente/cadastro">
+        Cadastrar-se
+      </router-link>
       <router-link class="p-2 nav-link active" type="button" to="/compras">
         Compras
       </router-link>

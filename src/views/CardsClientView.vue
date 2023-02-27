@@ -60,6 +60,9 @@
                 </div>
             </div>
         </div>
+        <div class="row d-flex justify-content-between p-3">
+            <router-link to="/" type="button" class="btn btn-outline-warning">Adicionar novo cartão</router-link>
+        </div>
     </div>
 </template>
 <script>
