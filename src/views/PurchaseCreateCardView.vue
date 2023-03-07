@@ -1,5 +1,5 @@
 <template>
-    <div class="container d-flex mt-2 mb-5">
+    <div class="container d-flex mt-2 mb-5 mb-3">
         <div class="col-md-8 me-3">
             <CreateCreditCardComponent />
             <div class="card p-3 mt-2">
@@ -15,7 +15,7 @@
             </div>
 
             <div class="col-md-12 d-flex justify-content-end mt-3">
-                <router-link to="/purchase/verify"> 
+                <router-link to="/purchase/payments"> 
                     <div class="btn btn-primary">
                         Continuar
                     </div>
@@ -25,8 +25,6 @@
         
         <ResumePurchaseComponent />
     </div>
-
-
 </template>
 
 <script>
