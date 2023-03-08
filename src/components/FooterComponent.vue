@@ -1,7 +1,7 @@
 <template>
-  <h1>
-    Footer
-  </h1>
+  <div class="footer mt-3">
+    
+  </div>
 </template>
 
 <script>
@@ -11,5 +11,10 @@ export default {
 </script>
 
 <style>
+
+.footer {
+  min-height: 160px;
+  background-color: #fff159 !important;
+}
 
 </style>

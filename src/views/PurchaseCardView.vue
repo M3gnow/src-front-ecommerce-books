@@ -10,7 +10,7 @@
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                     <div class="p-4">
-                        <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="...">
+                        <input class="form-check-input" type="checkbox" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="...">
                     </div>
 
                     <div class="ms-3">
@@ -30,7 +30,7 @@
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                     <div class="p-4">
-                        <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="...">
+                        <input class="form-check-input" type="checkbox" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="...">
                     </div>
 
                     <div class="ms-3">
@@ -51,7 +51,7 @@
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                     <div class="p-4">
-                        <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="...">
+                        <input class="form-check-input" type="checkbox" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="...">
                     </div>
 
                     <div class="ms-3">
@@ -67,36 +67,30 @@
         </div>
         </div>
 
-        <div class="col-md-12 d-flex justify-content-start mt-3">
-            <router-link to="/purchase/verify" class="me-3"> 
-                <div class="btn btn-primary">
-                    Continuar
-                </div>
-            </router-link>
-
+        <div class="col-md-12 d-flex justify-content-end mt-3">
             <router-link to="/purchase/card"> 
                 <div class="btn btn-light">
                     Adicionar cartão
                 </div>
             </router-link>
         </div>
-        
+
+        <PurchaseCouponComponent />
     </div>
 
     <ResumePurchaseComponent />
   </div>
-
-  
-  
 </template>
 
 <script>
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
+import PurchaseCouponComponent from '../components/PurchaseCouponComponent.vue'
 
 export default {
     name: "PurchaseCardView",
     components: {
-      ResumePurchaseComponent
+        ResumePurchaseComponent,
+      PurchaseCouponComponent
     }
 }
 </script>
