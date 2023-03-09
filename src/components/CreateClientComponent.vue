@@ -8,13 +8,13 @@
         <div class="col-sm-6">
           <label for="basic-url" class="form-label">Nome</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="txtNome" aria-describedby="basic-addon3">
+            <input type="text" class="form-control" id="name" name="name" v-model="client.name" aria-describedby="basic-addon3">
           </div>
         </div>
         <div class="col-sm-6">
           <label for="basic-url" class="form-label">Sobrenome</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="txtSobrenome" aria-describedby="basic-addon3">
+            <input type="text" class="form-control" id="lastName" name="lastName" v-model="client.lastName" aria-describedby="basic-addon3">
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
       <div class="form-text">Certifique-se de que você tenha acesso a ele.</div>
       <div class="col-sm">
         <div class="input-group">
-          <input type="email" class="form-control" id="txtEmail" aria-describedby="basic-addon3">
+          <input type="email" class="form-control" id="email" name="email" v-model="client.email" aria-describedby="basic-addon3">
         </div>
       </div>
       <br>
@@ -41,13 +41,13 @@
         <div class="col-sm-6">
           <label for="basic-url" class="form-label">Senha</label>
           <div class="input-group">
-            <input type="password" class="form-control" id="txtSenha" aria-describedby="basic-addon3">
+            <input type="password" class="form-control" id="firstPassword" name="firstPassword" v-model="client.firstPassword" aria-describedby="basic-addon3">
           </div>
         </div>
         <div class="col-sm-6">
           <label for="basic-url" class="form-label">Confirme sua senha</label>
           <div class="input-group">
-            <input type="password" class="form-control" id="txtConfirmaSenha" aria-describedby="basic-addon3">
+            <input type="password" class="form-control" id="secondPassword" name="secondPassword" v-model="client.secondPassword" aria-describedby="basic-addon3">
           </div>
         </div>
       </div>
@@ -61,19 +61,19 @@
         <div class="col-sm-4">
           <label for="basic-url" class="form-label">CPF</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="txtCPF" aria-describedby="basic-addon3">
+            <input type="text" class="form-control" id="cpf" name="cpf" v-model="client.cpf" aria-describedby="basic-addon3">
           </div>
         </div>
         <div class="col-sm-4">
           <label for="basic-url" class="form-label">Data de nascimento</label>
           <div class="input-group">
-            <input type="date" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" v-model="client.dateOfBirth" aria-describedby="basic-addon3">
           </div>
         </div>
         <div class="col-sm-4">
           <label for="basic-url" class="form-label">Genero</label>
           <div class="input-group">
-            <select class="form-select" id="inputGroupSelect01">
+            <select class="form-select" id="gender" name="gender" v-model="client.selectedGender" :options="client.gender">
               <option selected>Escolha...</option>
               <option value="1">Feminino</option>
               <option value="2">Masculino</option>
@@ -90,7 +90,7 @@
         <div class="col-sm-4">
           <label for="basic-url" class="form-label">Tipo de telefone</label>
           <div class="input-group">
-            <select class="form-select" id="inputGroupSelect01">
+            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
               <option selected>Escolha...</option>
               <option value="1">Fixo</option>
               <option value="2">Celular</option>
@@ -100,13 +100,13 @@
         <div class="col-sm-2">
           <label for="basic-url" class="form-label">DDD</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="txtCPF" aria-describedby="basic-addon3">
+            <input type="text" class="form-control" id="dddLocation" name="dddLocation" v-model="client.dddLocation" aria-describedby="basic-addon3">
           </div>
         </div>
         <div class="col-sm-4">
           <label for="basic-url" class="form-label">Numero</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" v-model="client.phoneNumber" aria-describedby="basic-addon3">
           </div>
         </div>
       </div>
@@ -123,7 +123,7 @@
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">CEP</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="txtCep" aria-describedby="basic-addon3">
+              <input type="text" class="form-control" id="homeAddressCepAddress" name="homeAddressCepAddress" v-model="client.homeAddress.cepAddress" aria-describedby="basic-addon3">
             </div>
           </div>
           <div class="col-sm-2">
@@ -151,13 +151,14 @@
           <div class="col-sm-4">
             <label for="basic-url" class="form-label">Logradouro</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+              <input type="text" class="form-control" id="homeAdressPublicPlaceAddress" name="homePublicPlaceAddress" v-model="client.homeAddress.publicPlaceAddress" aria-describedby="basic-addon3">
             </div>
           </div>
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Numero</label>
             <div class="input-group">
               <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+              <input type="text" class="form-control" id="homeAdressNumberAddress" name="homeAdressNumberAddress" v-model="client.homeAddress.numberAddress" aria-describedby="basic-addon3">
             </div>
           </div>
         </div>
@@ -192,6 +193,15 @@
               <select class="form-select" id="inputGroupSelect01">
                 <option selected>Escolha...</option>
               </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+              <label for="basic-url" class="form-label">Observações</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="homeAddressObservationAddress" name="homeAddressObservationAddress" v-model="client.homeAddress.observationAddress" aria-describedby="basic-addon3">
+              </div>
             </div>
           </div>
         </div>
@@ -207,7 +217,7 @@
             <label for="basic-url" class="form-label">Identificação <label class="form-text"> (Utilize um nome composto na
                 identificação do endereço)</label></label>
             <div class="input-group">
-              <input type="email" class="form-control" id="txtEmail" aria-describedby="basic-addon3">
+              <input type="text" class="form-control" id="deliveryAddressNameIdentifier" name="deliveryAddressNameIdentifier" v-model="client.deliveryAddress.nameIdentifier" aria-describedby="basic-addon3">
             </div>
           </div>
         </div>
@@ -215,7 +225,7 @@
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">CEP</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="txtCep" aria-describedby="basic-addon3">
+              <input type="text" class="form-control" id="deliveryAddressCepAddress" name="deliveryAddressCepAddress" v-model="client.deliveryAddress.cepAddress" aria-describedby="basic-addon3">
             </div>
           </div>
           <div class="col-sm-2">
@@ -243,13 +253,14 @@
           <div class="col-sm-4">
             <label for="basic-url" class="form-label">Logradouro</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+              <input type="text" class="form-control" id="deliveryAdressPublicPlaceAddress" name="deliveryPublicPlaceAddress" v-model="client.deliveryAddress.publicPlaceAddress" aria-describedby="basic-addon3">
             </div>
           </div>
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Numero</label>
             <div class="input-group">
               <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+              <input type="text" class="form-control" id="deliveryAdressNumberAddress" name="deliveryAdressNumberAddress" v-model="client.deliveryAddress.numberAddress" aria-describedby="basic-addon3">
             </div>
           </div>
         </div>
@@ -284,6 +295,15 @@
               <select class="form-select" id="inputGroupSelect01">
                 <option selected>Escolha...</option>
               </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+              <label for="basic-url" class="form-label">Observações</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="deliveryAddressObservationAddress" name="deliveryAddressObservationAddress" v-model="client.deliveryAddress.observationAddress" aria-describedby="basic-addon3">
+              </div>
             </div>
           </div>
         </div>
@@ -298,7 +318,7 @@
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">CEP</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="txtCep" aria-describedby="basic-addon3">
+              <input type="text" class="form-control" id="billingAddressCepAddress" name="billingAddressCepAddress" v-model="client.billingAddress.cepAddress" aria-describedby="basic-addon3">
             </div>
           </div>
           <div class="col-sm-2">
@@ -326,13 +346,14 @@
           <div class="col-sm-4">
             <label for="basic-url" class="form-label">Logradouro</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+              <input type="text" class="form-control" id="billingAdressPublicPlaceAddress" name="billingPublicPlaceAddress" v-model="client.billingAddress.publicPlaceAddress" aria-describedby="basic-addon3">
             </div>
           </div>
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Numero</label>
             <div class="input-group">
               <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+              <input type="text" class="form-control" id="billingAdressNumberAddress" name="billingAdressNumberAddress" v-model="client.billingAddress.numberAddress" aria-describedby="basic-addon3">
             </div>
           </div>
         </div>
@@ -367,6 +388,15 @@
               <select class="form-select" id="inputGroupSelect01">
                 <option selected>Escolha...</option>
               </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+              <label for="basic-url" class="form-label">Observações</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="billingAddressObservationAddress" name="billingAddressObservationAddress" v-model="client.billingAddress.observationAddress" aria-describedby="basic-addon3">
+              </div>
             </div>
           </div>
         </div>
@@ -392,35 +422,34 @@
         <div class="col-sm-7">
           <label for="basic-url" class="form-label">Numero do cartão</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+            <input type="text" class="form-control" id="numberCard" name="numberCard" v-model="client.creditCard.numberCard" aria-describedby="basic-addon3">
           </div>
         </div>
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Validade</label>
           <div class="input-group">
-            <input type="date" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+            <input type="date" class="form-control" id="validityCard" name="validityCard" v-model="client.creditCard.validityCard" aria-describedby="basic-addon3">
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-9">
-          <label for="basic-url" class="form-label">Nome <label class="form-text">(Informar como impresso no
-              cartão)</label></label>
+          <label for="basic-url" class="form-label">Nome <label class="form-text">(Informar como impresso nocartão)</label></label>
           <div class="input-group">
-            <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+            <input type="text" class="form-control" id="nameCard" name="nameCard" v-model="client.creditCard.nameCard" aria-describedby="basic-addon3">
           </div>
         </div>
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Codigo de segurança</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
+            <input type="text" class="form-control" id="codeSecurityCard" name="codeSecurityCard" v-model="client.creditCard.codeSecurityCard" aria-describedby="basic-addon3">
           </div>
         </div>
       </div>
       <br>
     </div>
     <div class="row d-flex justify-content-between p-3">
-      <router-link to="/" type="button" class="btn btn-outline-warning">Finalizar</router-link>
+      <router-link to="/" type="button" class="btn btn-outline-warning" @click="logOfObject">Finalizar</router-link>
     </div>
   </div>
 </template>
@@ -428,7 +457,79 @@
 
 <script>
 export default {
-  name: "CreateClientComponent"
+  name: "CreateClientComponent",
+  data: function() {
+    const gender = [
+      'Femenino',
+      'Masculino',
+      'Prefiro não informar',
+      'Megnow',
+    ];
+
+
+    const address = {
+      cepAddress: '',
+      typeHomeAddress: '',
+      typePublicPlaceAddress: '',
+      publicPlaceAddress: '',
+      numberAddress: '',
+      countryAddress: '',
+      stateAddress: '',
+      cityAddress: '',
+      neighborhoodAddress: '',
+      observationAddress: ''
+    }
+
+    const deliveryAddress = {
+      ...address,
+      nameIdentifier: ''
+    }
+    const billingAddress = {
+      ...address,
+    }
+    const homeAddress = {
+      ...address,
+    }
+
+    const creditCard = {
+      flagCard: '',
+      numberCard: '',
+      validityCard: '',
+      nameCard: '',
+      codeSecurityCard: ''
+    }
+    
+    const client = {
+      name: '',
+      lastName: '',
+      email: '',
+      firstPassword: '',
+      secondPassword: '',
+      cpf: '',
+      dateOfBirth: '',
+      gender,
+      selectedGender: [],
+      phoneNumber: '',
+      dddLocation: '',
+      typePhone: '',
+      deliveryAddress,
+      billingAddress,
+      homeAddress,
+      creditCard,
+      selectedGender: ''
+    }
+
+
+    return { client }
+  },
+  methods: {
+    logOfObject() {
+      console.log('CLIENT VALUES', JSON.stringify(this.client))
+    },
+    doSearchGender(event) {
+      console.log(event)
+    }
+  },
 }
 </script>
 

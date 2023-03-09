@@ -1,5 +1,16 @@
 # src-front-ecommerce-books
 
+REQUIRED
+
+## Install Vue
+```
+npm install -g yarn
+```
+npm install -g vue
+```
+npm install -g @vue/cli
+```
+
 ## Project setup
 ```
 yarn install
