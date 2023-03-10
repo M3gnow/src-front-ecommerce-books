@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { VueSelect } from "vue-select";
+import vSelect from 'vue-select'
 import router from '../src/router'
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -20,7 +20,7 @@ import { faUser,faCartShopping } from '@fortawesome/free-solid-svg-icons'
 library.add(faUser,faCartShopping)
 
 createApp(App)
-    .component('v-select', VueSelect)
+    .component('v-select', vSelect)
     .component('font-awesome-icon', FontAwesomeIcon)
     .use(router, bootstrap)
     .mount('#app')

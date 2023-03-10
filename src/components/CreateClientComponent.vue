@@ -73,11 +73,11 @@
         <div class="col-sm-4">
           <label for="basic-url" class="form-label">Genero</label>
           <div class="input-group">
-            <select class="form-select" id="gender" name="gender" v-model="client.selectedGender" :options="client.gender">
-              <option selected>Escolha...</option>
-              <option value="1">Feminino</option>
-              <option value="2">Masculino</option>
-              <option value="3">Não informar</option>
+            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <option disabled value="">Escolha...</option>
+              <option v-for="option in options.gender" :value="option">
+                {{ option }}
+              </option>
             </select>
           </div>
         </div>
@@ -91,9 +91,10 @@
           <label for="basic-url" class="form-label">Tipo de telefone</label>
           <div class="input-group">
             <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
-              <option selected>Escolha...</option>
-              <option value="1">Fixo</option>
-              <option value="2">Celular</option>
+            <option disabled value="">Escolha...</option>
+              <option v-for="option in options.typesPhone" :value="option">
+                {{ option }}
+              </option>
             </select>
           </div>
         </div>
@@ -129,22 +130,22 @@
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Tipo de residencia</label>
             <div class="input-group">
-              <select class="form-select" id="slctTipoLogradouro">
-                <option selected>Escolha...</option>
-                <option value="1">Casa</option>
-                <option value="2">Apartamento</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.typesHome" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Tipo de logradouro</label>
             <div class="input-group">
-              <select class="form-select" id="slctTipoLogradouro">
-                <option selected>Escolha...</option>
-                <option value="1">Rua</option>
-                <option value="2">Avenida</option>
-                <option value="3">Estrada</option>
-                <option value="3">Marginal</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.typesPublicPlace" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
@@ -157,7 +158,6 @@
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Numero</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
               <input type="text" class="form-control" id="homeAdressNumberAddress" name="homeAdressNumberAddress" v-model="client.homeAddress.numberAddress" aria-describedby="basic-addon3">
             </div>
           </div>
@@ -166,32 +166,44 @@
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Pais</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.countries" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Estado</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.states" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Cidade</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.cities" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Bairro</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.neighborhoods" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
@@ -231,22 +243,22 @@
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Tipo de residencia</label>
             <div class="input-group">
-              <select class="form-select" id="slctTipoLogradouro">
-                <option selected>Escolha...</option>
-                <option value="1">Casa</option>
-                <option value="2">Apartamento</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.typesHome" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Tipo de logradouro</label>
             <div class="input-group">
-              <select class="form-select" id="slctTipoLogradouro">
-                <option selected>Escolha...</option>
-                <option value="1">Rua</option>
-                <option value="2">Avenida</option>
-                <option value="3">Estrada</option>
-                <option value="3">Marginal</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.typesPublicPlace" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
@@ -259,7 +271,6 @@
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Numero</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
               <input type="text" class="form-control" id="deliveryAdressNumberAddress" name="deliveryAdressNumberAddress" v-model="client.deliveryAddress.numberAddress" aria-describedby="basic-addon3">
             </div>
           </div>
@@ -268,32 +279,44 @@
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Pais</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.countries" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Estado</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.states" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Cidade</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.cities" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Bairro</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.neighborhoods" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
@@ -324,22 +347,22 @@
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Tipo de residencia</label>
             <div class="input-group">
-              <select class="form-select" id="slctTipoLogradouro">
-                <option selected>Escolha...</option>
-                <option value="1">Casa</option>
-                <option value="2">Apartamento</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.typesHome" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Tipo de logradouro</label>
             <div class="input-group">
-              <select class="form-select" id="slctTipoLogradouro">
-                <option selected>Escolha...</option>
-                <option value="1">Rua</option>
-                <option value="2">Avenida</option>
-                <option value="3">Estrada</option>
-                <option value="3">Marginal</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.typesPublicPlace" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
@@ -352,7 +375,6 @@
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Numero</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="txtDtaNascimento" aria-describedby="basic-addon3">
               <input type="text" class="form-control" id="billingAdressNumberAddress" name="billingAdressNumberAddress" v-model="client.billingAddress.numberAddress" aria-describedby="basic-addon3">
             </div>
           </div>
@@ -361,32 +383,44 @@
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Pais</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.countries" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Estado</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.states" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Cidade</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.cities" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
           <div class="col-sm-3">
             <label for="basic-url" class="form-label">Bairro</label>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect01">
-                <option selected>Escolha...</option>
+              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <option disabled value="">Escolha...</option>
+                <option v-for="option in options.neighborhoods" :value="option">
+                  {{ option }}
+                </option>
               </select>
             </div>
           </div>
@@ -412,10 +446,11 @@
         <div class="col-sm-2">
           <label for="basic-url" class="form-label">Bandeira</label>
           <div class="input-group">
-            <select class="form-select" id="inputGroupSelect01">
-              <option selected>Escolha...</option>
-              <option selected>Visa</option>
-              <option selected>MasterCard</option>
+            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <option disabled value="">Escolha...</option>
+              <option v-for="option in options.flags" :value="option">
+                {{ option }}
+              </option>
             </select>
           </div>
         </div>
@@ -459,12 +494,17 @@
 export default {
   name: "CreateClientComponent",
   data: function() {
-    const gender = [
-      'Femenino',
-      'Masculino',
-      'Prefiro não informar',
-      'Megnow',
-    ];
+    const gender = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
+    const typesPhone = ['Fixo', 'Celular'];
+    const flags = ['MasterCard', 'Visa', 'Elo'];
+    const typesHome = ['Casa', 'Apartamento', 'Chalé'];
+    const typesPublicPlace = ['Rua', 'Estrada', 'Avenida'];
+    const countries = ['Brasil', 'Argentina', 'Peru'];
+    const cities = ['Itaquaquecetuba', 'São Miguel', 'Itaim Paulista'];
+    const states = ['São Paulo', 'Rio de Janeiro', 'Minas Gerais'];
+    const neighborhoods = ['Jardim Tropical', 'Vila Maria Rosa', 'Jardim Paineira'];
+    
+    const options = { typesPhone, gender, flags, typesHome, typesPublicPlace, countries, cities, states, neighborhoods };
 
 
     const address = {
@@ -479,7 +519,6 @@ export default {
       neighborhoodAddress: '',
       observationAddress: ''
     }
-
     const deliveryAddress = {
       ...address,
       nameIdentifier: ''
@@ -490,7 +529,6 @@ export default {
     const homeAddress = {
       ...address,
     }
-
     const creditCard = {
       flagCard: '',
       numberCard: '',
@@ -498,7 +536,6 @@ export default {
       nameCard: '',
       codeSecurityCard: ''
     }
-    
     const client = {
       name: '',
       lastName: '',
@@ -520,7 +557,7 @@ export default {
     }
 
 
-    return { client }
+    return { client, options }
   },
   methods: {
     logOfObject() {
@@ -528,9 +565,27 @@ export default {
     },
     doSearchGender(event) {
       console.log(event)
-    }
+    },
+    doSearchTypePhone(event) {
+      console.log(event)
+    },
   },
 }
 </script>
 
-<style></style>
+<style>
+
+/* .input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border-left: 4px solid #FCBA03;
+    padding: 5px 10px;
+}
+
+.input-select {
+    background-color: white; 
+    height:38px;
+} */
+
+</style>
