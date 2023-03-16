@@ -46,7 +46,6 @@
                 </div>
                 <div class="col-md-4 pe-5 pt-5 mt-5">
                     <div class="card card-credit">
-                        <!-- <i class="bi bi-credit-card-2-front iconCreditCard"></i> -->
                         <div class="p-3">
                             <i class="bi bi-credit-card-2-front-fill iconCreditCard"></i>
                         </div>
