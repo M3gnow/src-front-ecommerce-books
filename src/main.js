@@ -6,6 +6,7 @@ import router from '../src/router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+import Vue3Toasity from 'vue3-toastify';
 
 
 /* import the fontawesome core */
@@ -22,5 +23,5 @@ library.add(faUser,faCartShopping)
 createApp(App)
     .component('v-select', vSelect)
     .component('font-awesome-icon', FontAwesomeIcon)
-    .use(router, bootstrap)
+    .use(router, bootstrap, Vue3Toasity)
     .mount('#app')

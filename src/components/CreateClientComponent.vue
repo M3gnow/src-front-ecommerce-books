@@ -1,5 +1,4 @@
 <template>
-  <AlertComponent :errors="errors"/>
   <form class="container" action="" v-on:submit.prevent="checkForm">
     <div id="divNome" class="card mt-3 p-2 cardForm p-4">
       <label for="basic-url" class="form-label fs-3">Escolha como você quer que te chamemos</label>
@@ -488,7 +487,8 @@
 
 
 <script>
-import AlertComponent from './AlertComponent.vue'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 export default {
   name: "CreateClientComponent",
@@ -568,6 +568,12 @@ export default {
     },
     checkForm: function() {
       console.log('MEGNOW 1')
+      this.notify()
+    },
+    notify: function() {
+      toast(`hello ${parseInt(String(Math.random() * 100), 10)}`,{
+        position: toast.POSITION.BOTTOM_CENTER,
+      })
     }
   },
 }
