@@ -1,4 +1,5 @@
 <template>
+  <AlertComponent :errors="errors"/>
   <form class="container" action="" v-on:submit.prevent="checkForm">
     <div id="divNome" class="card mt-3 p-2 cardForm p-4">
       <label for="basic-url" class="form-label fs-3">Escolha como você quer que te chamemos</label>
@@ -487,11 +488,14 @@
 
 
 <script>
+import AlertComponent from './AlertComponent.vue'
+
 export default {
   name: "CreateClientComponent",
   data: function() {
     console.log('MEGNOW START')
     const gender = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
+    const errors = [];
     const typesPhone = ['Fixo', 'Celular'];
     const flags = ['MasterCard', 'Visa', 'Elo'];
     const typesHome = ['Casa', 'Apartamento', 'Chalé'];
@@ -553,7 +557,10 @@ export default {
       selectedGender: ''
     }
 
-    return { client, options }
+    return { client, options, errors }
+  },
+  components: {
+    AlertComponent
   },
   methods: {
     logOfObject: function() {
