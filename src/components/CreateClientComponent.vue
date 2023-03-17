@@ -70,9 +70,9 @@
         <div class="col-sm-4">
           <label for="basic-url" class="form-label">Genero</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="gender" name="gender" v-model="client.gender">
             <option disabled value="">Escolha...</option>
-              <option v-for="option in options.gender" :value="option">
+              <option v-for="option in options.genders" :value="option">
                 {{ option }}
               </option>
             </select>
@@ -129,7 +129,7 @@
         <div class="col-sm-2">
           <label for="basic-url" class="form-label">Tipo de residencia</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="homeAddressTypeHomeAddress" name="homeAddressTypeHomeAddress" v-model="client.homeAddress.typeHomeAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.typesHome" :value="option">
                 {{ option }}
@@ -140,7 +140,7 @@
         <div class="col-sm-2">
           <label for="basic-url" class="form-label">Tipo de logradouro</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="homeAddressTypePublicPlaceAddress" name="homeAddressTypePublicPlaceAddress" v-model="client.homeAddress.typePublicPlaceAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.typesPublicPlace" :value="option">
                 {{ option }}
@@ -165,7 +165,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Pais</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="homeAddressCountryAddress" name="homeAddressCountryAddress" v-model="client.homeAddress.countryAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.countries" :value="option">
                 {{ option }}
@@ -176,7 +176,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Estado</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="homeAddressStateAddress" name="homeAddressStateAddress" v-model="client.homeAddress.stateAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.states" :value="option">
                 {{ option }}
@@ -187,7 +187,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Cidade</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="homeAddressCityAddress" name="homeAddressCityAddress" v-model="client.homeAddress.cityAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.cities" :value="option">
                 {{ option }}
@@ -198,7 +198,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Bairro</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="homeAddressNeighborhoodAddress" name="homeAddressNeighborhoodAddress" v-model="client.homeAddress.neighborhoodAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.neighborhoods" :value="option">
                 {{ option }}
@@ -239,7 +239,7 @@
         <div class="col-sm-2">
           <label for="basic-url" class="form-label">Tipo de residencia</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="deliveryAddressTypeHomeAddress" name="deliveryAddressTypeHomeAddress" v-model="client.deliveryAddress.typeHomeAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.typesHome" :value="option">
                 {{ option }}
@@ -250,7 +250,7 @@
         <div class="col-sm-2">
           <label for="basic-url" class="form-label">Tipo de logradouro</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="deliveryAddressTypePublicPlaceAddress" name="deliveryAddressTypePublicPlaceAddress" v-model="client.deliveryAddress.typePublicPlaceAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.typesPublicPlace" :value="option">
                 {{ option }}
@@ -261,7 +261,7 @@
         <div class="col-sm-4">
           <label for="basic-url" class="form-label">Logradouro</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="deliveryAdressPublicPlaceAddress" name="deliveryPublicPlaceAddress" v-model="client.deliveryAddress.publicPlaceAddress" aria-describedby="basic-addon3">
+            <input type="text" class="form-control" id="deliveryAdressPublicPlaceAddress" name="deliveryAdressPublicPlaceAddress" v-model="client.deliveryAddress.publicPlaceAddress" aria-describedby="basic-addon3">
           </div>
         </div>
         <div class="col-sm-2">
@@ -275,7 +275,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Pais</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="deliveryAddressCountryAddress" name="deliveryAddressCountryAddress" v-model="client.deliveryAddress.countryAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.countries" :value="option">
                 {{ option }}
@@ -286,7 +286,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Estado</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="deliveryAddressStateAddress" name="deliveryAddressStateAddress" v-model="client.deliveryAddress.stateAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.states" :value="option">
                 {{ option }}
@@ -297,7 +297,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Cidade</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="deliveryAddressCityAddress" name="deliveryAddressCityAddress" v-model="client.deliveryAddress.cityAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.cities" :value="option">
                 {{ option }}
@@ -308,7 +308,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Bairro</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="deliveryAddressNeighborhoodAddress" name="deliveryAddressNeighborhoodAddress" v-model="client.deliveryAddress.neighborhoodAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.neighborhoods" :value="option">
                 {{ option }}
@@ -340,7 +340,7 @@
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Tipo de residencia</label>
             <div class="input-group">
-              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <select class="form-select" id="billingAddressTypeHomeAddress" name="billingAddressTypeHomeAddress" v-model="client.billingAddress.typeHomeAddress">
               <option disabled value="">Escolha...</option>
                 <option v-for="option in options.typesHome" :value="option">
                   {{ option }}
@@ -351,7 +351,7 @@
           <div class="col-sm-2">
             <label for="basic-url" class="form-label">Tipo de logradouro</label>
             <div class="input-group">
-              <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+              <select class="form-select" id="billingAddressTypePublicPlaceAddress" name="billingAddressTypePublicPlaceAddress" v-model="client.billingAddress.typePublicPlaceAddress">
               <option disabled value="">Escolha...</option>
                 <option v-for="option in options.typesPublicPlace" :value="option">
                   {{ option }}
@@ -376,7 +376,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Pais</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="billingAddressCountryAddress" name="billingAddressCountryAddress" v-model="client.billingAddress.countryAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.countries" :value="option">
                 {{ option }}
@@ -387,7 +387,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Estado</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="billingAddressStateAddress" name="billingAddressStateAddress" v-model="client.billingAddress.stateAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.states" :value="option">
                 {{ option }}
@@ -398,7 +398,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Cidade</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="billingAddressCityAddress" name="billingAddressCityAddress" v-model="client.billingAddress.cityAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.cities" :value="option">
                 {{ option }}
@@ -409,7 +409,7 @@
         <div class="col-sm-3">
           <label for="basic-url" class="form-label">Bairro</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="billingAddressNeighborhoodAddress" name="billingAddressNeighborhoodAddress" v-model="client.billingAddress.neighborhoodAddress">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.neighborhoods" :value="option">
                 {{ option }}
@@ -437,7 +437,7 @@
         <div class="col-sm-2">
           <label for="basic-url" class="form-label">Bandeira</label>
           <div class="input-group">
-            <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
+            <select class="form-select" id="creditCardFlagCard" name="creditCardFlagCard" v-model="client.creditCard.flagCard">
             <option disabled value="">Escolha...</option>
               <option v-for="option in options.flags" :value="option">
                 {{ option }}
@@ -494,7 +494,7 @@ export default {
   name: "CreateClientComponent",
   data: function() {
     console.log('MEGNOW START')
-    const gender = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
+    const genders = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
     const errors = [];
     const typesPhone = ['Fixo', 'Celular'];
     const flags = ['MasterCard', 'Visa', 'Elo'];
@@ -505,8 +505,7 @@ export default {
     const states = ['São Paulo', 'Rio de Janeiro', 'Minas Gerais'];
     const neighborhoods = ['Jardim Tropical', 'Vila Maria Rosa', 'Jardim Paineira'];
     
-    const options = { typesPhone, gender, flags, typesHome, typesPublicPlace, countries, cities, states, neighborhoods };
-
+    const options = { typesPhone, genders, flags, typesHome, typesPublicPlace, countries, cities, states, neighborhoods };
 
     const address = {
       cepAddress: '',
@@ -545,7 +544,7 @@ export default {
       secondPassword: '',
       cpf: '',
       dateOfBirth: '',
-      gender,
+      gender: '',
       selectedGender: [],
       phoneNumber: '',
       dddLocation: '',
@@ -557,22 +556,75 @@ export default {
       selectedGender: ''
     }
 
-    return { client, options, errors }
-  },
-  components: {
-    AlertComponent
+    return { client, options, errors: [] }
   },
   methods: {
     logOfObject: function() {
       console.log('CLIENT VALUES', JSON.stringify(this.client))
     },
     checkForm: function() {
-      console.log('MEGNOW 1')
+      this.errors = []
+
+      if (!this.client.name || !this.client.lastName) {
+        this.errors.push({ message: 'Nome e Sobrenome precisam ser preenchidos' })
+      }
+
+      if (!this.client.email) {
+        this.errors.push({ message: 'Email precisa ser preenchido' })
+      }
+
+      if (!this.client.firstPassword || !this.client.secondPassword) {
+        this.errors.push({ message: 'Seu cadastro precisa de uma senha valida e confirmada' })
+      }
+
+      if (!this.client.cpf || !this.client.dateOfBirth 
+        || !this.client.gender || !this.client.typePhone 
+        || !this.client.dddLocation || !this.client.phoneNumber) {
+        this.errors.push({ message: 'Precisamos que diga mais sobre você' })
+      }
+
+      if (!this.client.homeAddress.cepAddress || !this.client.homeAddress.typeHomeAddress 
+        || !this.client.homeAddress.typePublicPlaceAddress || !this.client.homeAddress.publicPlaceAddress 
+        || !this.client.homeAddress.numberAddress || !this.client.homeAddress.countryAddress 
+        || !this.client.homeAddress.stateAddress || !this.client.homeAddress.cityAddress 
+        || !this.client.homeAddress.neighborhoodAddress
+      ) {
+        this.errors.push({ message: 'Resta informações pendentes no endereço residencial' })
+      }
+
+      if (!this.client.deliveryAddress.nameIdentifier || !this.client.deliveryAddress.cepAddress 
+        || !this.client.deliveryAddress.typeHomeAddress || !this.client.deliveryAddress.typePublicPlaceAddress
+        || !this.client.deliveryAddress.publicPlaceAddress || !this.client.deliveryAddress.numberAddress
+        || !this.client.deliveryAddress.countryAddress || !this.client.deliveryAddress.stateAddress
+        || !this.client.deliveryAddress.cityAddress || !this.client.deliveryAddress.neighborhoodAddress
+      ) {
+        this.errors.push({ message: 'Resta informações pendentes no endereço de entrega' })
+      }
+
+      if (!this.client.billingAddress.cepAddress || !this.client.billingAddress.typeHomeAddress 
+        || !this.client.billingAddress.typePublicPlaceAddress || !this.client.billingAddress.publicPlaceAddress 
+        || !this.client.billingAddress.numberAddress || !this.client.billingAddress.countryAddress 
+        || !this.client.billingAddress.stateAddress || !this.client.billingAddress.cityAddress 
+        || !this.client.billingAddress.neighborhoodAddress
+      ) {
+        this.errors.push({ message: 'Resta informações pendentes no endereço de cobrança' })
+      }
+
+      if (!this.client.creditCard.flagCard || !this.client.creditCard.numberCard 
+        || !this.client.creditCard.validityCard || !this.client.creditCard.nameCard 
+        || !this.client.creditCard.codeSecurityCard
+      ) {
+        this.errors.push({ message: 'Resta informações pendentes do seu cartão' })
+      }
+
       this.notify()
     },
     notify: function() {
-      toast(`hello ${parseInt(String(Math.random() * 100), 10)}`,{
-        position: toast.POSITION.BOTTOM_CENTER,
+      this.errors.map((element) => {
+        toast(element.message, {
+          transition: toast.TRANSITIONS.FLIP,
+          position: toast.POSITION.BOTTOM_CENTER, 
+        })
       })
     }
   },
