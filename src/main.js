@@ -1,10 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import vSelect from 'vue-select'
 import router from '../src/router'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+import Vue3Toasity from 'vue3-toastify';
 
 
 /* import the fontawesome core */
@@ -18,4 +20,8 @@ import { faUser,faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faUser,faCartShopping)
 
-createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(router, bootstrap).mount('#app')
+createApp(App)
+    .component('v-select', vSelect)
+    .component('font-awesome-icon', FontAwesomeIcon)
+    .use(router, bootstrap, Vue3Toasity)
+    .mount('#app')
