@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div id="divNome" class="card mt-3 p-2 cardForm p-4">
+        <div id="divDetailData" class="card mt-3 p-2 cardForm p-4">
             <label class="form-label fs-3">Alterar dados pessoais</label>
             <div class="row mt-3">
                 <div class="col-sm-6">
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div id="divNome" class="card mt-3 p-2 cardForm p-4">
+        <div id="divContact" class="card mt-3 p-2 cardForm p-4">
             <label class="form-label fs-3">Alterar acesso e contato</label>
             <div class="row mt-3">
                 <label for="basic-url" class="form-label">E-mail</label>
@@ -82,10 +82,6 @@
                 </div>
             </div>
         </div>
-
-        
-        
-
     </div>
 </template>
 <script>
