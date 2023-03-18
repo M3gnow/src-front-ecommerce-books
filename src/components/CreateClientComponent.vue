@@ -71,7 +71,7 @@
           <label for="basic-url" class="form-label">Genero</label>
           <div class="input-group">
             <select class="form-select" id="gender" name="gender" v-model="client.gender">
-            <option disabled value="">Escolha...</option>
+              <option disabled value="">Escolha...</option>
               <option v-for="option in options.genders" :value="option">
                 {{ option }}
               </option>
