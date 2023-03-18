@@ -493,7 +493,6 @@ import 'vue3-toastify/dist/index.css'
 export default {
   name: "CreateClientComponent",
   data: function() {
-    console.log('MEGNOW START')
     const genders = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
     const errors = [];
     const typesPhone = ['Fixo', 'Celular'];
