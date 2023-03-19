@@ -19,6 +19,7 @@ import PurchaseCreateAddressView from '../views/PurchaseCreateAddressView'
 import PurchaseCardView from '../views/PurchaseCardView'
 import PurchaseCreateCardView from '../views/PurchaseCreateCardView'
 import PurchaseVerifyView from '../views/PurchaseVerifyView'
+import CouponClientView from '../views/CouponClientView'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -122,6 +123,11 @@ const router = createRouter({
       path: '/purchase/verify',
       name: 'PurchaseVerify',
       component: PurchaseVerifyView
+    },
+    {
+      path: '/cliente/coupon',
+      name: 'CouponClient',
+      component: CouponClientView
     }
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },

@@ -489,20 +489,21 @@
 <script>
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import { getAllCardFlags } from '../services/modules'
 
 export default {
   name: "CreateClientComponent",
   data: function() {
-    const genders = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
-    const errors = [];
-    const typesPhone = ['Fixo', 'Celular'];
-    const flags = ['MasterCard', 'Visa', 'Elo'];
-    const typesHome = ['Casa', 'Apartamento', 'Chalé'];
-    const typesPublicPlace = ['Rua', 'Estrada', 'Avenida'];
-    const countries = ['Brasil', 'Argentina', 'Peru'];
-    const cities = ['Itaquaquecetuba', 'São Miguel', 'Itaim Paulista'];
-    const states = ['São Paulo', 'Rio de Janeiro', 'Minas Gerais'];
-    const neighborhoods = ['Jardim Tropical', 'Vila Maria Rosa', 'Jardim Paineira'];
+    let genders = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
+    let errors = [];
+    let typesPhone = ['Fixo', 'Celular'];
+    let flags = ['MasterCard', 'Visa', 'Elo'];
+    let typesHome = ['Casa', 'Apartamento', 'Chalé'];
+    let typesPublicPlace = ['Rua', 'Estrada', 'Avenida'];
+    let countries = ['Brasil', 'Argentina', 'Peru'];
+    let cities = ['Itaquaquecetuba', 'São Miguel', 'Itaim Paulista'];
+    let states = ['São Paulo', 'Rio de Janeiro', 'Minas Gerais'];
+    let neighborhoods = ['Jardim Tropical', 'Vila Maria Rosa', 'Jardim Paineira'];
     
     const options = { typesPhone, genders, flags, typesHome, typesPublicPlace, countries, cities, states, neighborhoods };
 
@@ -555,11 +556,18 @@ export default {
       selectedGender: ''
     }
 
+    getAllCardFlags()
+      .then((result) => {
+        this.options.flags = result;
+      })
+      .catch((err) => {
+        console.log('Falha na consulta getAllCardFlags', err)
+      })
+
     return { client, options, errors: [] }
   },
   methods: {
     logOfObject: function() {
-      console.log('CLIENT VALUES', JSON.stringify(this.client))
     },
     checkForm: function() {
       this.errors = []
@@ -625,7 +633,7 @@ export default {
           position: toast.POSITION.BOTTOM_CENTER, 
         })
       })
-    }
+    },
   },
 }
 </script>
