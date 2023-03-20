@@ -95,55 +95,51 @@
         </div>
     </div>
 </template>
+
 <script>
+import { getAllAddress } from '../services/modules'
+
 export default {
     name: "AdressesClientView",
     data: function () {
-        const homeAddress = [{
-            cepAddress: '08577-130',
-            publicPlaceAddress: 'Rua monte alto',
-            numberAddress: '343',
-            stateAddress: 'São Paulo',
-            cityAddress: 'Itaquaquecetuba',
-        }]
+        let homeAddress, deliveryAddress, billingAddress = [];
 
-        const deliveryAddress = [{
-                nameIdentifier: 'Entrega principal',
-                cepAddress: '08577-130',
-                publicPlaceAddress: 'Rua monte alto',
-                numberAddress: '343',
-                stateAddress: 'São Paulo',
-                cityAddress: 'Itaquaquecetuba',
-            },
-            {
-                nameIdentifier: 'Entrega casa nova',
-                cepAddress: '08577-130',
-                publicPlaceAddress: 'Rua monte alto',
-                numberAddress: '343',
-                stateAddress: 'São Paulo',
-                cityAddress: 'Itaquaquecetuba',
-            },
-            {
-                nameIdentifier: 'Entrega loja',
-                cepAddress: '08577-130',
-                publicPlaceAddress: 'Rua monte alto',
-                numberAddress: '343',
-                stateAddress: 'São Paulo',
-                cityAddress: 'Itaquaquecetuba',
-        }]
-        
-        const billingAddress = [{
-            cepAddress: '08577-130',
-            publicPlaceAddress: 'Rua monte alto',
-            numberAddress: '343',
-            stateAddress: 'São Paulo',
-            cityAddress: 'Itaquaquecetuba',
-        }]
+        getAllAddress(1)
+            .then((result) => {
+                const homeFilter = result.find((address) => address.typeAdress === 0);
+                const deliveryFilter = result.filter((address) => address.typeAdress === 1)
+                const billingFilter = result.filter((address) => address.typeAdress === 2)
+
+                this.homeAddress = this.modelAddress([homeFilter])
+                this.deliveryAddress = this.modelAddress(deliveryFilter)
+                this.billingAddress = this.modelAddress(billingFilter)
+            })
+            .catch((err) => {
+                console.log('Falha na consulta getAllAddress', err)
+            })
 
         return {
             homeAddress,
             deliveryAddress,
             billingAddress
+        }
+    },
+    methods: {
+        modelAddress: function(allAddress) {
+            const result = allAddress.map((address) => {
+                return {
+                    id: address.id,
+                    nameIdentifier: address.typeAddress === 1 ? address.identification : '',
+                    cepAddress: address.zipCode,
+                    publicPlaceAddress: address.street,
+                    numberAddress: address.number,
+                    stateAddress: address.state,
+                    cityAddress: address.city,
+                    country: 'Brazil'
+                }
+            })
+
+            return result;
         }
     }
 }

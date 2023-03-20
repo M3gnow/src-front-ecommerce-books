@@ -3,16 +3,10 @@
         <div id="divDetailData" class="card mt-3 p-2 cardForm p-4">
             <label class="form-label fs-3">Alterar dados pessoais</label>
             <div class="row mt-3">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                 <label for="basic-url" class="form-label">Nome</label>
                 <div class="input-group">
                     <input type="text" class="form-control" id="name" name="name" v-model="client.name" aria-describedby="basic-addon3">
-                </div>
-                </div>
-                <div class="col-sm-6">
-                <label for="basic-url" class="form-label">Sobrenome</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="lastName" name="lastName" v-model="client.lastName" aria-describedby="basic-addon3">
                 </div>
                 </div>
             </div>
@@ -85,31 +79,43 @@
     </div>
 </template>
 <script>
+import { getClientById } from '../services/modules'
 
 export default {
     name: "EditPersonalDataClientView",
     data: function() {
-        const typesPhone = ['Fixo', 'Celular'];
+        const typesPhone = ['Celular', 'Fixo'];
         const genders = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
-
         const options = { typesPhone, genders }
-        const client = {
-            cpf: '482.418.678-09',
-            dateOfBirth: '05/02/2000',
-            gender: 'Masculino',
-            email: 'andrew.santos@fatec.sp.gov.br',
-            name: 'Andrew',
-            lastName: 'Oliveira',
-            phoneNumber: '984661480',
-            dddLocation: '11',
-            typePhone: 'Celular',
-        }
+        let client = {}
+        
+        getClientById(1)
+            .then((result) => {
+                this.client = this.modelDetailClient(result)
+            })
+            .catch((err) => {
+                console.log('Falha na consulta getAllCardsByClientId', err)
+            })
 
         return {
             client,
             options
         }
-    }
+    },
+    methods: {
+        modelDetailClient: function(client) {
+            return {
+                cpf: client.cpf,
+                dateOfBirth: client.birth || '2000-05-02',
+                gender: client.gender === 'M' ? 'Masculino' : 'Femenino',
+                email: client.user.email,
+                name: client.name,
+                phoneNumber: client.phone.phoneNumber,
+                dddLocation: client.phone.ddd,
+                typePhone: this.options.typesPhone[client.phone.typePhone],
+            }
+        }
+    },
 }
 
 </script>

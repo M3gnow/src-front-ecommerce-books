@@ -3,8 +3,15 @@
         <div class="container">
             <br>
             <div class=" bg-light text-center">
-                <div class="fs-1">Andrew Oliveira</div>
-                <div class="fs-2">1 Lesbook pontos.</div>
+                <div class="fs-1">{{ client.name }}</div>
+                <div>
+                    
+                    <div class="fs-2">
+                        <i class="bi bi-trophy-fill"></i> 
+                        {{ client.lesBookPoints }} Lesbook pontos.
+                    </div>    
+                </div>
+                
             </div>
             <br>
             <div class="d-flex m-5 justify-content-around paddingOptions">
@@ -45,18 +52,39 @@
 </template>
 
 <script>
+import { getClientById } from '../services/modules'
 
 export default {
-    name: "ProfileClientView"
+    name: "ProfileClientView",
+    data: function() {
+        let client = {
+            name: '',
+            lesBookPoints: ''
+        };
+
+        getClientById(1)
+            .then((result) => {
+                this.client.name = result.name
+                this.client.lesBookPoints = result.ranking.lesBookPoints
+            })
+            .catch((err) => {
+                console.log('Falha na consulta getAllCardsByClientId', err)
+            })
+
+        return {
+            client
+        }
+    },
 }
 </script>
+
 <style>
 .bg{
     background-color: rgba(94, 91, 91, 0.192);
 }
 
 .fontSizeIcon {
-    font-size: 60px;
+    font-size: 90px;
 }
 
 .paddingOptions {
