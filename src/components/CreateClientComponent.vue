@@ -502,7 +502,7 @@ export default {
     let typesPublicPlace = ['Rua', 'Estrada', 'Avenida'];
     let countries = ['Brasil', 'Argentina', 'Peru'];
     let cities = ['Itaquaquecetuba', 'São Miguel', 'Itaim Paulista'];
-    let states = ['São Paulo', 'Rio de Janeiro', 'Minas Gerais'];
+    let states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
     let neighborhoods = ['Jardim Tropical', 'Vila Maria Rosa', 'Jardim Paineira'];
     
     const options = { typesPhone, genders, flags, typesHome, typesPublicPlace, countries, cities, states, neighborhoods };

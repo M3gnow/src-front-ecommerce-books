@@ -51,21 +51,50 @@
     </div>
 </template>
 <script>
+import { getCardById, getAllCardFlags } from '../services/modules'
+
 export default {
     name: "EditCardClientView",
     data: function() {
-        const flags = ['MasterCard', 'Visa', 'Elo'];
+        const flags = [];
         const options = { flags }
-        const creditCard = {
-            flagCard: 'MasterCard',
-            numberCard: '1236 6546 9871 1702',
-            validityCard: '2028-02-02',
-            nameCard: 'THIAGO HENRIQUE DE ARAUJO',
-            codeSecurityCard: '009',
-            isMainCard: false
-        }
+        let creditCard = { }
+
+        getCardById(1)
+            .then(async (result) => {
+                await this.loadFlags();
+
+                this.creditCard = this.modelDetailCard(result);
+            })
+            .catch((err) => {
+                console.log('Falha na consulta getCardById', err)
+            })
+
 
         return { creditCard, options }
+    },
+    methods: {
+        modelDetailCard: function(card) {
+            return {
+                id: card.id,
+                flagCard: card.flag.description,
+                numberCard: card.number,
+                validityCard: '2028-02-02',
+                nameCard: card.name,
+                codeSecurityCard: card.securityCode,
+                isMainCard: card.principal
+            }
+        },
+        loadFlags: function() {
+            getAllCardFlags()
+                .then((result) => {
+                    this.options.flags = result;
+                })
+                .catch((err) => {
+                    console.log('Falha na consulta getAllCardFlags', err)
+                })
+        }
+            
     }
 }
 </script>

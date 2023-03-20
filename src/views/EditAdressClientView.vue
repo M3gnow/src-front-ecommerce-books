@@ -123,34 +123,62 @@
 </template>
  
 <script>
+import { getAddressById } from '../services/modules'
+
 export default {
 	name: "EditAdressClientView",
 	data: function() {
-		const typesHome = ['Casa', 'Apartamento', 'Chalé'];
-		const typesPublicPlace = ['Rua', 'Estrada', 'Avenida'];
-		const countries = ['Brasil', 'Argentina', 'Peru'];
+		const typesHome = ['Casa', 'Apartamento'];
+		const typesPublicPlace = ['Rua', 'Avenida', 'Estrada', 'Viela'];
+		const countries = ['Brasil'];
 		const cities = ['Itaquaquecetuba', 'São Miguel', 'Itaim Paulista'];
-		const states = ['São Paulo', 'Rio de Janeiro', 'Minas Gerais'];
+		const states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']
 		const neighborhoods = ['Jardim Tropical', 'Vila Maria Rosa', 'Jardim Paineira'];
 
 		const options = { typesHome, typesPublicPlace, countries, cities, states, neighborhoods };
-		const address = {
-			nameIdentifier: 'Entrega principal',
-            cepAddress: '08577-130',
-			typeHomeAddress: 'Casa',
-			typePublicPlaceAddress: 'Rua',
-			publicPlaceAddress: 'Rua monte alto',
-            numberAddress: '343',
-			countryAddress: 'Brasil',
-			stateAddress: 'São Paulo',
-            cityAddress: 'Itaquaquecetuba',
-			neighborhoodAddress: 'Vila Maria Rosa',
-			observationAddress: 'Minha casa tem o portão branco social'
-		}
+		let address = {};
+
+		getAddressById(1)
+            .then((result) => {
+				this.address = this.modelDetailAddress(result)
+            })
+            .catch((err) => {
+                console.log('Falha na consulta getAllAddress', err)
+            })
 
 		return {
 			address,
 			options
+		}
+	},
+	methods: {
+		modelDetailAddress: function(address) {
+			const existCity = this.options.cities
+				.find((city) => city === address.city)
+			const existNeighborhood = this.options.neighborhoods
+				.find((neighborhood) => neighborhood === address.neighborhood)
+
+			if (!existNeighborhood) {
+				this.options.neighborhoods.push(address.neighborhood);
+			}
+
+			if (!existCity) {
+				this.options.cityAddress.push(address.city);
+			}
+
+			return {
+				nameIdentifier: address.typeAdress === 1 ? address.identification : '',
+				cepAddress: address.zipCode,
+				typeHomeAddress: this.options.typesHome[address.typeResidence],
+				typePublicPlaceAddress: this.options.typesPublicPlace[address.typeStreet],
+				publicPlaceAddress: address.street,
+				numberAddress: address.number,
+				countryAddress: 'Brasil',
+				stateAddress: address.state,
+				cityAddress: address.city,
+				neighborhoodAddress: address.neighborhood,
+				observationAddress: address.obs
+			}
 		}
 	}
 }

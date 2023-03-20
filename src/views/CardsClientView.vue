@@ -35,42 +35,39 @@
     </div>
 </template>
 <script>
+import { getAllCardsByClientId } from '../services/modules'
+
 export default {
     name: "CardsClientView",
     data: function() {
-        let cards = [{
-            flagCard: 'Visa',
-            numberCard: '1236 6546 9871 1345',
-            validityCard: '11/30',
-            nameCard: '-',
-            codeSecurityCard: '-',
-            isMainCard: true
-        },
-        {
-            flagCard: 'Elo',
-            numberCard: '1236 6546 9871 3131',
-            validityCard: '12/02',
-            nameCard: '-',
-            codeSecurityCard: '-',
-            isMainCard: false
-        },
-        {
-            flagCard: 'Mastercard',
-            numberCard: '1236 6546 9871 1702',
-            validityCard: '02/28',
-            nameCard: '-',
-            codeSecurityCard: '-',
-            isMainCard: false
-        }];
+        let cards = [];
 
-        cards = cards.map((card) => {
-            card.numberCard = card.numberCard.slice(card.numberCard.length - 4)
+        getAllCardsByClientId(1)
+            .then((result) => {
+                this.cards = this.modelCreditCard(result);
+            })
+            .catch((err) => {
+                console.log('Falha na consulta getAllCardsByClientId', err)
+            })
 
-            return card
-        })
-        
         return {
             cards
+        }
+    },
+    methods: {
+        modelCreditCard: function(allCards) {
+            const result = allCards.map((card) => {
+                return {
+                    flagCard: card.flag.description,
+                    numberCard: card.number.slice(card.number.length - 4),
+                    validityCard: '15/02',
+                    nameCard: card.name,
+                    codeSecurityCard: card.securityCode,
+                    isMainCard: card.pricipal
+                }
+            });
+
+            return result;
         }
     }
 }
