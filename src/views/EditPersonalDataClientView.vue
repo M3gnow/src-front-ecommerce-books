@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+     <form class="container" v-on:submit.prevent="checkForm">
         <div id="divDetailData" class="card mt-3 p-2 cardForm p-4">
             <label class="form-label fs-3">Alterar dados pessoais</label>
             <div class="row mt-3">
@@ -76,14 +76,21 @@
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="row d-flex justify-content-between p-3">
+            <button class="btn btn-outline-warning">Finalizar</button>
+        </div>
+    </form>
 </template>
 <script>
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 import { getClientById } from '../services/modules'
 
 export default {
     name: "EditPersonalDataClientView",
     data: function() {
+        let errors = [];
         const typesPhone = ['Celular', 'Fixo'];
         const genders = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
         const options = { typesPhone, genders }
@@ -99,22 +106,64 @@ export default {
 
         return {
             client,
-            options
+            options,
+            errors
         }
     },
     methods: {
         modelDetailClient: function(client) {
-            return {
+            const existValidateGender = this.options.genders
+                .find((gender) => gender === this.client.gender)
+
+            const existValidateTypePhone = this.options.typesPhone
+                .find((type) => type === this.client.typePhone)
+
+
+            let modelPreviewClient = {
                 cpf: client.cpf,
                 dateOfBirth: client.birth || '2000-05-02',
-                gender: client.gender === 'M' ? 'Masculino' : 'Femenino',
+                gender: client.gender,
                 email: client.user.email,
                 name: client.name,
                 phoneNumber: client.phone.phoneNumber,
                 dddLocation: client.phone.ddd,
                 typePhone: this.options.typesPhone[client.phone.typePhone],
             }
-        }
+
+            if (!existValidateGender) {
+                modelPreviewClient.gender = ''
+            }
+
+            if (!existValidateTypePhone) {
+                modelPreviewClient.typesPhone = ''
+            }
+
+            return modelPreviewClient;
+        },
+        checkForm: function() {
+            this.errors = []
+
+            if (!this.client.name || !this.client.cpf 
+                || !this.client.dateOfBirth || !this.client.gender
+            ) {
+                this.errors.push({ message: 'Todos dados pessoais precisam ser preenchidos' })
+            }
+
+            if (!this.client.email || !this.client.typePhone 
+                || !this.client.dddLocation || !this.client.phoneNumber) {
+                this.errors.push({ message: 'Todos contatos e acessos precisam ser preenchidos' })
+            }
+
+            this.notify()
+        },
+        notify: function() {
+            this.errors.map((element) => {
+                toast(element.message, {
+                transition: toast.TRANSITIONS.FLIP,
+                position: toast.POSITION.BOTTOM_CENTER, 
+                })
+            })
+        },
     },
 }
 
