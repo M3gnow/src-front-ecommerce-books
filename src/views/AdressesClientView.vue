@@ -12,7 +12,7 @@
             </div>
             <div class="card-body" v-for="address of homeAddress">
                 <div class="row">
-                    <div class="col-sm-11">
+                    <div class="col-sm-10">
                         <div class="form-label">
                             {{ address.publicPlaceAddress }}, {{ address.numberAddress }}
                         </div>
@@ -41,7 +41,7 @@
                             <div class="card cardForm mt-3" v-for="address of deliveryAddress">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-11">
+                                        <div class="col-sm-10">
                                             <div class="form=label">
                                                 {{ address.nameIdentifier }}
                                             </div>
@@ -59,6 +59,10 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row d-flex justify-content-between m-3">
+                            <router-link to="/cliente/address/new" type="button" class="btn btn-warning">Adicionar Endereço</router-link>
+                        </div>
                     </div>
                 </div>
                 <div class="accordion-item mt-3">
@@ -74,7 +78,7 @@
                             <div class="card cardForm mt-3" v-for="address of billingAddress">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-11">
+                                        <div class="col-sm-10">
                                             <div class="form-text">
                                                 {{ address.publicPlaceAddress }}, {{ address.numberAddress }}
                                             </div>
@@ -88,6 +92,10 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row d-flex justify-content-between m-3">
+                            <router-link to="/cliente/address/new" type="button" class="btn btn-warning">Adicionar Endereço</router-link>
                         </div>
                     </div>
                 </div>

@@ -26,11 +26,15 @@
                             Vencimento em {{ card.validityCard }}
                         </div>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-sm-1 p-2">
                         <RouterLink class="btn btn-outline-warning" to="/cliente/cartoes/editar">Editar</RouterLink>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="row d-flex justify-content-between p-3">
+            <router-link to="/cliente/cards/new" type="button" class="btn btn-warning">Adicionar Cartão</router-link>
         </div>
     </div>
 </template>
