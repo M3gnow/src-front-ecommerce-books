@@ -247,9 +247,9 @@ export default {
 				city: address.cityAddress,
 				state: address.stateAddress,
 				country: address.countryAddress,
-				typeAdress: ParseInt(address.typeAdress),
-				typeResidence: ParseInt(address.typeHomeAddress),
-				typeStreet: ParseInt(address.typePublicPlaceAddress)
+				typeAdress: parseInt(address.typeAdress),
+				typeResidence: parseInt(address.typeHomeAddress),
+				typeStreet: parseInt(address.typePublicPlaceAddress)
 			}
 
 			if (modelAddress.typeAdress === 1) {
