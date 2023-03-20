@@ -24,8 +24,8 @@
 					<div class="input-group">
 						<select class="form-select" id="deliveryAddressTypeHomeAddress" name="deliveryAddressTypeHomeAddress" v-model="address.typeHomeAddress">
 						<option disabled value="">Escolha...</option>
-						<option v-for="option in options.typesHome" :value="option">
-							{{ option }}
+						<option v-for="option in options.typesHome" :value="option.id" :key="option.id">
+							{{ option.description }}
 						</option>
 						</select>
 					</div>
@@ -36,8 +36,8 @@
 					<div class="input-group">
 						<select class="form-select" id="deliveryAddressTypePublicPlaceAddress" name="deliveryAddressTypePublicPlaceAddress" v-model="address.typePublicPlaceAddress">
 						<option disabled value="">Escolha...</option>
-						<option v-for="option in options.typesPublicPlace" :value="option">
-							{{ option }}
+						<option v-for="option in options.typesPublicPlace" :value="option.id" :key="option.id">
+							{{ option.description }}
 						</option>
 						</select>
 					</div>
@@ -64,7 +64,7 @@
 					<div class="input-group">
 						<select class="form-select" id="deliveryAddressCountryAddress" name="deliveryAddressCountryAddress" v-model="address.countryAddress">
 						<option disabled value="">Escolha...</option>
-						<option v-for="option in options.countries" :value="option">
+						<option v-for="option in options.countries" :value="option" :key="option">
 							{{ option }}
 						</option>
 						</select>
@@ -75,7 +75,7 @@
 					<div class="input-group">
 						<select class="form-select" id="deliveryAddressStateAddress" name="deliveryAddressStateAddress" v-model="address.stateAddress">
 						<option disabled value="">Escolha...</option>
-						<option v-for="option in options.states" :value="option">
+						<option v-for="option in options.states" :value="option" :key="option">
 							{{ option }}
 						</option>
 						</select>
@@ -86,7 +86,7 @@
 					<div class="input-group">
 						<select class="form-select" id="deliveryAddressCityAddress" name="deliveryAddressCityAddress" v-model="address.cityAddress">
 						<option disabled value="">Escolha...</option>
-						<option v-for="option in options.cities" :value="option">
+						<option v-for="option in options.cities" :value="option" :key="option">
 							{{ option }}
 						</option>
 						</select>
@@ -98,7 +98,7 @@
 					<div class="input-group">
 						<select class="form-select" id="deliveryAddressNeighborhoodAddress" name="deliveryAddressNeighborhoodAddress" v-model="address.neighborhoodAddress">
 						<option disabled value="">Escolha...</option>
-						<option v-for="option in options.neighborhoods" :value="option">
+						<option v-for="option in options.neighborhoods" :value="option" :key="option">
 							{{ option }}
 						</option>
 						</select>
@@ -131,8 +131,28 @@ export default {
 	name: "EditAdressClientView",
 	data: function() {
 		let errors = [];
-		const typesHome = ['Casa', 'Apartamento'];
-		const typesPublicPlace = ['Rua', 'Avenida', 'Estrada', 'Viela'];
+		const typesHome = [{
+				id: 0,
+				description: 'Casa'
+			}, {
+				id: 1,
+				description: 'Apartamento'
+			}];
+
+		const typesPublicPlace = [{
+				id: 0,
+				description: 'Rua'
+			}, {
+				id: 1,
+				description: 'Avenida'
+			}, {
+				id: 2,
+				description: 'Estrada'
+			}, {
+				id: 3,
+				description: 'Viela'
+			}];
+
 		const countries = ['Brasil'];
 		const cities = ['Itaquaquecetuba', 'São Miguel', 'Itaim Paulista'];
 		const states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']
@@ -171,8 +191,8 @@ export default {
 			return {
 				nameIdentifier: address.typeAdress === 1 ? address.identification : '',
 				cepAddress: address.zipCode,
-				typeHomeAddress: this.options.typesHome[address.typeResidence],
-				typePublicPlaceAddress: this.options.typesPublicPlace[address.typeStreet],
+				typeHomeAddress: address.typeResidence,
+				typePublicPlaceAddress: address.typeStreet,
 				publicPlaceAddress: address.street,
 				numberAddress: address.number,
 				countryAddress: 'Brasil',
@@ -180,7 +200,8 @@ export default {
 				cityAddress: address.city,
 				neighborhoodAddress: address.neighborhood,
 				observationAddress: address.obs,
-				typeAdress: address.typeAdress
+				typeAdress: address.typeAdress,
+				id: address.id
 			}
 		},
 		checkForm: function() {
@@ -236,20 +257,21 @@ export default {
         },
         modelChangeAddress: function(address) {
             return {
-				"id": 0,
-				"identification": "string",
-				"street": "string",
-				"number": "string",
-				"obs": "string",
-				"zipCode": "string",
-				"neighborhood": "string",
-				"city": "string",
-				"state": "string",
-				"country": "string",
-				"typeAdress": 0,
-				"typeResidence": 0,
-				"typeStreet": 0
+				id: address.id,
+				street: address.publicPlaceAddress,
+				number: address.numberAddress,
+				obs: address.obs,
+				zipCode: address.cepAddress,
+				neighborhood: address.neighborhood,
+				city: address.city,
+				state: address.state,
+				country: address.countryAddress,
+				typeAdress: address.typeAdress,
+				typeResidence: address.typeHomeAddress,
+				typeStreet: address.typePublicPlaceAddress
 			}
+
+			// identification: address
         },
 		notify: function() {
             this.errors.map((element) => {
