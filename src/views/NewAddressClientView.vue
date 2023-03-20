@@ -181,11 +181,12 @@ export default {
             this.errors = []
 			let isDeliveryExistError = false;
 
-			if (!this.address.cepAddress || !this.address.typeHomeAddress 
-				|| !this.address.typePublicPlaceAddress || !this.address.publicPlaceAddress 
+			if (!this.address.cepAddress || !this.address.publicPlaceAddress 
 				|| !this.address.numberAddress || !this.address.countryAddress 
 				|| !this.address.stateAddress || !this.address.cityAddress 
-				|| !this.address.neighborhoodAddress
+				|| !this.address.neighborhoodAddress ||
+				(!this.address.typeHomeAddress && this.address.typeHomeAddress !== 0) ||
+				(!this.address.typePublicPlaceAddress && this.address.typeHomeAddress !== 0)
 			) {
 				if (this.address.typeAdress === 1) {
 					isDeliveryExistError = true;
