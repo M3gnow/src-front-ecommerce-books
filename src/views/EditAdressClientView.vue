@@ -258,11 +258,11 @@ export default {
                 })
         },
         modelChangeAddress: function(address) {
-            return {
+            const modelAddress = {
 				id: address.id,
 				street: address.publicPlaceAddress,
 				number: address.numberAddress,
-				obs: address.obs ? address.obs : '',
+				obs: address.observationAddress ? address.observationAddress : '',
 				zipCode: address.cepAddress,
 				neighborhood: address.neighborhoodAddress,
 				city: address.cityAddress,
@@ -273,7 +273,13 @@ export default {
 				typeStreet: address.typePublicPlaceAddress
 			}
 
-			// identification: address
+			if (modelAddress.typeAdress === 1) {
+				modelAddress.identification = address.nameIdentifier;
+			} else {
+				modelAddress.identification = ''
+			}
+
+			return modelAddress;
         },
 		notify: function() {
             this.errors.map((element) => {
