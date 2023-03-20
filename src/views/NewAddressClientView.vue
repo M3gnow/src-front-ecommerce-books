@@ -234,9 +234,6 @@ export default {
                 })
         },
         modelCreateAddress: function(clientId, address) {
-			const selectTypeResidence = address.typeHomeAddress
-			const selectTypeStreet = address.typePublicPlaceAddress
-
 			const modelAddress = {
 				id_client: clientId,
 				street: address.publicPlaceAddress,
@@ -254,6 +251,8 @@ export default {
 
 			if (modelAddress.typeAdress === 1) {
 				modelAddress.identification = address.nameIdentifier;
+			} else {
+				modelAddress.identification = ''
 			}
 
 			return modelAddress;
