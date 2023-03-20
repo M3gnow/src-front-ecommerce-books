@@ -1,7 +1,7 @@
 <template>
     <form class="container" v-on:submit.prevent="checkForm">
         <div id="divCartoes" class="card mt-3 p-2 cardForm p-4">
-            <label for="basic-url" class="form-label fs-3">Editar seu cartão</label>
+            <label for="basic-url" class="form-label fs-3">Adicione seu cartão</label>
 
             <div class="row mt-3">
                 <div class="col-sm-2">
@@ -56,59 +56,33 @@ import 'vue3-toastify/dist/index.css'
 import { getCardById, getAllCardFlags } from '../services/modules'
 
 export default {
-    name: "EditCardClientView",
+    name: "NewCardClientView",
     data: function() {
         let errors = [];
         const flags = [];
         const options = { flags }
-        let creditCard = { }
+        let creditCard = {
+            id: '',
+            flagCard: '',
+            numberCard: '',
+            validityCard: '2028-02-02',
+            nameCard: '',
+            codeSecurityCard: '',
+            isMainCard: ''
+        }
 
-        getCardById(1)
-            .then(async (result) => {
-                await this.loadFlags();
-
-                this.creditCard = this.modelDetailCard(result);
-
-                console.log('this.creditCard', this.creditCard)
+        getAllCardFlags()
+            .then((result) => {
+                this.options.flags = result;
             })
             .catch((err) => {
-                console.log('Falha na consulta getCardById', err)
+                console.log('Falha na consulta getAllCardFlags', err)
             })
 
 
         return { creditCard, options, errors }
     },
     methods: {
-        modelDetailCard: function(card) {
-            const existValidateFlag = this.options.flags
-                .find((flag) => flag === this.creditCard.flagCard)
-            
-            let modelPreviewCard = {
-                id: card.id,
-                flagCard: card.flag.description,
-                numberCard: card.number,
-                validityCard: '2028-02-02',
-                nameCard: card.name,
-                codeSecurityCard: card.securityCode,
-                isMainCard: card.principal
-            }
-
-            if (!existValidateFlag) {
-                modelPreviewCard.flagCard = ''
-            }
-
-            return modelPreviewCard
-
-        },
-        loadFlags: function() {
-            getAllCardFlags()
-                .then((result) => {
-                    this.options.flags = result;
-                })
-                .catch((err) => {
-                    console.log('Falha na consulta getAllCardFlags', err)
-                })
-        },
         checkForm: function() {
             this.errors = []
 
@@ -116,7 +90,6 @@ export default {
                 || !this.creditCard.validityCard || !this.creditCard.nameCard 
                 || !this.creditCard.codeSecurityCard
             ) {
-                console.log('megnow')
                 this.errors.push({ message: 'Resta informações pendentes do seu cartão' })
             }
 

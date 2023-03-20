@@ -439,8 +439,8 @@
           <div class="input-group">
             <select class="form-select" id="creditCardFlagCard" name="creditCardFlagCard" v-model="client.creditCard.flagCard">
             <option disabled value="">Escolha...</option>
-              <option v-for="option in options.flags" :value="option">
-                {{ option }}
+              <option v-for="option in options.flags" :value="option.id">
+                {{ option.description }}
               </option>
             </select>
           </div>
