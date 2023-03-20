@@ -53,7 +53,7 @@
 <script>
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
-import { getCardById, getAllCardFlags, createCardByClientId } from '../services/modules'
+import { getAllCardFlags, createCardByClientId } from '../services/modules'
 
 export default {
     name: "NewCardClientView",

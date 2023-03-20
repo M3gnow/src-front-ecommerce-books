@@ -208,11 +208,12 @@ export default {
             this.errors = []
 			let isDeliveryExistError = false;
 
-			if (!this.address.cepAddress || !this.address.typeHomeAddress 
-				|| !this.address.typePublicPlaceAddress || !this.address.publicPlaceAddress 
+			if (!this.address.cepAddress || !this.address.publicPlaceAddress 
 				|| !this.address.numberAddress || !this.address.countryAddress 
 				|| !this.address.stateAddress || !this.address.cityAddress 
-				|| !this.address.neighborhoodAddress
+				|| !this.address.neighborhoodAddress ||
+				(!this.address.typeHomeAddress && this.address.typeHomeAddress !== 0) ||
+				(!this.address.typePublicPlaceAddress && this.address.typeHomeAddress !== 0)
 			) {
 				if (this.address.typeAdress === 0) {
 					this.errors.push({ message: 'Resta informações pendentes no endereço residencial' })
@@ -235,7 +236,7 @@ export default {
             if (this.errors.length) {
                 this.notify()
             } else {
-                this.changeAddress(this.creditCard)
+                this.changeAddress(this.address)
 					.then((result) => {
                         console.log('sucess update')
                         //redirect page
@@ -243,15 +244,16 @@ export default {
                     .catch((err) => console.log('error update'))
             }
         },
-        changeAddress: function(card) {
-            const data = this.modelChangeAddress(card)
+        changeAddress: function(address) {
+            const data = this.modelChangeAddress(address)
+			
             changeAddressById(data)
                 .then((result) => {
                     console.log('MEU NOBRE, CADASTREI');
-                    alert('Sucesso alteracao de cartao')
+                    alert('Sucesso alteracao de endereço')
                 })
                 .catch((err) => {
-                    alert('Falha alteracao de cartao')
+                    alert('Falha alteracao de endereço')
                     console.log('Falha no cadastro changeAddressById', err)
                 })
         },
@@ -260,11 +262,11 @@ export default {
 				id: address.id,
 				street: address.publicPlaceAddress,
 				number: address.numberAddress,
-				obs: address.obs,
+				obs: address.obs ? address.obs : '',
 				zipCode: address.cepAddress,
-				neighborhood: address.neighborhood,
-				city: address.city,
-				state: address.state,
+				neighborhood: address.neighborhoodAddress,
+				city: address.cityAddress,
+				state: address.stateAddress,
 				country: address.countryAddress,
 				typeAdress: address.typeAdress,
 				typeResidence: address.typeHomeAddress,
