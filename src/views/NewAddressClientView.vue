@@ -174,7 +174,7 @@ export default {
             typeAdress: 1
         }
 
-		return { address, options, errors, client: { id: 1 } }
+		return { address, options, errors, client: { id: 11 } }
 	},
 	methods: {
 		checkForm: function() {
