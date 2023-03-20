@@ -53,7 +53,7 @@
 <script>
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
-import { getCardById, getAllCardFlags } from '../services/modules'
+import { getCardById, getAllCardFlags, createCardByClientId } from '../services/modules'
 
 export default {
     name: "NewCardClientView",
@@ -80,7 +80,7 @@ export default {
             })
 
 
-        return { creditCard, options, errors }
+        return { creditCard, options, errors, client:{ id: 1 } }
     },
     methods: {
         checkForm: function() {
@@ -93,7 +93,16 @@ export default {
                 this.errors.push({ message: 'Resta informações pendentes do seu cartão' })
             }
 
-            this.notify()
+            if (this.errors.length) {
+                this.notify()
+            } else {
+                this.createToCard(this.client.id, this.creditCard)
+                    .then((result) => {
+                        console.log('sucess create')
+                        //redirect page
+                    })
+                    .catch((err) => console.log('error create'))
+            }
         },
         notify: function() {
             this.errors.map((element) => {
@@ -103,7 +112,32 @@ export default {
                 })
             })
         },
-            
+        createToCard: function(clientId, card) {
+            const data = this.modelCreateToCard(clientId, card)
+            createCardByClientId(data)
+                .then((result) => {
+                    console.log('MEU NOBRE, CADASTREI');
+                    alert('Sucesso cadastro de cartão')
+                })
+                .catch((err) => {
+                    alert('Falha cadastro de cartão')
+                    console.log('Falha na consulta getAllCardFlags', err)
+                })
+        },
+        modelCreateToCard: function(clientId, card) {
+            return {
+                id_client: clientId,
+                number: card.numberCard,
+                name: card.nameCard,
+                securityCode: card.codeSecurityCard,
+                pricipal: false,
+                expiration: card.validityCard,
+                flag: {
+                    id: card.flagCard,
+                    description: ''
+                }
+            }
+        }
     }
 }
 </script>

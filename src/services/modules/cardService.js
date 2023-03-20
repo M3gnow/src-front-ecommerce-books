@@ -1,4 +1,4 @@
-import { axiosInstance, apiLesbookCardFlagMock, apiLesbookCardsMock, apiLesbookCardByIdMock } from './../config'
+import { axiosInstance, apiLesbookCard, apiLesbookCardFlagMock, apiLesbookCardsMock, apiLesbookCardByIdMock } from './../config'
 
 export const getAllCardFlags = () => {
     const request = axiosInstance.get(apiLesbookCardFlagMock)
@@ -18,6 +18,14 @@ export const getAllCardsByClientId = (id) => {
 
 export const getCardById = (id) => {
     const request = axiosInstance.get(apiLesbookCardByIdMock)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))
+
+    return request;
+}
+
+export const createCardByClientId = (data) => {
+    const request = axiosInstance.post(apiLesbookCard, data)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 

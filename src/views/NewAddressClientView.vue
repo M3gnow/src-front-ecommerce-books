@@ -24,8 +24,8 @@
 					<div class="input-group">
 						<select class="form-select" id="deliveryAddressTypeHomeAddress" name="deliveryAddressTypeHomeAddress" v-model="address.typeHomeAddress">
 						<option disabled value="">Escolha...</option>
-						<option v-for="option in options.typesHome" :value="option">
-							{{ option }}
+						<option v-for="option in options.typesHome" :value="option.id">
+							{{ option.description }}
 						</option>
 						</select>
 					</div>
@@ -36,8 +36,8 @@
 					<div class="input-group">
 						<select class="form-select" id="deliveryAddressTypePublicPlaceAddress" name="deliveryAddressTypePublicPlaceAddress" v-model="address.typePublicPlaceAddress">
 						<option disabled value="">Escolha...</option>
-						<option v-for="option in options.typesPublicPlace" :value="option">
-							{{ option }}
+						<option v-for="option in options.typesPublicPlace" :value="option.id">
+							{{ option.description }}
 						</option>
 						</select>
 					</div>
@@ -125,14 +125,34 @@
 <script>
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
-import { getAddressById } from '../services/modules'
+import { getAddressById, createAddressByClientId } from '../services/modules'
 
 export default {
 	name: "EditAdressClientView",
 	data: function() {
 		let errors = [];
-		const typesHome = ['Casa', 'Apartamento'];
-		const typesPublicPlace = ['Rua', 'Avenida', 'Estrada', 'Viela'];
+		const typesHome = [{
+				id: 0,
+				description: 'Casa'
+			}, {
+				id: 1,
+				description: 'Apartamento'
+			}];
+
+		const typesPublicPlace = [{
+				id: 0,
+				description: 'Rua'
+			}, {
+				id: 1,
+				description: 'Avenida'
+			}, {
+				id: 2,
+				description: 'Estrada'
+			}, {
+				id: 3,
+				description: 'Viela'
+			}];
+
 		const countries = ['Brasil'];
 		const cities = ['Itaquaquecetuba', 'São Miguel', 'Itaim Paulista'];
 		const states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']
@@ -154,7 +174,7 @@ export default {
             typeAdress: 1
         }
 
-		return { address, options, errors }
+		return { address, options, errors, client: { id: 1 } }
 	},
 	methods: {
 		checkForm: function() {
@@ -181,7 +201,16 @@ export default {
 				this.errors.push({ message: 'Resta informações pendentes no endereço de entrega' })
 			}
 
-            this.notify()
+            if (this.errors.length) {
+                this.notify()
+            } else {
+                this.createToAddress(this.client.id, this.address)
+					.then((result) => {
+                        console.log('sucess create')
+                        //redirect page
+                    })
+                    .catch((err) => console.log('error create'))
+            }
         },
 		notify: function() {
             this.errors.map((element) => {
@@ -191,6 +220,43 @@ export default {
                 })
             })
         },
+		createToAddress: function(clientId, address) {
+            const data = this.modelCreateAddress(clientId, address)
+            createAddressByClientId(data)
+                .then((result) => {
+                    console.log('MEU NOBRE, CADASTREI');
+                    alert('Sucesso cadastro de endereço')
+                })
+                .catch((err) => {
+                    alert('Falha cadastro de endereço')
+                    console.log('Falha no cadastro createToAddress', err)
+                })
+        },
+        modelCreateAddress: function(clientId, address) {
+			const selectTypeResidence = address.typeHomeAddress
+			const selectTypeStreet = address.typePublicPlaceAddress
+
+			const modelAddress = {
+				id_client: clientId,
+				street: address.publicPlaceAddress,
+				number: address.numberAddress,
+				obs: address.observationAddress || '',
+				zipCode: address.cepAddress,
+				neighborhood: address.neighborhoodAddress,
+				city: address.cityAddress,
+				state: address.stateAddress,
+				country: address.countryAddress,
+				typeAdress: ParseInt(address.typeAdress),
+				typeResidence: ParseInt(address.typeHomeAddress),
+				typeStreet: ParseInt(address.typePublicPlaceAddress)
+			}
+
+			if (modelAddress.typeAdress === 1) {
+				modelAddress.identification = address.nameIdentifier;
+			}
+
+			return modelAddress;
+        }
 	}
 }
 </script>
