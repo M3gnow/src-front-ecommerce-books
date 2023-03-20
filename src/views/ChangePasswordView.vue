@@ -65,6 +65,7 @@
 <script>
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import { changePasswordByClientId } from '../services/modules'
 
 export default {
   name: "ChangePasswordView",
@@ -74,6 +75,7 @@ export default {
       actualPassword: "",
       firstNewPassword: "",
       secondNewPassword: "",
+      id: 1
     };
 
     return { client, errors };
@@ -102,7 +104,16 @@ export default {
         this.errors.push({ message: 'Nova senha e confirmação não são iguais' })
       }
 
-      this.notify()
+      if (this.errors.length) {
+        this.notify()
+      } else {
+        this.changePassword(this.client)
+          .then((result) => {
+              console.log('sucess create')
+              //redirect page
+          })
+          .catch((err) => console.log('error create'))
+      }
     },
 		notify: function() {
       this.errors.map((element) => {
@@ -128,6 +139,26 @@ export default {
 
         return false;
     },
+    changePassword: function(client) {
+      const data = this.modelToChangePassword(client)
+      changePasswordByClientId(data)
+        .then((result) => {
+            console.log('MEU NOBRE, CADASTREI');
+            alert('Alteração de senha com sucesso')
+        })
+        .catch((err) => {
+            alert('Alteração de senha com falha')
+            console.log('Falha na operacao changePasswordByClientId', err)
+        })
+    },
+    modelToChangePassword: function(client) {
+      return {
+        newPassword: client.firstNewPassword,
+        confirmationPassword:client.secondNewPassword,
+        oldPassword: client.actualPassword,
+        id: client.id
+      }
+    }
   }
 };
 </script>
@@ -139,3 +170,11 @@ export default {
 }
 
 </style>
+
+
+{
+  "newPassword": "string",
+  "confirmationPassword":"string"
+  "oldPassword": "string",
+  "id": 0
+}
