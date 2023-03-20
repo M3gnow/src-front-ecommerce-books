@@ -90,8 +90,8 @@
             <div class="input-group">
               <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
               <option disabled value="">Escolha...</option>
-                <option v-for="option in options.typesPhone" :value="option">
-                  {{ option }}
+                <option v-for="option in options.typesPhone" :value="option.id">
+                  {{ option.description }}
                 </option>
               </select>
             </div>
@@ -489,14 +489,20 @@
 <script>
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
-import { getAllCardFlags } from '../services/modules'
+import { getAllCardFlags, createClient } from '../services/modules'
 
 export default {
   name: "CreateClientComponent",
   data: function() {
     let genders = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
     let errors = [];
-    let typesPhone = ['Fixo', 'Celular'];
+    let typesPhone = [{
+        id: 0,
+        description: 'Fixo'
+      }, {
+        id: 1,
+        description: 'Celular'
+      }];
     let flags = ['MasterCard', 'Visa', 'Elo'];
     let typesHome = ['Casa', 'Apartamento', 'Chalé'];
     let typesPublicPlace = ['Rua', 'Estrada', 'Avenida'];
@@ -624,7 +630,16 @@ export default {
         this.errors.push({ message: 'Resta informações pendentes do seu cartão' })
       }
 
-      this.notify()
+      if (this.errors.length) {
+          this.notify()
+      } else {
+        this.createToClient(this.client)
+          .then((result) => {
+              console.log('sucess create')
+              //redirect page
+          })
+          .catch((err) => console.log('error create'))
+      }
     },
     notify: function() {
       this.errors.map((element) => {
@@ -634,6 +649,94 @@ export default {
         })
       })
     },
+    createToClient: function(client) {
+      const data = this.modelToClient(client)
+      createClient(data)
+        .then((result) => {
+          console.log('MEU NOBRE, CADASTREI');
+          alert('Sucesso cadastro de cliente')
+        })
+        .catch((err) => {
+          alert('Falha cadastro de cliente')
+          console.log('Falha na consulta createClient', err)
+        })
+    },
+    modelToAddress: function(client) {
+      const address = [];
+
+      address.push(
+        this.modelToAddressDefault(client.billingAddress),
+        this.modelToAddressDefault(client.homeAddress),
+        this.modelToAddressDefault(client.deliveryAddress, client.deliveryAddress.nameIdentifier)
+      )
+
+      return address;
+    },
+    modelToAddressDefault: function(address, identification = '') {
+      const addressModel = {
+				id_client: '',
+				street: address.publicPlaceAddress,
+				number: address.numberAddress,
+				obs: address.observationAddress || '',
+				zipCode: address.cepAddress,
+				neighborhood: address.neighborhoodAddress,
+				city: address.cityAddress,
+				state: address.stateAddress,
+				country: address.countryAddress,
+				typeAdress: ParseInt(address.typeAdress),
+				typeResidence: ParseInt(address.typeHomeAddress),
+				typeStreet: ParseInt(address.typePublicPlaceAddress)
+			}
+
+      if (identification) {
+        addressModel.identification = address.nameIdentifier;
+      }
+
+      return addressModel;
+    },
+    modelToCard: function(client) {
+      return {
+          id_client: clientId,
+          number: client.creditCard.numberCard,
+          name: client.creditCard.nameCard,
+          securityCode: client.creditCard.codeSecurityCard,
+          pricipal: true,
+          expiration: client.creditCard.validityCard,
+          flag: {
+              id: client.creditCard.flagCard,
+              description: ''
+          }
+      }
+    },
+    modelToPhone: function(client) {
+      return {
+        id: '',
+        phoneNumber: client.phoneNumber,
+        ddd: client.dddLocation,
+        typePhone: client.typePhone
+      }
+    },
+    modelToUser: function(client) {
+      return {
+        id: '',
+        email: client.email,
+        password: client.firstPassword,
+        typeUser: 1
+      }
+    },
+    modelToClient: function(client) {
+      return {
+        name: client.name,
+        gender: client.gender,
+        cpf: client.cpf,
+        birth: client.dateOfBirth,
+        phone: this.modelToPhone(client),
+        user: this.modelToUser(client),
+        adresses: this.modelToAddress(client),
+        cards: this.modelToCard(client),
+      }
+    }
+
   },
 }
 </script>

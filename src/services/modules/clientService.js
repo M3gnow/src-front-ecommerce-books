@@ -1,10 +1,10 @@
-import { axiosInstance, apiLesbookClient, apiLesbookClientPassword } from '../config'
+import { axiosInstance, apiLesbookClientMock, apiLesbookClientPassword } from '../config'
 
-export const createClient = (client) => axiosInstance.post(`${apiLesbookClient}`, client, {})
+export const createClient = (client) => axiosInstance.post(`${apiLesbookClient}`, client)
     .then((res) => Promise.resolve(res.data))
     .catch((error) => Promise.reject(error))
 
-export const getClientById = (id) => axiosInstance.get(`${apiLesbookClient}`)
+export const getClientById = (id) => axiosInstance.get(`${apiLesbookClientMock}`)
     .then((res) => Promise.resolve(res.data))
     .catch((error) => Promise.reject(error))
 
