@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <form class="container" v-on:submit.prevent="checkForm">
         <div id="divCartoes" class="card mt-3 p-2 cardForm p-4">
             <label for="basic-url" class="form-label fs-3">Editar seu cartão</label>
 
@@ -46,16 +46,19 @@
         </div>
 
         <div class="row d-flex justify-content-between p-3">
-            <router-link to="/" type="button" class="btn btn-outline-warning">Salvar</router-link>
+            <button class="btn btn-outline-warning">Salvar</button>
         </div>
-    </div>
+    </form>
 </template>
 <script>
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 import { getCardById, getAllCardFlags } from '../services/modules'
 
 export default {
     name: "EditCardClientView",
     data: function() {
+        let errors = [];
         const flags = [];
         const options = { flags }
         let creditCard = { }
@@ -71,11 +74,14 @@ export default {
             })
 
 
-        return { creditCard, options }
+        return { creditCard, options, errors }
     },
     methods: {
         modelDetailCard: function(card) {
-            return {
+            const existValidateFlag = this.options.flags
+                .find((flag) => flag === this.creditCard.flagCard)
+            
+            let modelPreviewCard = {
                 id: card.id,
                 flagCard: card.flag.description,
                 numberCard: card.number,
@@ -84,6 +90,13 @@ export default {
                 codeSecurityCard: card.securityCode,
                 isMainCard: card.principal
             }
+
+            if (!existValidateFlag) {
+                modelPreviewCard.flagCard = ''
+            }
+
+            return modelPreviewCard
+
         },
         loadFlags: function() {
             getAllCardFlags()
@@ -93,7 +106,28 @@ export default {
                 .catch((err) => {
                     console.log('Falha na consulta getAllCardFlags', err)
                 })
-        }
+        },
+        checkForm: function() {
+            this.errors = []
+
+            if (!this.creditCard.flagCard || !this.creditCard.numberCard 
+                || !this.creditCard.validityCard || !this.creditCard.nameCard 
+                || !this.creditCard.codeSecurityCard
+            ) {
+                console.log('megnow')
+                this.errors.push({ message: 'Resta informações pendentes do seu cartão' })
+            }
+
+            this.notify()
+        },
+        notify: function() {
+            this.errors.map((element) => {
+                toast(element.message, {
+                transition: toast.TRANSITIONS.FLIP,
+                position: toast.POSITION.BOTTOM_CENTER, 
+                })
+            })
+        },
             
     }
 }

@@ -1,8 +1,8 @@
 <template>
-	<div class="container">
+	<form class="container" v-on:submit.prevent="checkForm">
 		<div id="divDetailAddress" class="card mt-3 p-2 cardForm p-4">
 			<label for="basic-url" class="form-label fs-3">Editar endereço</label>  
-			<div class="row mt-3" v-if="address.nameIdentifier">
+			<div class="row mt-3" v-if="address.typeAdress === 1">
 				<div class="col-sm">
 					<label for="basic-url" class="form-label">Identificação</label>
 					<div class="input-group">
@@ -117,17 +117,20 @@
 		</div>
 
 		<div class="row d-flex justify-content-between p-3">
-			<router-link to="/" type="button" class="btn btn-outline-warning">Salvar</router-link>
-		</div>
-	</div>
+            <button class="btn btn-outline-warning">Salvar</button>
+        </div>
+	</form>
 </template>
  
 <script>
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 import { getAddressById } from '../services/modules'
 
 export default {
 	name: "EditAdressClientView",
 	data: function() {
+		let errors = [];
 		const typesHome = ['Casa', 'Apartamento'];
 		const typesPublicPlace = ['Rua', 'Avenida', 'Estrada', 'Viela'];
 		const countries = ['Brasil'];
@@ -140,16 +143,15 @@ export default {
 
 		getAddressById(1)
             .then((result) => {
+				console.log('RESULT', result);
+
 				this.address = this.modelDetailAddress(result)
             })
             .catch((err) => {
                 console.log('Falha na consulta getAllAddress', err)
             })
 
-		return {
-			address,
-			options
-		}
+		return { address, options, errors }
 	},
 	methods: {
 		modelDetailAddress: function(address) {
@@ -177,9 +179,48 @@ export default {
 				stateAddress: address.state,
 				cityAddress: address.city,
 				neighborhoodAddress: address.neighborhood,
-				observationAddress: address.obs
+				observationAddress: address.obs,
+				typeAdress: address.typeAdress
 			}
-		}
+		},
+		checkForm: function() {
+            this.errors = []
+			let isDeliveryExistError = false;
+
+			if (!this.address.cepAddress || !this.address.typeHomeAddress 
+				|| !this.address.typePublicPlaceAddress || !this.address.publicPlaceAddress 
+				|| !this.address.numberAddress || !this.address.countryAddress 
+				|| !this.address.stateAddress || !this.address.cityAddress 
+				|| !this.address.neighborhoodAddress
+			) {
+				if (this.address.typeAdress === 0) {
+					this.errors.push({ message: 'Resta informações pendentes no endereço residencial' })
+				}
+
+				if (this.address.typeAdress === 1) {
+					isDeliveryExistError = true;
+					this.errors.push({ message: 'Resta informações pendentes no endereço de entrega' })
+				}
+
+				if (this.address.typeAdress === 2) {
+					this.errors.push({ message: 'Resta informações pendentes no endereço de cobrança' })
+				}
+			}
+
+			if (!this.address.nameIdentifier && this.address.typeAdress === 1 && !isDeliveryExistError) {
+				this.errors.push({ message: 'Resta informações pendentes no endereço de entrega' })
+			}
+
+            this.notify()
+        },
+		notify: function() {
+            this.errors.map((element) => {
+                toast(element.message, {
+                transition: toast.TRANSITIONS.FLIP,
+                position: toast.POSITION.BOTTOM_CENTER, 
+                })
+            })
+        },
 	}
 }
 </script>

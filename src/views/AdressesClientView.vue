@@ -53,7 +53,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-1">
-                                            <button class="btn btn-outline-warning">Editar</button>
+                                            <RouterLink to="/cliente/enderecos/editar" class="btn btn-outline-warning">Editar</RouterLink>
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-1">
-                                            <button class="btn btn-outline-warning">Editar</button>
+                                            <RouterLink to="/cliente/enderecos/editar" class="btn btn-outline-warning">Editar</RouterLink>
                                         </div>
                                     </div>
                                 </div>
