@@ -9,7 +9,7 @@ export const getAllAddress = () => {
 }
 
 export const getAddressById = (id) => {
-    const request = axiosInstance.get(apiLesbookAddressByIdMock)
+    const request = axiosInstance.get("https://localhost:7260/api/adress/16")
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 

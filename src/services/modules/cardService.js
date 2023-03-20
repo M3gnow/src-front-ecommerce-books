@@ -1,7 +1,7 @@
 import { axiosInstance, apiLesbookCard, apiLesbook, apiLesbookCardsMock, apiLesbookCardByIdMock } from './../config'
 
 export const getAllCardFlags = () => {
-    const request = axiosInstance.get(`${apiLesbook}/card/flags`)
+    const request = axiosInstance.get(`https://localhost:7260/card/flags`)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 

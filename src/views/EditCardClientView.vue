@@ -153,7 +153,7 @@ export default {
                     id: card.flagCard,
                     description: ''
                 },
-                expiration: card.isMainCard
+                expiration: card.validityCard
             }
         },
         notify: function() {

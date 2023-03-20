@@ -80,7 +80,7 @@ export default {
             })
 
 
-        return { creditCard, options, errors, client:{ id: 1 } }
+        return { creditCard, options, errors, client:{ id: 11 } }
     },
     methods: {
         checkForm: function() {
