@@ -2,7 +2,8 @@ import axios from 'axios';
 import config from './enviroment'
 
 export const axiosInstance = axios.create({
-  timeout: 18000
+  timeout: 18000,
+  headers: { "Access-Control-Allow-Origin": "*" }
 })
 
 export const apiLesbook = config.VUE_APP_API_LESBOOK

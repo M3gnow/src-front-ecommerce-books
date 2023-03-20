@@ -125,7 +125,7 @@
 <script>
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
-import { getAddressById } from '../services/modules'
+import { getAddressById, changeAddressById } from '../services/modules'
 
 export default {
 	name: "EditAdressClientView",
@@ -211,7 +211,45 @@ export default {
 				this.errors.push({ message: 'Resta informações pendentes no endereço de entrega' })
 			}
 
-            this.notify()
+            if (this.errors.length) {
+                this.notify()
+            } else {
+                this.changeAddress(this.creditCard)
+					.then((result) => {
+                        console.log('sucess update')
+                        //redirect page
+                    })
+                    .catch((err) => console.log('error update'))
+            }
+        },
+        changeAddress: function(card) {
+            const data = this.modelChangeAddress(card)
+            changeAddressById(data)
+                .then((result) => {
+                    console.log('MEU NOBRE, CADASTREI');
+                    alert('Sucesso alteracao de cartao')
+                })
+                .catch((err) => {
+                    alert('Falha alteracao de cartao')
+                    console.log('Falha no cadastro changeAddressById', err)
+                })
+        },
+        modelChangeAddress: function(address) {
+            return {
+				"id": 0,
+				"identification": "string",
+				"street": "string",
+				"number": "string",
+				"obs": "string",
+				"zipCode": "string",
+				"neighborhood": "string",
+				"city": "string",
+				"state": "string",
+				"country": "string",
+				"typeAdress": 0,
+				"typeResidence": 0,
+				"typeStreet": 0
+			}
         },
 		notify: function() {
             this.errors.map((element) => {

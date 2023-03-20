@@ -53,7 +53,7 @@
 <script>
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
-import { getCardById, getAllCardFlags } from '../services/modules'
+import { getCardById, getAllCardFlags, changeCardById } from '../services/modules'
 
 export default {
     name: "EditCardClientView",
@@ -87,7 +87,7 @@ export default {
                 id: card.id,
                 flagCard: card.flag.description,
                 numberCard: card.number,
-                validityCard: '2028-02-02',
+                validityCard: card.expiration || '2028-02-02',
                 nameCard: card.name,
                 codeSecurityCard: card.securityCode,
                 isMainCard: card.principal
@@ -120,7 +120,42 @@ export default {
                 this.errors.push({ message: 'Resta informações pendentes do seu cartão' })
             }
 
-            this.notify()
+            if (this.errors.length) {
+                this.notify()
+            } else {
+                this.changeCard(this.creditCard)
+					.then((result) => {
+                        console.log('sucess update')
+                        //redirect page
+                    })
+                    .catch((err) => console.log('error update'))
+            }
+        },
+        changeCard: function(card) {
+            const data = this.modelChangeCard(card)
+            changeCardById(data)
+                .then((result) => {
+                    console.log('MEU NOBRE, CADASTREI');
+                    alert('Sucesso alteracao de cartao')
+                })
+                .catch((err) => {
+                    alert('Falha alteracao de cartao')
+                    console.log('Falha no cadastro changeCardById', err)
+                })
+        },
+        modelChangeCard: function(card) {
+            return {
+                id: card.id,
+                number: card.numberCard,
+                name: card.nameCard,
+                securityCode: card.codeSecurityCard,
+                pricipal: card.isMainCard,
+                flag: {
+                    id: card.flagCard,
+                    description: ''
+                },
+                expiration: card.isMainCard
+            }
         },
         notify: function() {
             this.errors.map((element) => {

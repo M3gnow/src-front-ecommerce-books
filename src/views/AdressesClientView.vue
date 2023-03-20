@@ -41,7 +41,7 @@
                             <div class="card cardForm mt-3" v-for="address of deliveryAddress">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-9">
                                             <div class="form=label">
                                                 {{ address.nameIdentifier }}
                                             </div>
@@ -54,6 +54,10 @@
                                         </div>
                                         <div class="col-sm-1">
                                             <RouterLink to="/cliente/enderecos/editar" class="btn btn-outline-warning">Editar</RouterLink>
+                                        </div>
+
+                                        <div class="col-sm-1 ms-2">
+                                            <RouterLink to="/cliente/enderecos/editar" class="btn btn-outline-warning">Excluir</RouterLink>
                                         </div>
                                     </div>
                                 </div>
@@ -78,7 +82,7 @@
                             <div class="card cardForm mt-3" v-for="address of billingAddress">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-9">
                                             <div class="form-text">
                                                 {{ address.publicPlaceAddress }}, {{ address.numberAddress }}
                                             </div>
@@ -88,6 +92,10 @@
                                         </div>
                                         <div class="col-sm-1">
                                             <RouterLink to="/cliente/enderecos/editar" class="btn btn-outline-warning">Editar</RouterLink>
+                                        </div>
+
+                                        <div class="col-sm-1 ms-2">
+                                            <RouterLink to="/cliente/enderecos/editar" class="btn btn-outline-warning">Excluir</RouterLink>
                                         </div>
                                     </div>
                                 </div>
