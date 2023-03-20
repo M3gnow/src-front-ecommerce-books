@@ -559,7 +559,6 @@ export default {
       billingAddress,
       homeAddress,
       creditCard,
-      selectedGender: ''
     }
 
     getAllCardFlags()
@@ -578,7 +577,13 @@ export default {
     checkForm: function() {
       this.errors = []
 
-      if (!this.client.name || !this.client.lastName) {
+      if (!this.validatePassword(this.client.firstPassword) ||
+        !this.validatePassword(this.client.secondPassword) || !this.checkBothPasswords(this.client)
+      ) {
+        this.errors.push({ message: 'Padrão de senha incorreto' })
+      }
+
+      if (!this.client.name) {
         this.errors.push({ message: 'Nome e Sobrenome precisam ser preenchidos' })
       }
 
@@ -690,6 +695,8 @@ export default {
 
       if (identification) {
         addressModel.identification = address.nameIdentifier;
+      } else {
+        addressModel.identification = ''
       }
 
       return addressModel;
@@ -735,8 +742,23 @@ export default {
         adresses: this.modelToAddress(client),
         cards: this.modelToCard(client),
       }
-    }
+    },
+    checkBothPasswords(client) {
+        if (client.firstPassword === client.secondPassword) {
+            return true;
+        }
 
+        return false;
+    },
+    validatePassword(password) {
+        const regexValidate = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/;
+
+        if (regexValidate.test(password)) {
+            return true;
+        }
+
+        return false;
+    },
   },
 }
 </script>
