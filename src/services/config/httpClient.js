@@ -2,11 +2,16 @@ import axios from 'axios';
 import config from './enviroment'
 
 export const axiosInstance = axios.create({
-  timeout: 18000
+  timeout: 18000,
+  headers: { 
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    'Content-Type': 'application/json'
+  }
 })
 
 export const apiLesbook = config.VUE_APP_API_LESBOOK
-export const apiLesbookCard = `${config.VUE_APP_API_LESBOOK}/card`
+export const apiLesbookCard = `${config.VUE_APP_API_LESBOOK}/api/card`
 export const apiLesbookClientPassword = `${config.VUE_APP_API_LESBOOK}/client/changepassword`
 export const apiLesbookClient = config.VUE_APP_API_LESBOOK_CLIENT
 export const apiLesbookClientMock = config.VUE_APP_API_LESBOOK_CLIENT_MOCK

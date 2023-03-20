@@ -31,3 +31,11 @@ export const createCardByClientId = (data) => {
 
     return request;
 }
+
+export const changeCardById = (data) => {
+    const request = axiosInstance.put(apiLesbookCard, data)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))
+
+    return request;
+}

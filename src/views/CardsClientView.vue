@@ -18,7 +18,7 @@
             </div>
             <div class="card-body cardBody">
                 <div class="row">
-                    <div class="col-sm-11">
+                    <div class="col-sm-9">
                         <div class="form-label">
                             {{ card.flagCard }}
                         </div>
@@ -28,6 +28,10 @@
                     </div>
                     <div class="col-sm-1 p-2">
                         <RouterLink class="btn btn-outline-warning" to="/cliente/cartoes/editar">Editar</RouterLink>
+                    </div>
+
+                    <div class="col-sm-1 p-2">
+                        <RouterLink to="/cliente/cartoes/editar" class="btn btn-outline-warning">Excluir</RouterLink>
                     </div>
                 </div>
             </div>
