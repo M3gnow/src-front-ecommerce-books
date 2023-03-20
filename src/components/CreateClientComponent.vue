@@ -569,7 +569,7 @@ export default {
         console.log('Falha na consulta getAllCardFlags', err)
       })
 
-    return { client, options, errors: [] }
+    return { client, options, errors }
   },
   methods: {
     logOfObject: function() {
@@ -596,7 +596,7 @@ export default {
       }
 
       if (!this.client.cpf || !this.client.dateOfBirth 
-        || !this.client.gender || !this.client.typePhone 
+        || !this.client.gender || (!this.client.typePhone && this.client.typePhone !== 0)
         || !this.client.dddLocation || !this.client.phoneNumber) {
         this.errors.push({ message: 'Precisamos que diga mais sobre você' })
       }
