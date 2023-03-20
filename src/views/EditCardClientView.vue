@@ -116,7 +116,6 @@ export default {
                 || !this.creditCard.validityCard || !this.creditCard.nameCard 
                 || !this.creditCard.codeSecurityCard
             ) {
-                console.log('megnow')
                 this.errors.push({ message: 'Resta informações pendentes do seu cartão' })
             }
 
