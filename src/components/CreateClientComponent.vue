@@ -5,18 +5,18 @@
       <div class="form-text">O nome que você escolher será será exibido para todas as pessoas que interagirem com você
         no LesBooks.</div>
       <div class="row mt-3">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
           <label for="basic-url" class="form-label">Nome</label>
           <div class="input-group">
             <input type="text" class="form-control" id="name" name="name" v-model="client.name" aria-describedby="basic-addon3">
           </div>
         </div>
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
           <label for="basic-url" class="form-label">Sobrenome</label>
           <div class="input-group">
             <input type="text" class="form-control" id="lastName" name="lastName" v-model="client.lastName" aria-describedby="basic-addon3">
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 
