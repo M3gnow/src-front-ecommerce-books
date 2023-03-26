@@ -54,16 +54,19 @@
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { getCardById, getAllCardFlags, changeCardById } from '../services/modules'
+import { useRoute } from 'vue-router'
 
 export default {
     name: "EditCardClientView",
-    data: function() {
+    data: function() {        
+        const { params } = useRoute();
+
         let errors = [];
         const flags = [];
         const options = { flags }
         let creditCard = { }
 
-        getCardById(1)
+        getCardById(params.card_id)
             .then(async (result) => {
                 await this.loadFlags();
 
@@ -80,21 +83,17 @@ export default {
     },
     methods: {
         modelDetailCard: function(card) {
-            const existValidateFlag = this.options.flags
-                .find((flag) => flag === this.creditCard.flagCard)
+            console.log('card.flag.description' ,card.flag.description)
+
             
             let modelPreviewCard = {
                 id: card.id,
-                flagCard: card.flag.description,
+                flagCard: card.flag.id,
                 numberCard: card.number,
-                validityCard: card.expiration || '2028-02-02',
+                validityCard: this.formatDate(card.expiration),
                 nameCard: card.name,
                 codeSecurityCard: card.securityCode,
                 isMainCard: card.principal
-            }
-
-            if (!existValidateFlag) {
-                modelPreviewCard.flagCard = ''
             }
 
             return modelPreviewCard
@@ -164,7 +163,23 @@ export default {
                 })
             })
         },
+        formatDate: function(date) {
+            const dateOfBirth = new Date(date)
+            let day = dateOfBirth.getDate();
+            let month = dateOfBirth.getMonth() +1;
+            const year = dateOfBirth.getFullYear();
+
+            if (day < 10) {
+                day = `0${day}`
+            }
+
+            if (month < 10) {
+                month = `0${month}`
+            }
+
             
+            return [year, month, day].join('-');
+        }
     }
 }
 </script>

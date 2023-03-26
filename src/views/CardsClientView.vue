@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="col-sm-1 p-2">
-                        <RouterLink class="btn btn-outline-warning" to="/cliente/cartoes/editar">Editar</RouterLink>
+                        <RouterLink class="btn btn-outline-warning" :to="{ path: `/client/${ params.client_id }/cards/${ card.id }` }">Editar</RouterLink>
                     </div>
 
                     <div class="col-sm-1 p-2">
@@ -38,19 +38,21 @@
         </div>
 
         <div class="row d-flex justify-content-between p-3">
-            <router-link to="/cliente/cards/new" type="button" class="btn btn-warning">Adicionar Cartão</router-link>
+            <router-link to="/client/cards/new" type="button" class="btn btn-warning">Adicionar Cartão</router-link>
         </div>
     </div>
 </template>
 <script>
 import { getAllCardsByClientId } from '../services/modules'
+import { useRoute } from 'vue-router'
 
 export default {
     name: "CardsClientView",
     data: function() {
+        const { params } = useRoute();
         let cards = [];
 
-        getAllCardsByClientId(1)
+        getAllCardsByClientId(params.client_id)
             .then((result) => {
                 this.cards = this.modelCreditCard(result);
             })
@@ -59,13 +61,15 @@ export default {
             })
 
         return {
-            cards
+            cards,
+            params
         }
     },
     methods: {
         modelCreditCard: function(allCards) {
             const result = allCards.map((card) => {
                 return {
+                    id: card.id,
                     flagCard: card.flag.description,
                     numberCard: card.number.slice(card.number.length - 4),
                     validityCard: '15/02',

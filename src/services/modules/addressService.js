@@ -1,15 +1,15 @@
-import { axiosInstance, apiLesbookAddressMock, apiLesbookAddressByIdMock, apiLesbookAddress } from './../config'
+import { axiosInstance, apiLesbookAddress } from './../config'
 
-export const getAllAddress = () => {
-    const request = axiosInstance.get(apiLesbookAddressMock)
+export const getAllAddressByClientId = (clientId) => {
+    const request = axiosInstance.get(`${apiLesbookAddress}/all/${clientId}`)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 
     return request;
 }
 
-export const getAddressById = (id) => {
-    const request = axiosInstance.get("https://localhost:7260/api/adress/16")
+export const getAddressById = (addressId) => {
+    const request = axiosInstance.get(`${apiLesbookAddress}/${addressId}`)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 

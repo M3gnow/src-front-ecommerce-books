@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="col-sm-1">
-                        <RouterLink to="/cliente/enderecos/editar" class="btn btn-outline-warning">Editar</RouterLink>
+                        <RouterLink :to="{ path: `/client/${ params.client_id }/address/${ address.id }` }" class="btn btn-outline-warning">Editar</RouterLink>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-1">
-                                            <RouterLink to="/cliente/enderecos/editar" class="btn btn-outline-warning">Editar</RouterLink>
+                                            <RouterLink :to="{ path: `/client/${ params.client_id }/address/${ address.id }` }" class="btn btn-outline-warning">Editar</RouterLink>
                                         </div>
 
                                         <div class="col-sm-1 ms-2">
@@ -65,7 +65,7 @@
                         </div>
 
                         <div class="row d-flex justify-content-between m-3">
-                            <router-link to="/cliente/address/new" type="button" class="btn btn-warning">Adicionar Endereço</router-link>
+                            <router-link to="/client/address/new" type="button" class="btn btn-warning">Adicionar Endereço</router-link>
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-1">
-                                            <RouterLink to="/cliente/enderecos/editar" class="btn btn-outline-warning">Editar</RouterLink>
+                                            <RouterLink :to="{ path: `/client/${ params.client_id }/address/${ address.id }` }" class="btn btn-outline-warning">Editar</RouterLink>
                                         </div>
 
                                         <div class="col-sm-1 ms-2">
@@ -103,7 +103,7 @@
                         </div>
 
                         <div class="row d-flex justify-content-between m-3">
-                            <router-link to="/cliente/address/new" type="button" class="btn btn-warning">Adicionar Endereço</router-link>
+                            <router-link to="/client/address/new" type="button" class="btn btn-warning">Adicionar Endereço</router-link>
                         </div>
                     </div>
                 </div>
@@ -113,14 +113,16 @@
 </template>
 
 <script>
-import { getAllAddress } from '../services/modules'
+import { getAllAddressByClientId } from '../services/modules'
+import { useRoute } from 'vue-router'
 
 export default {
     name: "AdressesClientView",
     data: function () {
+        const { params } = useRoute();
         let homeAddress, deliveryAddress, billingAddress = [];
 
-        getAllAddress(1)
+        getAllAddressByClientId(params.client_id)
             .then((result) => {
                 const homeFilter = result.find((address) => address.typeAdress === 0);
                 const deliveryFilter = result.filter((address) => address.typeAdress === 1)
@@ -131,13 +133,14 @@ export default {
                 this.billingAddress = this.modelAddress(billingFilter)
             })
             .catch((err) => {
-                console.log('Falha na consulta getAllAddress', err)
+                console.log('Falha na consulta getAllAddressByClientId', err)
             })
 
         return {
             homeAddress,
             deliveryAddress,
-            billingAddress
+            billingAddress,
+            params
         }
     },
     methods: {
