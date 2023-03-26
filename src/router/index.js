@@ -47,41 +47,6 @@ const router = createRouter({
       component: CreateClientView
     },
     {
-      path: '/cliente/perfil',
-      name: 'ClienteProfile',
-      component: ProfileClientView
-    },
-    {
-      path: '/cliente/enderecos',
-      name: 'ClientAdresses',
-      component: AdressesClientView
-    },
-    {
-      path: '/cliente/enderecos/editar',
-      name: 'EditClientAdress',
-      component: EditAdressClientView
-    },
-    {
-      path: '/cliente/cartoes',
-      name: 'ClientCards',
-      component: CardsClientView
-    },
-    {
-      path: '/cliente/cartoes/editar',
-      name: 'EditClientCards',
-      component: EditCardClientView
-    },
-    {
-      path: '/cliente/senha',
-      name: 'ClientPassword',
-      component: ChangePasswordView
-    },
-    {
-      path: '/cliente/editar',
-      name: 'ClientPersonalData',
-      component: EditPersonalDataClientView
-    },
-    {
       path: '/compras',
       name: 'Purchases',
       component: PurchasesView
@@ -127,20 +92,55 @@ const router = createRouter({
       component: PurchaseVerifyView
     },
     {
-      path: '/cliente/coupon',
-      name: 'CouponClient',
-      component: CouponClientView
-    },
-    {
-      path: '/cliente/cards/new',
+      path: '/client/cards/new',
       name: 'NewCardClientView',
       component: NewCardClientView
     },
     {
-      path: '/cliente/address/new',
+      path: '/client/address/new',
       name: 'NewAddressClient',
       component: NewAddressClientView
-    }
+    },
+    {
+      path: '/client/:client_id/profile/',
+      name: 'ClienteProfile',
+      component: ProfileClientView
+    },
+    {
+      path: '/client/:client_id',
+      name: 'ClientPersonalData',
+      component: EditPersonalDataClientView
+    },
+    {
+      path: '/client/:client_id/password',
+      name: 'ClientPassword',
+      component: ChangePasswordView
+    },
+    {
+      path: '/client/:client_id/cards',
+      name: 'ClientCards',
+      component: CardsClientView
+    },
+    {
+      path: '/client/:client_id/cards/:card_id',
+      name: 'EditClientCards',
+      component: EditCardClientView
+    },
+    {
+      path: '/client/:client_id/address',
+      name: 'ClientAdresses',
+      component: AdressesClientView
+    },
+    {
+      path: '/client/:client_id/address/:address_id',
+      name: 'EditClientAdress',
+      component: EditAdressClientView
+    },
+    {
+      path: '/client/:client_id/coupon',
+      name: 'CouponClient',
+      component: CouponClientView
+    },
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },
     // { path: '/schools', component: Schools, meta: { authorization:  false } },

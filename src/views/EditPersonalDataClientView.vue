@@ -29,8 +29,8 @@
                     <div class="input-group">
                         <select class="form-select" id="gender" name="gender" v-model="client.gender">
                             <option disabled value="">Escolha...</option>
-                            <option v-for="option in options.genders" :value="option">
-                                {{ option }}
+                            <option v-for="option in options.genders" :value="option.value">
+                                {{ option.description }}
                             </option>
                         </select>
                     </div>
@@ -55,9 +55,9 @@
                     <label for="basic-url" class="form-label">Tipo de telefone</label>
                     <div class="input-group">
                     <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
-                    <option disabled value="">Escolha...</option>
-                        <option v-for="option in options.typesPhone" :value="option">
-                        {{ option }}
+                        <option disabled value="">Escolha...</option>
+                        <option v-for="option in options.typesPhone" :value="option.id">
+                        {{ option.description }}
                         </option>
                     </select>
                     </div>
@@ -86,17 +86,32 @@
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { getClientById } from '../services/modules'
+import { useRoute } from 'vue-router'
 
 export default {
     name: "EditPersonalDataClientView",
     data: function() {
+        const { params } = useRoute();
+
         let errors = [];
-        const typesPhone = ['Celular', 'Fixo'];
-        const genders = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
+        const typesPhone = [{
+                id: 0,
+                description: 'Fixo'
+            }, {
+                id: 1,
+                description: 'Celular'
+            }];
+        const genders = [{
+                value: 'F',
+                description: 'Femenino'
+            }, {
+                value: 'M',
+                description: 'Masculino'
+            }];
         const options = { typesPhone, genders }
         let client = {}
         
-        getClientById(1)
+        getClientById(params.client_id)
             .then((result) => {
                 this.client = this.modelDetailClient(result)
             })
@@ -112,33 +127,16 @@ export default {
     },
     methods: {
         modelDetailClient: function(client) {
-            const existValidateGender = this.options.genders
-                .find((gender) => gender === this.client.gender)
-
-            const existValidateTypePhone = this.options.typesPhone
-                .find((type) => type === this.client.typePhone)
-
-
-            let modelPreviewClient = {
+            return {
                 cpf: client.cpf,
-                dateOfBirth: client.birth || '2000-05-02',
+                dateOfBirth: client.birth ? this.formatDate(client.birth): '',
                 gender: client.gender,
                 email: client.user.email,
                 name: client.name,
                 phoneNumber: client.phone.phoneNumber,
                 dddLocation: client.phone.ddd,
-                typePhone: this.options.typesPhone[client.phone.typePhone],
+                typePhone: client.phone.typePhone,
             }
-
-            if (!existValidateGender) {
-                modelPreviewClient.gender = ''
-            }
-
-            if (!existValidateTypePhone) {
-                modelPreviewClient.typesPhone = ''
-            }
-
-            return modelPreviewClient;
         },
         checkForm: function() {
             this.errors = []
@@ -164,6 +162,23 @@ export default {
                 })
             })
         },
+        formatDate: function(date) {
+            const dateOfBirth = new Date(date)
+            let day = dateOfBirth.getDate();
+            let month = dateOfBirth.getMonth() +1;
+            const year = dateOfBirth.getFullYear();
+
+            if (day < 10) {
+                day = `0${day}`
+            }
+
+            if (month < 10) {
+                month = `0${month}`
+            }
+
+            
+            return [year, month, day].join('-');
+        }
     },
 }
 

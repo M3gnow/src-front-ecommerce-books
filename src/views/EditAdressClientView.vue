@@ -126,10 +126,13 @@
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { getAddressById, changeAddressById } from '../services/modules'
+import { useRoute } from 'vue-router'
 
 export default {
 	name: "EditAdressClientView",
 	data: function() {
+		const { params } = useRoute();
+
 		let errors = [];
 		const typesHome = [{
 				id: 0,
@@ -161,17 +164,17 @@ export default {
 		const options = { typesHome, typesPublicPlace, countries, cities, states, neighborhoods };
 		let address = {};
 
-		getAddressById(1)
+		getAddressById(params.address_id)
             .then((result) => {
 				console.log('RESULT', result);
 
 				this.address = this.modelDetailAddress(result)
             })
             .catch((err) => {
-                console.log('Falha na consulta getAllAddress', err)
+                console.log('Falha na consulta getAllAddressByClientId', err)
             })
 
-		return { address, options, errors }
+		return { address, options, errors, params }
 	},
 	methods: {
 		modelDetailAddress: function(address) {

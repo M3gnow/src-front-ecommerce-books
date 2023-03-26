@@ -1,4 +1,4 @@
-import { axiosInstance, apiLesbookCard, apiLesbook, apiLesbookCardsMock, apiLesbookCardByIdMock } from './../config'
+import { axiosInstance, apiLesbookCard } from './../config'
 
 export const getAllCardFlags = () => {
     const request = axiosInstance.get(`https://localhost:7260/card/flags`)
@@ -8,8 +8,8 @@ export const getAllCardFlags = () => {
     return request;
 }
 
-export const getAllCardsByClientId = (id) => {
-    const request = axiosInstance.get(apiLesbookCardsMock)
+export const getAllCardsByClientId = (clientId) => {
+    const request = axiosInstance.get(`${apiLesbookCard}/all/${clientId}`)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 
@@ -17,7 +17,7 @@ export const getAllCardsByClientId = (id) => {
 }
 
 export const getCardById = (id) => {
-    const request = axiosInstance.get(apiLesbookCardByIdMock)
+    const request = axiosInstance.get(`${apiLesbookCard}/${id}`)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 

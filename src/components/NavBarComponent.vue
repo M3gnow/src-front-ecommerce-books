@@ -34,8 +34,8 @@
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><router-link class="dropdown-item" href="#" to="/cliente/perfil">Meu Perfil</router-link></li>
-          <li><router-link class="dropdown-item" href="#" to="/cliente/coupon">Meus Cupons</router-link></li>
+          <li><router-link class="dropdown-item" href="#" :to="{ path: `/client/${client_id}/profile` }">Meu Perfil</router-link></li>
+          <li><router-link class="dropdown-item" href="#" :to="{ path: `/client/${client_id}/coupon` }">Meus Cupons</router-link></li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -82,6 +82,12 @@ export default {
   name: 'NavBarComponent',
   components: {
     Cart
+  },
+  data: function () {
+    return { 
+      client_id: 1
+    }
+
   }
 }
 </script>

@@ -89,7 +89,7 @@
             <label for="basic-url" class="form-label">Tipo de telefone</label>
             <div class="input-group">
               <select class="form-select" id="typePhone" name="typePhone" v-model="client.typePhone">
-              <option disabled value="">Escolha...</option>
+                <option disabled value="">Escolha...</option>
                 <option v-for="option in options.typesPhone" :value="option.id">
                   {{ option.description }}
                 </option>
