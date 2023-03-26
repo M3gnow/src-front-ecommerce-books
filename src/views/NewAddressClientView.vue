@@ -186,7 +186,7 @@ export default {
 				|| !this.address.stateAddress || !this.address.cityAddress 
 				|| !this.address.neighborhoodAddress ||
 				(!this.address.typeHomeAddress && this.address.typeHomeAddress !== 0) ||
-				(!this.address.typePublicPlaceAddress && this.address.typeHomeAddress !== 0)
+				(!this.address.typePublicPlaceAddress && this.address.typePublicPlaceAddress !== 0)
 			) {
 				if (this.address.typeAdress === 1) {
 					isDeliveryExistError = true;

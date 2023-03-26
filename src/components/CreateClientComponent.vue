@@ -72,8 +72,8 @@
           <div class="input-group">
             <select class="form-select" id="gender" name="gender" v-model="client.gender">
               <option disabled value="">Escolha...</option>
-              <option v-for="option in options.genders" :value="option">
-                {{ option }}
+              <option v-for="option in options.genders" :value="option.value">
+                {{ option.description }}
               </option>
             </select>
           </div>
@@ -131,8 +131,8 @@
           <div class="input-group">
             <select class="form-select" id="homeAddressTypeHomeAddress" name="homeAddressTypeHomeAddress" v-model="client.homeAddress.typeHomeAddress">
             <option disabled value="">Escolha...</option>
-              <option v-for="option in options.typesHome" :value="option">
-                {{ option }}
+              <option v-for="option in options.typesHome" :value="option.id">
+                {{ option.description }}
               </option>
             </select>
           </div>
@@ -142,8 +142,8 @@
           <div class="input-group">
             <select class="form-select" id="homeAddressTypePublicPlaceAddress" name="homeAddressTypePublicPlaceAddress" v-model="client.homeAddress.typePublicPlaceAddress">
             <option disabled value="">Escolha...</option>
-              <option v-for="option in options.typesPublicPlace" :value="option">
-                {{ option }}
+              <option v-for="option in options.typesPublicPlace" :value="option.id">
+                {{ option.description }}
               </option>
             </select>
           </div>
@@ -241,8 +241,8 @@
           <div class="input-group">
             <select class="form-select" id="deliveryAddressTypeHomeAddress" name="deliveryAddressTypeHomeAddress" v-model="client.deliveryAddress.typeHomeAddress">
             <option disabled value="">Escolha...</option>
-              <option v-for="option in options.typesHome" :value="option">
-                {{ option }}
+              <option v-for="option in options.typesHome" :value="option.id">
+                {{ option.description }}
               </option>
             </select>
           </div>
@@ -252,8 +252,8 @@
           <div class="input-group">
             <select class="form-select" id="deliveryAddressTypePublicPlaceAddress" name="deliveryAddressTypePublicPlaceAddress" v-model="client.deliveryAddress.typePublicPlaceAddress">
             <option disabled value="">Escolha...</option>
-              <option v-for="option in options.typesPublicPlace" :value="option">
-                {{ option }}
+              <option v-for="option in options.typesPublicPlace" :value="option.id">
+                {{ option.description }}
               </option>
             </select>
           </div>
@@ -342,8 +342,8 @@
             <div class="input-group">
               <select class="form-select" id="billingAddressTypeHomeAddress" name="billingAddressTypeHomeAddress" v-model="client.billingAddress.typeHomeAddress">
               <option disabled value="">Escolha...</option>
-                <option v-for="option in options.typesHome" :value="option">
-                  {{ option }}
+                <option v-for="option in options.typesHome" :value="option.id">
+                  {{ option.description }}
                 </option>
               </select>
             </div>
@@ -353,8 +353,8 @@
             <div class="input-group">
               <select class="form-select" id="billingAddressTypePublicPlaceAddress" name="billingAddressTypePublicPlaceAddress" v-model="client.billingAddress.typePublicPlaceAddress">
               <option disabled value="">Escolha...</option>
-                <option v-for="option in options.typesPublicPlace" :value="option">
-                  {{ option }}
+                <option v-for="option in options.typesPublicPlace" :value="option.id">
+                  {{ option.description }}
                 </option>
               </select>
             </div>
@@ -494,7 +494,13 @@ import { getAllCardFlags, createClient } from '../services/modules'
 export default {
   name: "CreateClientComponent",
   data: function() {
-    let genders = [ 'Femenino', 'Masculino', 'Prefiro não informar'];
+    let genders = [{
+        value: 'F',
+        description: 'Femenino'
+      }, {
+        value: 'M',
+        description: 'Masculino'
+      }];
     let errors = [];
     let typesPhone = [{
         id: 0,
@@ -504,8 +510,27 @@ export default {
         description: 'Celular'
       }];
     let flags = ['MasterCard', 'Visa', 'Elo'];
-    let typesHome = ['Casa', 'Apartamento', 'Chalé'];
-    let typesPublicPlace = ['Rua', 'Estrada', 'Avenida'];
+    const typesHome = [{
+				id: 0,
+				description: 'Casa'
+			}, {
+				id: 1,
+				description: 'Apartamento'
+			}];
+
+		const typesPublicPlace = [{
+				id: 0,
+				description: 'Rua'
+			}, {
+				id: 1,
+				description: 'Avenida'
+			}, {
+				id: 2,
+				description: 'Estrada'
+			}, {
+				id: 3,
+				description: 'Viela'
+			}];
     let countries = ['Brasil', 'Argentina', 'Peru'];
     let cities = ['Itaquaquecetuba', 'São Miguel', 'Itaim Paulista'];
     let states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
@@ -527,13 +552,16 @@ export default {
     }
     const deliveryAddress = {
       ...address,
-      nameIdentifier: ''
+      nameIdentifier: '',
+      typeAdress: 1
     }
     const billingAddress = {
       ...address,
+      typeAdress: 2
     }
     const homeAddress = {
       ...address,
+      typeAdress: 0
     }
     const creditCard = {
       flagCard: '',
@@ -601,29 +629,32 @@ export default {
         this.errors.push({ message: 'Precisamos que diga mais sobre você' })
       }
 
-      if (!this.client.homeAddress.cepAddress || !this.client.homeAddress.typeHomeAddress 
-        || !this.client.homeAddress.typePublicPlaceAddress || !this.client.homeAddress.publicPlaceAddress 
+      if (!this.client.homeAddress.cepAddress || !this.client.homeAddress.publicPlaceAddress 
         || !this.client.homeAddress.numberAddress || !this.client.homeAddress.countryAddress 
         || !this.client.homeAddress.stateAddress || !this.client.homeAddress.cityAddress 
-        || !this.client.homeAddress.neighborhoodAddress
+        || !this.client.homeAddress.neighborhoodAddress ||
+        (!this.client.homeAddress.typeHomeAddress && this.client.homeAddress.typeHomeAddress !== 0) ||
+				(!this.client.homeAddress.typePublicPlaceAddress && this.client.homeAddress.typePublicPlaceAddress !== 0)
       ) {
         this.errors.push({ message: 'Resta informações pendentes no endereço residencial' })
       }
 
       if (!this.client.deliveryAddress.nameIdentifier || !this.client.deliveryAddress.cepAddress 
-        || !this.client.deliveryAddress.typeHomeAddress || !this.client.deliveryAddress.typePublicPlaceAddress
         || !this.client.deliveryAddress.publicPlaceAddress || !this.client.deliveryAddress.numberAddress
         || !this.client.deliveryAddress.countryAddress || !this.client.deliveryAddress.stateAddress
-        || !this.client.deliveryAddress.cityAddress || !this.client.deliveryAddress.neighborhoodAddress
+        || !this.client.deliveryAddress.cityAddress || !this.client.deliveryAddress.neighborhoodAddress ||
+        (!this.client.deliveryAddress.typeHomeAddress && this.client.deliveryAddress.typeHomeAddress !== 0) ||
+				(!this.client.deliveryAddress.typePublicPlaceAddress && this.client.deliveryAddress.typePublicPlaceAddress !== 0)
       ) {
         this.errors.push({ message: 'Resta informações pendentes no endereço de entrega' })
       }
 
-      if (!this.client.billingAddress.cepAddress || !this.client.billingAddress.typeHomeAddress 
-        || !this.client.billingAddress.typePublicPlaceAddress || !this.client.billingAddress.publicPlaceAddress 
+      if (!this.client.billingAddress.cepAddress || !this.client.billingAddress.publicPlaceAddress 
         || !this.client.billingAddress.numberAddress || !this.client.billingAddress.countryAddress 
         || !this.client.billingAddress.stateAddress || !this.client.billingAddress.cityAddress 
-        || !this.client.billingAddress.neighborhoodAddress
+        || !this.client.billingAddress.neighborhoodAddress ||
+        (!this.client.billingAddress.typeHomeAddress && this.client.billingAddress.typeHomeAddress !== 0) ||
+				(!this.client.billingAddress.typePublicPlaceAddress && this.client.billingAddress.typePublicPlaceAddress !== 0)
       ) {
         this.errors.push({ message: 'Resta informações pendentes no endereço de cobrança' })
       }
@@ -672,14 +703,14 @@ export default {
       address.push(
         this.modelToAddressDefault(client.billingAddress),
         this.modelToAddressDefault(client.homeAddress),
-        this.modelToAddressDefault(client.deliveryAddress, client.deliveryAddress.nameIdentifier)
+        this.modelToAddressDefault(client.deliveryAddress)
       )
 
       return address;
     },
-    modelToAddressDefault: function(address, identification = '') {
+    modelToAddressDefault: function(address) {
       const addressModel = {
-				id_client: '',
+				id_client: 0,
 				street: address.publicPlaceAddress,
 				number: address.numberAddress,
 				obs: address.observationAddress || '',
@@ -693,7 +724,7 @@ export default {
 				typeStreet: parseInt(address.typePublicPlaceAddress)
 			}
 
-      if (identification) {
+      if (addressModel.typeAdress === 1) {
         addressModel.identification = address.nameIdentifier;
       } else {
         addressModel.identification = ''
@@ -702,8 +733,8 @@ export default {
       return addressModel;
     },
     modelToCard: function(client) {
-      return {
-          id_client: clientId,
+      return [{
+          id_client: 0,
           number: client.creditCard.numberCard,
           name: client.creditCard.nameCard,
           securityCode: client.creditCard.codeSecurityCard,
@@ -713,11 +744,11 @@ export default {
               id: client.creditCard.flagCard,
               description: ''
           }
-      }
+      }]
     },
     modelToPhone: function(client) {
       return {
-        id: '',
+        id: 0,
         phoneNumber: client.phoneNumber,
         ddd: client.dddLocation,
         typePhone: client.typePhone
@@ -725,7 +756,7 @@ export default {
     },
     modelToUser: function(client) {
       return {
-        id: '',
+        id: 0,
         email: client.email,
         password: client.firstPassword,
         typeUser: 1
