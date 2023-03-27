@@ -738,7 +738,7 @@ export default {
           number: client.creditCard.numberCard,
           name: client.creditCard.nameCard,
           securityCode: client.creditCard.codeSecurityCard,
-          pricipal: true,
+          principal: true,
           expiration: client.creditCard.validityCard,
           flag: {
               id: client.creditCard.flagCard,

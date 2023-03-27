@@ -92,7 +92,7 @@ const router = createRouter({
       component: PurchaseVerifyView
     },
     {
-      path: '/client/cards/new',
+      path: '/client/:client_id/cards/new',
       name: 'NewCardClientView',
       component: NewCardClientView
     },

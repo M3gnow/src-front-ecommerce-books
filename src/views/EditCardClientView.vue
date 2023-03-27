@@ -1,48 +1,58 @@
 <template>
     <form class="container" v-on:submit.prevent="checkForm">
-        <div id="divCartoes" class="card mt-3 p-2 cardForm p-4">
-            <label for="basic-url" class="form-label fs-3">Editar seu cartão</label>
+        <div id="divCartoes" class="card mt-3 cardForm">
+            <div class="card-header cardHeader">
+                <div class="row p-4">
+                    <h3 class="col-sm-9">Editar seu cartão</h3>
 
-            <div class="row mt-3">
-                <div class="col-sm-2">
-                <label for="basic-url" class="form-label">Bandeira</label>
-                <div class="input-group">
-                    <select class="form-select" id="creditCardFlagCard" name="creditCardFlagCard" v-model="creditCard.flagCard">
-                        <option disabled value="">Escolha...</option>
-                        <option v-for="option in options.flags" :value="option.id">
-                            {{ option.description }}
-                        </option>
-                    </select>
-                </div>
-                </div>
-                <div class="col-sm-7">
-                <label for="basic-url" class="form-label">Numero do cartão</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="numberCard" name="numberCard" v-model="creditCard.numberCard" aria-describedby="basic-addon3">
-                </div>
-                </div>
-                <div class="col-sm-3">
-                <label for="basic-url" class="form-label">Validade</label>
-                <div class="input-group">
-                    <input type="date" class="form-control" id="validityCard" name="validityCard" v-model="creditCard.validityCard" aria-describedby="basic-addon3">
-                </div>
+                    <div class="form-switch form-check-reverse col-sm-2 mt-2" v-if="options.editEnabled">
+                        <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckReverse" v-model="creditCard.isMainCard">
+                        <label class="form-check-label" for="flexSwitchCheckReverse">Tornar principal</label>
+                    </div>
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="col-sm-9">
-                <label for="basic-url" class="form-label">Nome</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="nameCard" name="nameCard" v-model="creditCard.nameCard" aria-describedby="basic-addon3">
+
+            <div class="card-body cardBody">
+                <div class="row mt-3">
+                    <div class="col-sm-2">
+                    <label for="basic-url" class="form-label">Bandeira</label>
+                    <div class="input-group">
+                        <select class="form-select" id="creditCardFlagCard" name="creditCardFlagCard" v-model="creditCard.flagCard">
+                            <option disabled value="">Escolha...</option>
+                            <option v-for="option in options.flags" :value="option.id">
+                                {{ option.description }}
+                            </option>
+                        </select>
+                    </div>
+                    </div>
+                    <div class="col-sm-7">
+                    <label for="basic-url" class="form-label">Numero do cartão</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="numberCard" name="numberCard" v-model="creditCard.numberCard" aria-describedby="basic-addon3">
+                    </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <label for="basic-url" class="form-label">Validade</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control" id="validityCard" name="validityCard" v-model="creditCard.validityCard" aria-describedby="basic-addon3">
+                    </div>
+                    </div>
                 </div>
-                </div>
-                <div class="col-sm-3">
-                <label for="basic-url" class="form-label">Codigo de segurança</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="codeSecurityCard" name="codeSecurityCard" v-model="creditCard.codeSecurityCard" aria-describedby="basic-addon3">
-                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-9">
+                    <label for="basic-url" class="form-label">Nome</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="nameCard" name="nameCard" v-model="creditCard.nameCard" aria-describedby="basic-addon3">
+                    </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <label for="basic-url" class="form-label">Codigo de segurança</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="codeSecurityCard" name="codeSecurityCard" v-model="creditCard.codeSecurityCard" aria-describedby="basic-addon3">
+                    </div>
+                    </div>
                 </div>
             </div>
-            <br>
         </div>
 
         <div class="row d-flex justify-content-between p-3">
@@ -60,15 +70,19 @@ export default {
     name: "EditCardClientView",
     data: function() {        
         const { params } = useRoute();
-
         let errors = [];
         const flags = [];
-        const options = { flags }
+        let editEnabled = true;
+        const options = { flags, editEnabled }
         let creditCard = { }
 
         getCardById(params.card_id)
             .then(async (result) => {
                 await this.loadFlags();
+
+                if (result.principal) {
+                    editEnabled = false;
+                }
 
                 this.creditCard = this.modelDetailCard(result);
 
@@ -83,9 +97,6 @@ export default {
     },
     methods: {
         modelDetailCard: function(card) {
-            console.log('card.flag.description' ,card.flag.description)
-
-            
             let modelPreviewCard = {
                 id: card.id,
                 flagCard: card.flag.id,
@@ -147,7 +158,7 @@ export default {
                 number: card.numberCard,
                 name: card.nameCard,
                 securityCode: card.codeSecurityCard,
-                pricipal: card.isMainCard,
+                principal: card.isMainCard,
                 flag: {
                     id: card.flagCard,
                     description: ''
@@ -187,6 +198,10 @@ export default {
 
 .cardForm {
   background-color: lightgoldenrodyellow !important
+}
+
+.cardHeader {
+    background-color: wheat !important;
 }
 
 </style>

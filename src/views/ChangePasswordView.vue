@@ -65,18 +65,30 @@
 <script>
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
-import { changePasswordByClientId } from '../services/modules'
+import { changePasswordByClientId, getClientById } from '../services/modules'
+import { useRoute } from 'vue-router'
 
 export default {
   name: "ChangePasswordView",
   data: function () {
+    const { params } = useRoute();
+
     let errors = [];
     const client = {
       actualPassword: "",
       firstNewPassword: "",
       secondNewPassword: "",
-      id: 1
+      id: params.client_id,
+      userId: ''
     };
+
+    getClientById(params.client_id)
+      .then((result) => {
+          this.client.userId = result.user.id
+      })
+      .catch((err) => {
+          console.log('Falha na consulta getAllCardsByClientId', err)
+      })
 
     return { client, errors };
   },
@@ -104,15 +116,18 @@ export default {
         this.errors.push({ message: 'Nova senha e confirmação não são iguais' })
       }
 
+      if(!this.validateRepeatPassword(this.client)) {
+        this.errors.push({ message: 'A nova senha não pode ser igual a antiga' })
+      }
+
       if (this.errors.length) {
         this.notify()
       } else {
         this.changePassword(this.client)
           .then((result) => {
-              console.log('sucess create')
-              //redirect page
+              console.log('sucess update password')
           })
-          .catch((err) => console.log('error create'))
+          .catch((err) => console.log('error update password'))
       }
     },
 		notify: function() {
@@ -141,6 +156,7 @@ export default {
     },
     changePassword: function(client) {
       const data = this.modelToChangePassword(client)
+
       changePasswordByClientId(data)
         .then((result) => {
             console.log('MEU NOBRE, CADASTREI');
@@ -156,8 +172,15 @@ export default {
         newPassword: client.firstNewPassword,
         confirmationPassword:client.secondNewPassword,
         oldPassword: client.actualPassword,
-        id: client.id
+        id: client.userId
       }
+    },
+    validateRepeatPassword: function(client) {
+      if (client.actualPassword === client.firstNewPassword) {
+        return false
+      }
+
+      return true;
     }
   }
 };

@@ -125,11 +125,14 @@
 <script>
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
-import { getAddressById, createAddressByClientId } from '../services/modules'
+import { createAddressByClientId } from '../services/modules'
+import { useRoute } from 'vue-router'
 
 export default {
 	name: "EditAdressClientView",
 	data: function() {
+		const { params } = useRoute();
+
 		let errors = [];
 		const typesHome = [{
 				id: 0,
@@ -174,7 +177,7 @@ export default {
             typeAdress: 1
         }
 
-		return { address, options, errors, client: { id: 11 } }
+		return { address, options, errors, params }
 	},
 	methods: {
 		checkForm: function() {
@@ -205,7 +208,7 @@ export default {
             if (this.errors.length) {
                 this.notify()
             } else {
-                this.createToAddress(this.client.id, this.address)
+                this.createToAddress(this.params.client_id, this.address)
 					.then((result) => {
                         console.log('sucess create')
                         //redirect page

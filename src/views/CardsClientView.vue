@@ -11,7 +11,7 @@
                         Terminando em {{ card.numberCard }}
                     </div>
                     <div class="form-switch form-check-reverse col-sm-7">
-                        <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckReverse" v-model="card.isMainCard">
+                        <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckReverse" v-model="card.isMainCard" disabled>
                         <label class="form-check-label" for="flexSwitchCheckReverse">Principal</label>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
         </div>
 
         <div class="row d-flex justify-content-between p-3">
-            <router-link to="/client/cards/new" type="button" class="btn btn-warning">Adicionar Cartão</router-link>
+            <router-link :to="{ path: `/client/${ params.client_id }/cards/new` }" type="button" class="btn btn-warning">Adicionar Cartão</router-link>
         </div>
     </div>
 </template>
@@ -75,7 +75,7 @@ export default {
                     validityCard: '15/02',
                     nameCard: card.name,
                     codeSecurityCard: card.securityCode,
-                    isMainCard: card.pricipal
+                    isMainCard: card.principal
                 }
             });
 

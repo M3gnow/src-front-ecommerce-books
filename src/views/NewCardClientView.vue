@@ -54,10 +54,13 @@
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { getAllCardFlags, createCardByClientId } from '../services/modules'
+import { useRoute } from 'vue-router'
 
 export default {
     name: "NewCardClientView",
     data: function() {
+        const { params } = useRoute();
+
         let errors = [];
         const flags = [];
         const options = { flags }
@@ -65,7 +68,7 @@ export default {
             id: '',
             flagCard: '',
             numberCard: '',
-            validityCard: '2028-02-02',
+            validityCard: '',
             nameCard: '',
             codeSecurityCard: '',
             isMainCard: ''
@@ -80,7 +83,7 @@ export default {
             })
 
 
-        return { creditCard, options, errors, client:{ id: 11 } }
+        return { creditCard, options, errors, params }
     },
     methods: {
         checkForm: function() {
@@ -96,7 +99,7 @@ export default {
             if (this.errors.length) {
                 this.notify()
             } else {
-                this.createToCard(this.client.id, this.creditCard)
+                this.createToCard(this.params.client_id, this.creditCard)
                     .then((result) => {
                         console.log('sucess create')
                         //redirect page
@@ -130,7 +133,7 @@ export default {
                 number: card.numberCard,
                 name: card.nameCard,
                 securityCode: card.codeSecurityCard,
-                pricipal: false,
+                principal: false,
                 expiration: card.validityCard,
                 flag: {
                     id: card.flagCard,
