@@ -37,7 +37,7 @@ const router = createRouter({
       component: PedidosView
     },
     {
-      path: '/products/detail',
+      path: '/products/:book_id/detail',
       name: 'DetailProduct',
       component: DetailProductView
     },
@@ -47,12 +47,12 @@ const router = createRouter({
       component: CreateClientView
     },
     {
-      path: '/compras',
+      path: '/client/:client_id/purchases',
       name: 'Purchases',
       component: PurchasesView
     },
     {
-      path: '/compras/detalhe',
+      path: '/client/:client_id/purchases/:purchase_id',
       name: 'DetailPurchase',
       component: DetailPurchaseView
     },

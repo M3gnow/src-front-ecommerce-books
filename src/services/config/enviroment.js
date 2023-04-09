@@ -14,6 +14,7 @@ const config = (() => {
         MOCK_APP_API_LESKBOOK_HOME_BY_ID: 'https://run.mocky.io/v3/0258bbf7-9652-4bfe-a14c-7002269c1b2c',
         MOCK_APP_API_LESKBOOK_DELIVERY_BY_ID: 'https://run.mocky.io/v3/50f8f3ff-b348-4bd4-a01a-c1ed2061b8bb',
         MOCK_APP_API_LESKBOOK_BILLING_BY_ID: 'https://run.mocky.io/v3/170dace0-8ce6-40c5-8537-20849f1f3060',
+        MOCK_APP_API_LESBOOK_CLIENT_PURCHASES: 'https://run.mocky.io/v3/09a3439d-0e55-47e2-885f-629a7f4ec6df'
     }
 })();
 

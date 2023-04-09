@@ -53,10 +53,16 @@
 <script>
 import { getClientById } from '../services/modules'
 import { useRoute } from 'vue-router'
-
+import { useStorage } from '@vueuse/core'
 export default {
     name: "ProfileClientView",
     data: function() {
+        const teste = JSON.parse(useStorage('client').value);
+        teste.id = 12345;
+        useStorage('client').value = teste;
+        const teste2 = JSON.parse(useStorage('client').value);
+        console.log(teste2);
+        
         const { params } = useRoute();
 
         let client = {

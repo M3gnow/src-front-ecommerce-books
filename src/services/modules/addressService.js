@@ -16,6 +16,14 @@ export const getAddressById = (addressId) => {
     return request;
 }
 
+export const getAddressByCep = (cep) => {
+    const request = axiosInstance.get(`${apiLesbookAddress}/cep/${cep}`)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))
+
+    return request;
+}
+
 export const createAddressByClientId = (data) => {
     const request = axiosInstance.post(apiLesbookAddress, data)
         .then((res) => Promise.resolve(res.data))
