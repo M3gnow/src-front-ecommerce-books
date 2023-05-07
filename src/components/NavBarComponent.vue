@@ -53,7 +53,7 @@
         </router-link>  
       </div>
 
-      <div class="btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+      <div class="btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" v-on:click="forceRerenderCart()">
         <font-awesome-icon icon="fa-solid fa-cart-shopping" />
         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">24</span>
       </div>
@@ -66,7 +66,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <Cart/>
+            <Cart :key="componentKey"/>
         </div>
       </div>
     </div>
@@ -77,6 +77,7 @@
 
 <script>
 import Cart from './CartComponent.vue'
+import { ref } from 'vue';
 
 export default {
   name: 'NavBarComponent',
@@ -84,10 +85,15 @@ export default {
     Cart
   },
   data: function () {
-    return { 
+    return {
+      componentKey: 0,
       client_id: 1
     }
-
+  },
+  methods: {
+    forceRerenderCart: function() {
+      this.componentKey += 1;
+    }
   }
 }
 </script>

@@ -48,7 +48,7 @@
       </div>
       <div class="d-flex p-3">
         <a href="#" class="btn btn-outline-warning btn-lg col-md-12" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" v-on:click="AddToCart(book)">
+          data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" v-on:click="AddToCart(book),forceRerenderCart()">
           <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           Adicionar ao Carrinho
         </a>
@@ -78,7 +78,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <Cart />
+        <Cart :key="componentKey"/>
       </div>
     </div>
 
@@ -89,7 +89,6 @@
 import { setClientStorage, initCartStorage, setItemToCartStorage, getCartStorage } from '@/storage/module'
 import Cart from '../components/CartComponent.vue'
 import { getClientById, getAllBooks } from '../services/modules'
-
 
 export default {
   name: 'HomeView',
@@ -119,7 +118,8 @@ export default {
         console.log('Falha na consulta getClientById', err);
       });
       return{
-        books
+        books,
+        componentKey: 0,
       }
   },
   methods: {
@@ -129,7 +129,9 @@ export default {
           return {
             id: book.id,
             title: book.title,
-            synopsis: book.synopsis
+            synopsis: book.synopsis,
+            quantity: 1,
+            price: 100
           }
         }
       );
@@ -139,7 +141,10 @@ export default {
   AddToCart: async function(book){
     await setItemToCartStorage(book);
     console.log(getCartStorage());
-  }
+  },
+  forceRerenderCart: function() {
+      this.componentKey += 1;
+    }
   }
 }
 </script>

@@ -7,7 +7,7 @@
             </h5>
           </div>
 
-          <div class="card mt-3">
+          <div class="card mt-3" >
             <div class="p-4 col-md-12">
               <div class="d-flex justify-content-between">
                 <div class="d-flex">
@@ -25,7 +25,7 @@
             </div>
           </div>
           
-          <div class="card mt-3">
+          <div class="card mt-3" v-for="item in cart.itens">
             <div class="p-4 col-md-12">
               <div class="d-flex justify-content-between">
                 <div class="d-flex">
@@ -34,8 +34,8 @@
                   </div>
 
                   <div class="d-flex flexwrap row ms-5">
-                    <label for=""><b>Harry Potter e a Pedra Filosofal</b></label>
-                    <label for="">Quantidade: 6</label>
+                    <label for=""><b>{{ item.title }}</b></label>
+                    <label for="">Quantidade: {{ item.quantity }}</label>
                     <label for="">R$100,00 cada</label>
                   </div>
                 </div>
@@ -43,41 +43,7 @@
             </div>
           </div>
 
-          <div class="card mt-3">
-            <div class="p-4 col-md-12">
-              <div class="d-flex justify-content-between">
-                <div class="d-flex">
-                  <div class="ms-3 ">
-                    <img class="imgItem" src="https://m.media-amazon.com/images/I/81ibfYk4qmL.jpg" alt="">
-                  </div>
-
-                  <div class="d-flex flexwrap row ms-5">
-                    <label for=""><b>Harry Potter e a Pedra Filosofal</b></label>
-                    <label for="">Quantidade: 6</label>
-                    <label for="">R$100,00 cada</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card mt-3">
-            <div class="p-4 col-md-12">
-              <div class="d-flex justify-content-between">
-                <div class="d-flex">
-                  <div class="ms-3 ">
-                    <img class="imgItem" src="https://m.media-amazon.com/images/I/81ibfYk4qmL.jpg" alt="">
-                  </div>
-
-                  <div class="d-flex flexwrap row ms-5">
-                    <label for=""><b>Harry Potter e a Pedra Filosofal</b></label>
-                    <label for="">Quantidade: 12</label>
-                    <label for="">R$100,00 cada</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+         
 
           <div class="card mt-3 p-3">
             <div class="d-flex">
@@ -104,10 +70,17 @@
 <script>
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
 
+import { getCartStorage } from '@/storage/module';
 export default {
     name: "PurchaseVerify",
     components: {
         ResumePurchaseComponent
+    },
+    data: function () {
+        let cart = getCartStorage();
+        return {
+            cart
+        }
     }
 }
 </script>

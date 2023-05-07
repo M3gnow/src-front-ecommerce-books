@@ -1,4 +1,4 @@
-<template>
+<template :key="componentKey">
     <div class="card border-success mb-3 p-2" v-for="item in cart.itens">
         <div class="card-header bg-transparent border-success">{{ item.title }}</div>
 
@@ -12,13 +12,15 @@
                     <div class="card mt-2 border border-0" style="width: 10rem;">
                         <div class="card-body d-flex justify-content-around">
                             <button class="btn">
-                                <i class="bi bi-arrow-left-circle-fill sizeButtonsAddAndRemove"></i>
+                                <i class="bi bi-arrow-left-circle-fill sizeButtonsAddAndRemove"
+                                    v-on:click="RemoveItem(item)"></i>
                             </button>
 
-                            <h4>12</h4>
+                            <h4>{{ item.quantity }}</h4>
 
                             <button class="btn">
-                                <i class="bi bi-arrow-right-circle-fill sizeButtonsAddAndRemove"></i>
+                                <i class="bi bi-arrow-right-circle-fill sizeButtonsAddAndRemove"
+                                    v-on:click="AddUnit(item)"></i>
                             </button>
 
                         </div>
@@ -32,7 +34,7 @@
         </div>
         <div class="d-flex justify-content-between card-footer bg-transparent border-success">
             <div>SubTotal</div>
-            <div>R$ 1200</div>
+            <div>R$ {{ item.price * item.quantity }}</div>
         </div>
 
     </div>
@@ -52,16 +54,33 @@
 </template>
 
 <script>
-import { getCartStorage } from '@/storage/module';
+import { getCartStorage, AddUnitToItemCartStorage, RemoveUnitToItemCartStorage } from '@/storage/module';
+import { ref } from 'vue';
 export default {
     name: "CartComponent",
+
     data: function () {
         let cart = getCartStorage();
-        console.log('carrinho dentro do carrinh', cart);
-
         return {
-            cart
+            cart,
+            componentKey: 0,
         }
+    },
+    methods: {
+        AddUnit: function (item) {
+            AddUnitToItemCartStorage(item);
+            console.log('add', getCartStorage());
+            this.forceRerender();
+        },
+        RemoveItem: function (item) {
+            RemoveUnitToItemCartStorage(item);
+            console.log('remove', getCartStorage());
+            this.forceRerender();
+        },
+        forceRerender() {
+            this.componentKey += 1;
+        }
+
     }
 }
 

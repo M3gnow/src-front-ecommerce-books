@@ -64,7 +64,7 @@ const router = createRouter({
     {
       path: '/purchase',
       name: 'Purchase',
-      component: PurchaseView
+      component: PurchaseAddressView
     },
     {
       path: '/purchase/address/delivery',

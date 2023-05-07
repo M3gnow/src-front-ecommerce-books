@@ -54,11 +54,24 @@
 
 <script>
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
-
+import getAllAddressByClientId from '@/services/modules';
 export default {
     name: "PurchaseView",
     components: {
       ResumePurchaseComponent
+    },
+    data: function(){
+      getAllAddressByClientId()
+            .then((result) => {
+                const homeFilter = result.find((address) => address.typeAdress === 1);
+
+                this.homeAddress = this.modelAddress([homeFilter])
+                this.deliveryAddress = this.modelAddress(deliveryFilter)
+                this.billingAddress = this.modelAddress(billingFilter)
+            })
+            .catch((err) => {
+                console.log('Falha na consulta getAllAddressByClientId', err)
+            })
     }
 }
 </script>
