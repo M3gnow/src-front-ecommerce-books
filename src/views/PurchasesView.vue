@@ -77,7 +77,7 @@ export default {
     methods: {
         modelPurchases: function (allPurchases) {
             const result = allPurchases.map((purchase) => {
-                switch (purchase.status) {
+                switch (purchase.statusOrder) {
                     case 1:
                         purchase.statusClass = " text-warning"
                         purchase.statusDescription = "Em processamento"
@@ -105,7 +105,7 @@ export default {
                     id: purchase.id,
                     status: purchase.status,
                     statusDescription: purchase.statusDescription,
-                    date: purchase.date,
+                    date: purchase.dateOrder,
                     statusClass: purchase.statusClass
                 }
             })

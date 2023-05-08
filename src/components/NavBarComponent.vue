@@ -48,7 +48,7 @@
       </div>
 
       <div class="m-1">
-        <router-link class="p-2 nav-link active" type="button" to="/compras">
+        <router-link class="p-2 nav-link active" type="button" :to="{ path: `/client/${client_id}/purchases`}">
           Compras
         </router-link>  
       </div>
