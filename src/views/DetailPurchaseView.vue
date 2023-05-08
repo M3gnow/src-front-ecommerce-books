@@ -1,30 +1,15 @@
 <template>
   <div class="container">
-    <br>
-    <br>
-    <div class="row">
+    <div class="row mt-5">
       <div class="col-sm-8">
-        <div class="alert alert-secondary" role="alert">
+        <div v-for="item in clientPurchases.items" class="alert alert-secondary" role="alert" v-bind:key="item.id">
           <div class="row">
             <div class="col-sm-10">
-              <label class="fs-6 text-center">Código limpo: Habilidades práticas do Agile Software</label>
-              <p class="form-text">2 unidades</p>
+              <label class="fs-6 text-center">{{ item.book.title }}</label>
+              <p class="form-text">{{ item.quantity}} unidades - R${{ parseFloat(item.totalValue).toFixed(2) }}</p>
             </div>
             <div class="col-sm-1">
-              <img src="../assets/img/livro1.jpeg" class="d-block w-100 h-100" style="width: 100px; height: 200px;"
-                alt="...">
-            </div>
-          </div>
-        </div>
-        <div class="alert alert-secondary" role="alert">
-          <div class="row">
-            <div class="col-sm-10">
-              <label class="fs-6 text-center">Álbum Copa Mundo Qatar 2022</label>
-              <p class="form-text">1 unidade</p>
-            </div>
-            <div class="col-sm-1">
-              <img src="../assets/img/livro2.jpeg" class="d-block w-100 h-100" style="width: 100px; height: 200px;"
-                alt="...">
+              <img src="../assets/img/livro1.jpeg" class="d-block w-100 h-100" style="width: 100px; height: 200px;" alt="...">
             </div>
           </div>
         </div>
@@ -32,15 +17,17 @@
           <div class="card">
             <div class="card-body">
               <div class="col-sm">
-                <label class="fs-7 text-center text-warning">Em processamento</label>
-                <p class="fs-5 fw-semibold">Aguardando confirmação do pagamento.</p>
+                <label class="fs-4 text-center" v-bind:class="labelStatusClass">{{ labelStatusDescription }}
+                </label>
+                
+                <p class="fs-5 fw-semibold mt-2">Aguardando confirmação do pagamento.</p>
                 <p class="fs-6">Estamos aguardando a confirmação de pagamento da operadora do cartão.</p>
                 <p class="fs-6">Assim que recebermos a confirmação, seu pedido será preparado para envio.</p>
               </div>
             </div>
           </div>
         </div>
-        <br>
+
         <div class="row">
           <div class="list-group">
             <a href="#" class="list-group-item list-group-item-action disabled text-reset fs-5">
@@ -49,39 +36,53 @@
             <a href="#" class="list-group-item list-group-item-action">Trocar item</a>
           </div>
         </div>
-        <br>
+
       </div>
       <div class="col-sm-4">
         <label class="fs-5 ">Detalhe da compra</label>
-        <label class="form-text">27 de fevereiro de 2023 <div class="vr"></div> #768219203878</label>
+        <p>
+          <label class="form-text">
+            {{ clientPurchases.dateOrder}} 
+              <div class="vr"></div> 
+            #{{ clientPurchases.id }}
+          </label>
+        </p>
+        
         <hr>
         <div class="d-flex justify-content-between p-2">
-          <label class="fs-6">Produtos(3)</label>
-          <label class="form-text"> R$ 210,20</label>
+          <label class="fs-6">Produtos ({{ totalQuantity }})</label>
+          <label class="form-text"> R$ {{ clientPurchases.totalValue }}</label>
         </div>
         <div class="d-flex justify-content-between p-2">
           <label class="fs-6">Frete</label>
-          <label class="form-text"> R$ 26,20</label>
+          <label class="form-text"> R$ 15.00</label>
         </div>
         <div class="d-flex justify-content-between p-2">
           <label class="fs-6">Endereço</label>
-          <label class="form-text"> Entrega principal</label>
+          <label class="form-text">{{ identificationAddress }}</label>
         </div>
         <div class="d-flex justify-content-end p-2">
-          <label class="form-text">Rua monte alto, 343 - São Paulo - Itaquaquecetuba</label>
+          <label class="form-text">
+            {{ labelAdress }}
+          </label>
         </div>
         <hr>
-        <div class="d-flex justify-content-between p-2">
-          <label class="fs-6">Pagamento</label>
-          <label class="form-text">1x R$ 234,40</label>
+        <label class="fs-6">Pagamento</label>
+        <div class="p-2">
+
+          <div v-for="payment in clientPurchases.payments" v-bind:key="payment.id">
+            <div class="d-flex justify-content-between p-2">
+              <div class="form-text">{{ payment.card.flag.description }} **** {{ payment.card.number.slice(payment.card.number.length - 4) }}</div>
+              <div class="form-text">à vista R$ {{ payment.value }}</div>
+            </div>
+          </div>
         </div>
         <div class="d-flex justify-content-end p-2">
-          <label class="form-text">Visa **** 1345</label>
         </div>
         <hr>
         <div class="d-flex justify-content-between p-2">
           <label class="fs-5 ">Total</label>
-          <label class="form-text">R$ 234,40</label>
+          <label class="form-text">R$ {{ clientPurchases.totalValue }}</label>
         </div>
         <hr>
       </div>
@@ -90,8 +91,79 @@
 </template>
 
 <script>
+import { getPurchaseById } from '../services/modules'
+import { useRoute } from 'vue-router'
+
 export default {
-  name: "DetailPurchaseView"
+  name: "DetailPurchaseView",
+  data: function() {
+    let clientPurchases = {};
+    const { params } = useRoute()
+    let totalQuantity = 0;
+    let identificationAddress = '';
+    let labelAdress = '';
+    let labelStatusClass;
+    let labelStatusDescription;
+
+    getPurchaseById(params.purchase_id)
+      .then((result) => {
+          console.log(result);
+
+          this.clientPurchases = result;
+          this.totalQuantity = result.items.reduce((aculumador, item) => aculumador + item.quantity, 0);
+          this.identificationAddress = result.adress.identification;
+          this.labelAdress = `${result.adress.street},  ${result.adress.number} -  ${result.adress.state} -  ${result.adress.city}`;
+          
+          this.labelStatusClass = this.getStatusClass(result.statusOrder)
+          this.labelStatusDescription = this.getStatusDescription(result.statusOrder)
+
+
+      })
+      .catch((err) => {
+          console.log('Falha na consulta getAllAddressByClientId', err)
+      })
+
+    return { 
+      clientPurchases,
+      totalQuantity,
+      identificationAddress,
+      labelAdress,
+      labelStatusClass,
+      labelStatusDescription
+    };
+  },
+  methods: {
+    getStatusClass: function(statusOrderId) {
+      switch (statusOrderId) {
+        case 1:
+            return "text-warning"
+        case 2:
+            return "text-success"
+        case 3:
+            return "text-danger"
+        case 4:
+            return " text-warning"
+        case 5:
+            return "text-success"
+        default:
+      }
+    },
+    getStatusDescription: function(statusOrderId) {
+      switch (statusOrderId) {
+        case 1:
+            return "Em processamento"
+        case 2:
+            return "Pagamento aprovado"
+        case 3:
+            return "Pagamento reprovado"
+        case 4:
+            return "Em transporte"
+        case 5:
+            return "Entregue"
+        default:
+      }
+    }
+  }
 }
 </script>
 

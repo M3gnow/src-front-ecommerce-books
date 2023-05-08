@@ -33,9 +33,7 @@
                             </div>
                         </div>
                         <div class="col-sm-9">
-                            <label class="fs-5 text-center" v-bind:class="[purchase.statusClass]">{{
-                                purchase.statusDescription
-                            }}</label>
+                            <label class="fs-5 text-center" v-bind:class="[purchase.statusClass]">{{ purchase.statusDescription }}</label>
                             <p class="fs-6">Estamos aguardando a confirmação de pagamento da operadora do cartão.</p>
                         </div>
                         <div class="col-sm-2">
