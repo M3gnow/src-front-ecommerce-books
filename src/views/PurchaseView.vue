@@ -61,7 +61,7 @@ export default {
       ResumePurchaseComponent
     },
     data: function(){
-      getAllAddressByClientId()
+      return getAllAddressByClientId()
             .then((result) => {
                 const homeFilter = result.find((address) => address.typeAdress === 1);
 

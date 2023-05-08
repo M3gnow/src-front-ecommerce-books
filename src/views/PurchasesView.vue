@@ -33,9 +33,7 @@
                             </div>
                         </div>
                         <div class="col-sm-9">
-                            <label class="fs-5 text-center" v-bind:class="[purchase.statusClass]">{{
-                                purchase.statusDescription
-                            }}</label>
+                            <label class="fs-5 text-center" v-bind:class="[purchase.statusClass]">{{ purchase.statusDescription }}</label>
                             <p class="fs-6">Estamos aguardando a confirmação de pagamento da operadora do cartão.</p>
                         </div>
                         <div class="col-sm-2">
@@ -77,7 +75,7 @@ export default {
     methods: {
         modelPurchases: function (allPurchases) {
             const result = allPurchases.map((purchase) => {
-                switch (purchase.status) {
+                switch (purchase.statusOrder) {
                     case 1:
                         purchase.statusClass = " text-warning"
                         purchase.statusDescription = "Em processamento"
@@ -105,7 +103,7 @@ export default {
                     id: purchase.id,
                     status: purchase.status,
                     statusDescription: purchase.statusDescription,
-                    date: purchase.date,
+                    date: purchase.dateOrder,
                     statusClass: purchase.statusClass
                 }
             })
