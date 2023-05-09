@@ -13,62 +13,99 @@
       </div>
     </div>
 
-    <div class="container d-flex justify-content-end mt-2">
-      <div class="m-1">
-        <router-link class="p-2 nav-link active" type="button" to="/cliente/cadastro">
-          Crie sua conta
-        </router-link>
-      </div>
-      
-      <div class="dropdown m-1">
-        <router-link class="p-2 nav-link dropdown-toggle" type="button" role="button" to="/" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          <font-awesome-icon icon="fa-solid fa-user" />
-          Andrew
-        </router-link>
-        <ul class="dropdown-menu">
-          <li>
-            <div class="dropdown-item disabled text-reset">Olá Andrew!</div>
-            <div class="dropdown-item disabled form-text">Você possui 1pts</div>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li><router-link class="dropdown-item" href="#" :to="{ path: `/client/${client_id}/profile` }">Meu Perfil</router-link></li>
-          <li><router-link class="dropdown-item" href="#" :to="{ path: `/client/${client_id}/coupon` }">Meus Cupons</router-link></li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li><router-link class="dropdown-item" href="#" to="/adm">Painel de administador</router-link></li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li><router-link class="dropdown-item" href="#" to="/">Sair</router-link></li>
-        </ul>
-      </div>
-
-      <div class="m-1">
-        <router-link class="p-2 nav-link active" type="button" :to="{ path: `/client/${client_id}/purchases`}">
-          Compras
-        </router-link>  
-      </div>
-
-      <div class="btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" v-on:click="forceRerenderCart()">
-        <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">24</span>
-      </div>
-
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasRightLabel">Meu carrinho 
-              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <Cart :key="componentKey"/>
+    <div class="container d-flex justify-content-between mt-2">
+      <div>
+        <div class="form-switch form-check-reverse">
+            <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckReverse" v-model="setAdm" @change="$event => checkEvent($event)">
+            <label class="form-check-label col-md-12" for="flexSwitchCheckReverse">{{ typeUser }}</label>
         </div>
       </div>
+
+      <div class="d-flex">
+
+        <div class="m-1" v-if="setAdm">
+          <router-link class="p-2 nav-link active" type="button" href="#" to="/adm">
+            Painel de Administrador
+          </router-link>
+
+        </div>
+
+        <div class="m-1" v-if="!setAdm">
+          <router-link class="p-2 nav-link active" type="button" to="/cliente/cadastro">
+            Crie sua conta
+          </router-link>
+        </div>
+        
+        <div class="dropdown m-1" v-if="!setAdm">
+          <router-link class="p-2 nav-link dropdown-toggle" type="button" role="button" to="/" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <font-awesome-icon icon="fa-solid fa-user" />
+            Andrew
+          </router-link>
+          <ul class="dropdown-menu">
+            <li>
+              <div class="dropdown-item disabled text-reset">
+                Olá Andrew!
+              </div>
+              <div class="dropdown-item disabled form-text">
+                Você possui 1pts
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <router-link class="dropdown-item" href="#" :to="{ path: `/client/${client_id}/profile` }">
+                  Meu Perfil
+              </router-link>
+            </li>
+
+            <li>
+              <router-link class="dropdown-item" href="#" :to="{ path: `/client/${client_id}/coupon` }">
+                Meus Cupons
+              </router-link>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <router-link class="dropdown-item" href="#" to="/">
+                Sair
+              </router-link>
+            </li>
+          </ul>
+        </div>
+
+        <div class="m-1" v-if="!setAdm">
+          <router-link class="p-2 nav-link active" type="button" :to="{ path: `/client/${client_id}/purchases`}">
+            Compras
+          </router-link>  
+        </div>
+
+        <div class="btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" v-on:click="forceRerenderCart()" v-if="!setAdm">
+          <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+
+          <!-- number itens in cart: add next -->
+          <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">24</span> -->
+        </div>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" v-if="!setAdm">
+          <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasRightLabel">Meu carrinho 
+                <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+              <Cart :key="componentKey"/>
+          </div>
+        </div>
+      </div>
+
     </div>
   </nav>
 
@@ -85,14 +122,30 @@ export default {
     Cart
   },
   data: function () {
+    let setAdm = false;
+    let typeUser = 'Cliente'
+    if (this.setAdm) {
+      console.log('setAdm', setAdm);
+    }
+
     return {
       componentKey: 0,
-      client_id: 1
+      client_id: 1,
+      typeUser,
+      setAdm,
     }
   },
   methods: {
     forceRerenderCart: function() {
       this.componentKey += 1;
+    },
+    checkEvent(event) {
+      if (this.setAdm) {
+        this.typeUser = 'Administrador'
+      } else {
+        this.typeUser = 'Cliente'
+      }
+
     }
   }
 }
