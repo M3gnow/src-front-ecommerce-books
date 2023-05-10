@@ -1,4 +1,4 @@
-import { axiosInstance, apiLesbookPurchasesClientId, apiLesbookPurchase } from '../config'
+import { axiosInstance, apiLesbookPurchasesClientId, apiLesbookOrder } from '../config'
 
 export const getClientPurchases  = (id) => {
     const request = axiosInstance.get(`${apiLesbookPurchasesClientId}/${id}`)
@@ -9,7 +9,7 @@ export const getClientPurchases  = (id) => {
 }
 
 export const getPurchaseById = (id) => {
-    const request = axiosInstance.get(`${apiLesbookPurchase}/${id}`)
+    const request = axiosInstance.get(`${apiLesbookOrder}/${id}`)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 
