@@ -17,7 +17,7 @@
                     </router-link>
                 </div>
                 <div class="row d-flex justify-content-between p-3">
-                    <router-link to="/adm/cartoes" type="button" class="btn btn-light border text-reset">
+                    <router-link to="/adm/orders" type="button" class="btn btn-light border text-reset">
                         <label for="basic-url" class="form-label fs-3">Pedidos</label>
                         <div class="form-text">Gerencie pedidos de compra e troca.</div>
                     </router-link>

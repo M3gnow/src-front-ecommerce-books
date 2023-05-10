@@ -21,6 +21,7 @@ import PurchaseVerifyView from '../views/PurchaseVerifyView'
 import CouponClientView from '../views/CouponClientView'
 import NewCardClientView from '../views/NewCardClientView'
 import NewAddressClientView from '../views/NewAddressClientView'
+import AdminOrdersView from '../views/AdminOrdersView'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -140,6 +141,12 @@ const router = createRouter({
       name: 'CouponClient',
       component: CouponClientView
     },
+    {
+      path: '/adm/orders',
+      name: 'AdminOrders',
+      component: AdminOrdersView
+    },
+
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },
     // { path: '/schools', component: Schools, meta: { authorization:  false } },
