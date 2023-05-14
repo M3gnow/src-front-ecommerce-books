@@ -56,7 +56,7 @@
 
       <div class="d-flex justify-content-between p-3 pt-0">
         <router-link :to="{ path: `/products/${ book.id}/detail` }" href="#" class="btn btn-outline-info btn-lg">Detalhes</router-link>
-        <router-link to="/purchase">
+        <router-link to="/purchase" v-on:click="AddToCart(book)">
           <div class="btn btn-outline-success btn-lg">
             Comprar
           </div>
@@ -96,7 +96,7 @@ export default {
     Cart
   },
   data: function () {
-    getClientById(1)
+    getClientById(5)
       .then((client) => {
         const { id, name, ranking } = client
 

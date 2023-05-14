@@ -7,3 +7,11 @@ export const getOrders  = () => {
 
     return request;
 }
+
+export const getDeliveryPrice = (zipcode) => {
+    const request = axiosInstance.get(`${apiLesbookOrder}/delivery/${zipcode}`)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))
+
+    return request;
+}

@@ -1,4 +1,3 @@
-import { faExplosion } from "@fortawesome/free-solid-svg-icons";
 import { useStorage } from "@vueuse/core";
 
 
@@ -26,7 +25,8 @@ export const initCartStorage = function () {
         validation: 0,
         id_delivery_adress: 0,
         payments: [],
-        coupons: []
+        coupons: [],
+        discount: 0
     };
     useStorage('cart',JSON.stringify(cart));
 }
@@ -78,5 +78,14 @@ export const AddCouponToCartStorage = function(value){
     const cartStorage = useStorage('cart');
     let cart = JSON.parse(cartStorage.value);
     cart.coupons.push(value);
+    cart.discount += value.value;
+    cartStorage.value = JSON.stringify(cart);
+}
+export const RemoveCouponFromCartStorage = function(value){
+    const cartStorage = useStorage('cart');
+    let cart = JSON.parse(cartStorage.value);
+    cart.coupons = array.filter(function(objeto) {
+        return objeto.description != value.description;
+      });
     cartStorage.value = JSON.stringify(cart);
 }

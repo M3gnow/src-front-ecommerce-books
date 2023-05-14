@@ -18,7 +18,8 @@ export const apiLesbookAddress = `${config.VUE_APP_API_LESBOOK}/api/adress`
 export const apiLesbookOrder = `${config.VUE_APP_API_LESBOOK}/api/order`
 export const apiLesbookPurchasesClientId = `${config.VUE_APP_API_LESBOOK}/api/order/client`
 export const apiMockPurchases = `${config.MOCK_APP_API_LESBOOK_CLIENT_PURCHASES}`
-export const apiMockAllBooks = "https://run.mocky.io/v3/93c0a913-68ba-44de-bde8-d6481df21b96";
+export const apiMockAllBooks = "https://localhost:7260/api/books";
+export const apiLesBookCoupon = "https://localhost:7260/api/coupon";
 // MOCK
 
 // export const apiLesbookClientMock = config.VUE_APP_API_LESBOOK_CLIENT_MOCK

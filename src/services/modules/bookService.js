@@ -7,3 +7,11 @@ export const getAllBooks = () => {
 
     return request;
 }
+
+export const getBook = (id) => {
+    const request = axiosInstance.get(`${apiMockAllBooks}/${id}`)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))
+
+    return request;
+}
