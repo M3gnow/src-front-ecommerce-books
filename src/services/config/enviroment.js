@@ -9,6 +9,7 @@ const config = (() => {
         MOCK_APP_API_LESKBOOK_CARDS: 'https://localhost:7260/api/card/all/11',
         MOCK_APP_API_LESKBOOK_CARD_BY_ID: 'https://localhost:7260/api/card/13',
         
+        
         // MOCK
         VUE_APP_API_LESBOOK_CLIENT_MOCK: 'https://run.mocky.io/v3/148a713d-d591-4850-8b3a-74d1d2b695ec',
         MOCK_APP_API_LESKBOOK_HOME_BY_ID: 'https://run.mocky.io/v3/0258bbf7-9652-4bfe-a14c-7002269c1b2c',
