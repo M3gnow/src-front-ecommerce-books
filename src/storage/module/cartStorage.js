@@ -26,7 +26,8 @@ export const initCartStorage = function () {
         id_delivery_adress: 0,
         payments: [],
         coupons: [],
-        discount: 0
+        discount: 0,
+        expiration: 0
     };
     useStorage('cart',JSON.stringify(cart));
 }
@@ -87,5 +88,11 @@ export const RemoveCouponFromCartStorage = function(value){
     cart.coupons = array.filter(function(objeto) {
         return objeto.description != value.description;
       });
+    cartStorage.value = JSON.stringify(cart);
+}
+export const SetExpirationCart = function(value){
+    const cartStorage = useStorage('cart');
+    let cart = JSON.parse(cartStorage.value);
+    cart.expiration = value;
     cartStorage.value = JSON.stringify(cart);
 }

@@ -48,14 +48,16 @@
       </div>
       <div class="d-flex p-3">
         <a href="#" class="btn btn-outline-warning btn-lg col-md-12" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" v-on:click="AddToCart(book),forceRerenderCart()">
+          data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+          v-on:click="AddToCart(book), forceRerenderCart()">
           <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           Adicionar ao Carrinho
         </a>
       </div>
 
       <div class="d-flex justify-content-between p-3 pt-0">
-        <router-link :to="{ path: `/products/${ book.id}/detail` }" href="#" class="btn btn-outline-info btn-lg">Detalhes</router-link>
+        <router-link :to="{ path: `/products/${book.id}/detail` }" href="#"
+          class="btn btn-outline-info btn-lg">Detalhes</router-link>
         <router-link to="/purchase" v-on:click="AddToCart(book)">
           <div class="btn btn-outline-success btn-lg">
             Comprar
@@ -78,7 +80,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <Cart :key="componentKey"/>
+        <Cart :key="componentKey" />
       </div>
     </div>
 
@@ -86,9 +88,9 @@
 </template>
 
 <script>
-import { setClientStorage, initCartStorage, setItemToCartStorage, getCartStorage } from '@/storage/module'
+import { setClientStorage, initCartStorage, setItemToCartStorage, getCartStorage,SetExpirationCart } from '@/storage/module'
 import Cart from '../components/CartComponent.vue'
-import { getClientById, getAllBooks } from '../services/modules'
+import { getClientById, getAllBooks, setLockBook } from '../services/modules'
 
 export default {
   name: 'HomeView',
@@ -96,15 +98,16 @@ export default {
     Cart
   },
   data: function () {
+    let client
     getClientById(5)
-      .then((client) => {
-        const { id, name, ranking } = client
-
+      .then((result) => {
+        const { id, name, ranking } = result
+        this.client = result;
         if (!id) {
           throw 'ERROR CLIENT ID';
         }
-        setClientStorage(client);
-        
+        setClientStorage(result);
+
       })
       .catch((err) => {
         console.log('Falha na consulta getClientById', err);
@@ -117,10 +120,11 @@ export default {
       .catch((err) => {
         console.log('Falha na consulta getClientById', err);
       });
-      return{
-        books,
-        componentKey: 0,
-      }
+    return {
+      client,
+      books,
+      componentKey: 0,
+    }
   },
   methods: {
     modelBooks: function (books) {
@@ -136,13 +140,20 @@ export default {
         }
       );
       return result;
-      },
-  
-  AddToCart: async function(book){
-    await setItemToCartStorage(book);
-    console.log(getCartStorage());
-  },
-  forceRerenderCart: function() {
+    },
+    AddToCart: async function (book) {
+      console.log(this.client)
+      setLockBook(this.client.id,book.id)
+        .then((result) => {
+          setItemToCartStorage(book);
+          SetExpirationCart(result);
+        })
+        .catch((err) => {
+          alert('Não há livros em estoque no momento.')
+          
+        })
+    },
+    forceRerenderCart: function () {
       this.componentKey += 1;
     }
   }
@@ -171,4 +182,5 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis !important;
-}</style>
+}
+</style>
