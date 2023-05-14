@@ -15,3 +15,11 @@ export const getDeliveryPrice = (zipcode) => {
 
     return request;
 }
+
+export const updateStatusOrder = (data) => {
+    const request = axiosInstance.patch(apiLesbookOrder, data)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))
+
+    return request;
+}

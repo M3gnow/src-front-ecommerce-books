@@ -1,13 +1,16 @@
 <template>
-  <div class="container">
-    <div class="mt-5">
-        <h2>Lista de Pedidos</h2>
-    </div>
+  <div class="container card mt-3 p-4 cardForm">
 
-    <div class="d-flex justify-content-end">
-        <div class="d-flex justify-content-around col-md-6">
-            <button type="button" class="btn btn-warning">Compras</button>
-            <button type="button" class="btn btn-warning">Trocas</button>
+    <div class="form-label fs-3">
+        <div class="d-flex justify-content-between">
+            <div>
+                Lista de Pedidos    
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-warning m-1" @click="getOnlyPurchases">Compras</button>
+                <button type="button" class="btn btn-warning m-1" @click="getOnlyReplacement">Trocas</button>
+            </div>
         </div>
     </div>
 
@@ -30,16 +33,15 @@
                 <td>{{ order.date  }}</td>
                 <td>{{ order.total  }}</td>
                 <td>
-                    <button type="button" class="btn btn-warning">Detalhes</button>
+                    <RouterLink class="btn btn-outline-warning" :to="{ path: `/adm/orders/${ order.id }` }">Detalhes</RouterLink>
                 </td>
             </tr>
         </tbody>
     </table>
+    
   </div>
 </template>
 
-
-<!-- <label class="fs-4 text-center" v-bind:class="labelStatusClass">{{ labelStatusDescription }} -->
 <script>
 import { getOrders } from '../services/modules'
 
@@ -47,10 +49,13 @@ export default {
     
     data: function() {
         let orders = [];
+        let allOrders = [];
 
         getOrders()
             .then((data) =>{
+                console.log('data, wo', data)
                 this.orders = this.formatOrderFromTable(data)
+                this.allOrders = this.formatOrderFromTable(data)
                 console.log('data,', this.orders)
             })
             .catch((err) => {
@@ -59,7 +64,7 @@ export default {
 
         
 
-        return { orders }
+        return { orders, allOrders }
     },
     methods: {
         formatOrderFromTable(ordersData) {
@@ -72,6 +77,7 @@ export default {
                     clientName: order.client.name || '',
                     labelStatusClass: this.getStatusClass(order.statusOrder),
                     labelStatusDescription: this.getStatusDescription(order.statusOrder),
+                    type: order.type
                 }
             })
         },
@@ -104,6 +110,14 @@ export default {
                     return "Entregue"
                 default:
             }
+        },
+        getOnlyPurchases() {
+            console.log('purchase');
+            this.orders = this.allOrders.filter((order) => order.type === 2)
+        },
+        getOnlyReplacement() {
+            console.log('replacement');
+            this.orders = this.allOrders.filter((order)=> order.type === 1)
         }
     }
 }
