@@ -125,16 +125,16 @@
 </template>
 
 <script>
-import { getDeliveryPrice } from '@/services/modules';
+import { getDeliveryPrice,setLockBook } from '@/services/modules';
 import { getBook } from '@/services/modules';
 import { useRoute } from 'vue-router'
-import { setItemToCartStorage } from '@/storage/module';
+import { setItemToCartStorage,getClientStorage } from '@/storage/module';
 export default {
     name: 'DetailProductView',
     data: function () {
+        let client = getClientStorage();
         const { params } = useRoute();
         let zipcode = "", deliveryPrice = 0, book = {};
-
         getBook(params.book_id)
             .then((result) => {
                 this.book = result;
@@ -142,7 +142,7 @@ export default {
             .catch((err) => {
                 console.log('Falha na consulta getDeliveryPrice', err)
             })
-        return { text: 'Ticta', textMegnow: '', zipcode, deliveryPrice, book }
+        return { text: 'Ticta', textMegnow: '', zipcode, deliveryPrice, book,client }
     },
     methods: {
         getAdress(zipcode) {
@@ -160,8 +160,15 @@ export default {
             })
         },
         AddToCart: async function (book) {
-            await setItemToCartStorage(book);
-            console.log(getCartStorage());
+            console.log(this.client)
+            setLockBook(this.client.id, book.id)
+                .then((result) => {
+                    setItemToCartStorage(book);
+                    SetExpirationCart(result);
+                })
+                .catch((err) => {
+                    alert('Não há livros em estoque no momento.')
+                })
         },
     }
 }
