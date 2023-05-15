@@ -28,6 +28,8 @@ export const initCartStorage = function () {
         coupons: [],
         discount: 0
     };
+
+    console.log('method = initCartStorage', cart);
     useStorage('cart',JSON.stringify(cart));
 }
 export const AddUnitToItemCartStorage = function(value){
@@ -43,21 +45,27 @@ export const RemoveUnitToItemCartStorage = function(value){
     const index = cart.itens.findIndex((item) => item.id === value.id);
     cart.itens[index].quantity--;
     cartStorage.value = JSON.stringify(cart);
+
+    console.log('method = RemoveUnitToItemCartStorage', cart);
 }
 
-const UpdateFinalPriceCartStorage = function(){
+export const UpdateFinalPriceCartStorage = function(){
     const cartStorage = useStorage('cart');
-    let cart = JSON.parse(cartStorage.value);
-    cart.finalPrice = 0;
-    cart.totalQuantity = 0;
-    cart.itens.forEach((item) =>
-        {
-        cart.finalPrice += item.quantity * item.price,
-        cart.totalQuantity += item.quantity
-        }
-    )
-    console.log('cart',cart);
-    cartStorage.value = JSON.stringify(cart);
+    if (JSON.parse(cartStorage.value) !== undefined) {
+        let cart = JSON.parse(cartStorage.value) || {};
+        cart.finalPrice = 0;
+        cart.totalQuantity = 0;
+        cart.itens.forEach((item) =>
+            {
+            cart.finalPrice += item.quantity * item.price,
+            cart.totalQuantity += item.quantity
+            }
+        )
+        console.log('method = UpdateFinalPriceCartStorage', cart);
+        cartStorage.value = JSON.stringify(cart);
+
+        console.log('method = UpdateFinalPriceCartStorage', cart);
+    }
 }
 
 export const setAdressDeliveryToCartStorage = function(value){
@@ -65,6 +73,8 @@ export const setAdressDeliveryToCartStorage = function(value){
     let cart = JSON.parse(cartStorage.value);
     cart.id_delivery_adress = value;
     cartStorage.value = JSON.stringify(cart);
+
+    console.log('method = setAdressDeliveryToCartStorage', cart);
 }
 
 export const AddPaymentToCartStorage =  function(value){
@@ -72,6 +82,8 @@ export const AddPaymentToCartStorage =  function(value){
     let cart = JSON.parse(cartStorage.value);
     cart.payments.push(value);
     cartStorage.value = JSON.stringify(cart);
+
+    console.log('method = AddPaymentToCartStorage', cart);
 }
 
 export const AddCouponToCartStorage = function(value){
@@ -80,6 +92,8 @@ export const AddCouponToCartStorage = function(value){
     cart.coupons.push(value);
     cart.discount += value.value;
     cartStorage.value = JSON.stringify(cart);
+
+    console.log('method = AddCouponToCartStorage', cart);
 }
 export const RemoveCouponFromCartStorage = function(value){
     const cartStorage = useStorage('cart');
@@ -88,6 +102,8 @@ export const RemoveCouponFromCartStorage = function(value){
         return objeto.description != value.description;
       });
     cartStorage.value = JSON.stringify(cart);
+
+    console.log('method = RemoveCouponFromCartStorage', cart);
 }
 
 export const AddPaymentsToCartStorage = function(payments){
@@ -100,4 +116,6 @@ export const AddPaymentsToCartStorage = function(payments){
     console.log('cart, BIGBIG', cart);
     cart.payments = payments;
     cartStorage.value = JSON.stringify(cart);
+
+    console.log('method = AddPaymentsToCartStorage', cart);
 }

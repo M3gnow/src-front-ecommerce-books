@@ -37,7 +37,7 @@
                 <h5>Como você prefere pagar?</h5>
             </div>
 
-            <div class="card mt-4" v-for="card in cards" v-bind:key="card.id">
+            <div class="card mt-4" v-for="card in cards">
                 <div class="p-4 col-md-12">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-between">
