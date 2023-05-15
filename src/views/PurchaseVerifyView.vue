@@ -128,12 +128,17 @@ export default {
       });
     
     const client = getClientStorage();
+    const modelItens = cart.itens.map((iten) => {
+      iten.boook_id = iten.id
+
+      return iten;
+    });
 
     // criar o objeto JSON de pedido
     const pedido = {
       adress_delivery_id: cart.id_delivery_adress,
       client_id: client.id,
-      itens: cart.itens,
+      itens: modelItens,
       coupons: cart.coupons,
       payments: cart.payments
     };
