@@ -70,6 +70,8 @@ export default {
         formatOrderFromTable(ordersData) {
             return ordersData.map((order) => {
 
+                console.log('megnow item',order);
+
                 return { 
                     id: order.id || 0,
                     date: order.dateOrder || '',

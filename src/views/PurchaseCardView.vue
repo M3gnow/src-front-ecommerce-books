@@ -149,7 +149,7 @@
                                 </label>
                             </div>
                             <div>
-                                <label class="form-text text-warning"> R$ {{ 15 }}</label>
+                                <label class="form-text text-warning"> R$ {{ 25 }}</label>
                             </div>
                         </div>
 
@@ -221,7 +221,7 @@ export default {
         coupons = cart.coupons;
         finalPrice = cart.finalPrice
         discount = cart.coupons.reduce((acumulated, current) => acumulated + current.value, 0)
-        finalPrice += 15;
+        finalPrice += 25;
         finalPrice -= discount;
 
         getAddressById(cart.id_delivery_adress)
