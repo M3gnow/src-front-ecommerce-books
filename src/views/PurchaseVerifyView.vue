@@ -148,7 +148,8 @@ export default {
       coupons: cart.coupons,
       payments: modelPayments
     };
-    console.log("pedido", pedido);
+    
+    console.log("pedido", order);
     return {
       cart, address, order
     }
