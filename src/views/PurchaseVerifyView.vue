@@ -129,7 +129,7 @@ export default {
     
     const client = getClientStorage();
     const modelItens = cart.itens.map((iten) => {
-      iten.boook_id = iten.id
+      iten.book_id = iten.id
 
       return iten;
     });
