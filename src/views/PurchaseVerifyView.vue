@@ -108,13 +108,8 @@
 
 <script>
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
-<<<<<<< HEAD
 import { getCartStorage,getClientStorage } from '@/storage/module';
 import { getAddressById, createOrder } from '@/services/modules';
-=======
-import { getCartStorage, getClientStorage } from '@/storage/module';
-import { getAddressById } from '@/services/modules';
->>>>>>> cc257c459df576634548e8062b810e340d5bd4ae
 export default {
   name: "PurchaseVerify",
   components: {
@@ -173,7 +168,6 @@ export default {
       }
 
     },
-<<<<<<< HEAD
     finishOrderPurchase() {
       createOrder(this.order)
         .then((result) => {
@@ -183,9 +177,6 @@ export default {
           console.log('Falha na consulta getAllAddressByClientId', err)
         });
     }
-=======
-
->>>>>>> cc257c459df576634548e8062b810e340d5bd4ae
   }
 }
 </script>
