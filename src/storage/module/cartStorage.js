@@ -122,3 +122,17 @@ export const AddPaymentsToCartStorage = function(payments){
 
     console.log('method = AddPaymentsToCartStorage', cart);
 }
+export const ClearCartStorage =  function(){
+    const cart = {
+        itens : [],
+        totalQuantity: 0,
+        finalPrice : 0,
+        validation: 0,
+        id_delivery_adress: 0,
+        payments: [],
+        coupons: [],
+        discount: 0
+    };
+    const cartStorage = useStorage('cart');
+    cartStorage.value = JSON.stringify(cart);
+}
