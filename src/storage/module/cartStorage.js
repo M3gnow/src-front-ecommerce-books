@@ -113,8 +113,11 @@ export const AddPaymentsToCartStorage = function(payments){
 
     let cart = JSON.parse(cartStorage.value);
 
-    console.log('cart, BIGBIG', cart);
-    cart.payments = payments;
+    payments.forEach((payment) => {
+        console.log('MEGNOW', payment);
+        cart.payments.push(payment);
+    });
+
     cartStorage.value = JSON.stringify(cart);
 
     console.log('method = AddPaymentsToCartStorage', cart);

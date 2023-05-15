@@ -54,7 +54,7 @@
 
       <div class="col-md-12 d-flex justify-content-end mt-3">
         <router-link to="/">
-          <div class="btn btn-primary">
+          <div class="btn btn-primary" @click="finishOrderPurchase">
             Finalizar
           </div>
         </router-link>
@@ -109,7 +109,7 @@
 <script>
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
 import { getCartStorage,getClientStorage } from '@/storage/module';
-import { getAddressById } from '@/services/modules';
+import { getAddressById, createOrder } from '@/services/modules';
 export default {
   name: "PurchaseVerify",
   components: {
@@ -134,17 +134,23 @@ export default {
       return iten;
     });
 
+    const modelPayments = cart.payments.map((payment) => {
+      payment.card_id = payment.id
+
+      return payment;
+    });
+
     // criar o objeto JSON de pedido
-    const pedido = {
+    const order = {
       adress_delivery_id: cart.id_delivery_adress,
       client_id: client.id,
       itens: modelItens,
       coupons: cart.coupons,
-      payments: cart.payments
+      payments: modelPayments
     };
 
     return {
-      cart, address
+      cart, address, order
     }
   },
   methods: {
@@ -162,7 +168,15 @@ export default {
       }
 
     },
-    
+    finishOrderPurchase() {
+      createOrder(this.order)
+        .then((result) => {
+          this.address = this.modelAddress(result)
+        })
+        .catch((err) => {
+          console.log('Falha na consulta getAllAddressByClientId', err)
+        });
+    }
   }
 }
 </script>

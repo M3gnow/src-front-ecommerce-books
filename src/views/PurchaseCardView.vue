@@ -42,8 +42,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-between">
                             <div class="p-4">
-                                <input class="form-check-input" type="checkbox" name="radioNoLabel" id="radioNoLabel1"
-                                    v-model="card.isChecked" @change="handleCheckboxChange(card)" aria-label="...">
+                                <input class="form-check-input" type="checkbox" name="radioNoLabel" id="radioNoLabel1" v-model="card.isChecked" aria-label="...">
                             </div>
 
                             <div class="ms-3">
@@ -279,7 +278,7 @@ export default {
                         AddCouponToCartStorage(result);
 
                         this.finalPrice -= result.value
-                        minValuePaymentInCreditCard = 0;
+                        this.minValuePaymentInCreditCard = 0;
 
                         this.cards = this.cards.map((card) => {
                             if (card.isChecked) {
@@ -321,29 +320,11 @@ export default {
 
             return result;
         },
-        // handleCheckboxChange(item) {
-
-
-        //     // if (item.isChecked) {
-        //     //     AddPaymentToCartStorage(item)
-        //     // } else {
-
-        //     // }
-        // },
         setPaymentToCart() {
             const cardsForPayments = [];
 
-            this.cards = this.cards.map((card) => {
-                if (card.isChecked) {
-                    if (!this.coupons.length) {
-                        if (card.value >= 10) {
-                            cardsForPayments.push(card);
-                        } else {
-                            card.isChecked = false;
-                            card.value = false;
-                        }
-                    }
-
+            this.cards.forEach((card) => {
+                if (card.id && card.isChecked){
                     cardsForPayments.push(card);
                 }
             });
@@ -351,8 +332,6 @@ export default {
             const totalPayment = cardsForPayments.reduce((acumulated, current) => acumulated + current.value, 0);
 
             if (totalPayment === this.finalPrice) {
-                console.log('perfeito', cardsForPayments);
-
                 AddPaymentsToCartStorage(cardsForPayments)
             }
 
