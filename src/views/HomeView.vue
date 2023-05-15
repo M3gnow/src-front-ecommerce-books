@@ -131,7 +131,7 @@ export default {
             title: book.title,
             synopsis: book.synopsis,
             quantity: 1,
-            price: 100
+            price: book.value
           }
         }
       );
