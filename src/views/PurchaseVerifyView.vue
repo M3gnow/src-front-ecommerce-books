@@ -61,7 +61,7 @@
       </div>
     </div>
 
-    <div class="card cardResume col-md-4">
+    <!-- <div class="card cardResume col-md-4">
       <div class="card-title">
         <div class="ms-4 mt-5">
           <label for=""><b>Resumo da compra</b></label>
@@ -102,14 +102,118 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
+    <div class="card cardResume col-md-4">
+      <div class="card-title">
+          <div class="ms-4 mt-5">
+              <label for=""><b>Resumo da compra</b></label>
+          </div>
+          <hr class="ms-4 me-4">
+      </div>
+      <div class="card-body">
+          <div>
+              <div>
+                  <div class="ms-4 d-flex justify-content-between me-4">
+                      <div>
+                          <label for="">Produtos ({{ cart.totalQuantity }})</label>
+                      </div>
+                      <div>
+                          <label for="">R${{ cart.finalPrice }}</label>
+                      </div>
+                  </div>
+
+                  <hr class="ms-4 me-4">
+              </div>
+
+              <div>
+                  <div class="ms-4 d-flex justify-content-between me-4">
+                      <div>
+                          <label class="fs-6">
+                              <b>
+                                  Endereço
+                              </b>
+                          </label>
+                      </div>
+                      <div>
+                          <label class="form-text">
+                              <b>{{ address.identification }}</b>
+                          </label>
+                      </div>
+                  </div>
+                  <div>
+                      <div class="ms-4 mt-1 d-flex justify-content-between me-4">
+                          <label class="form-text"> {{ address.street }}</label>
+                      
+                          <label class="form-text">N° {{ address.number }}</label>
+                      </div>
+                  </div>
+
+                  <div>
+                      <div class="ms-4 mt-1 d-flex justify-content-between me-4">
+                          <label class="form-text"> {{ address.city }} - {{ address.state }}</label>
+                          <label class="form-text">CEP {{ address.zipCode }}</label>
+                      </div>
+                  </div>
+
+                  <div class="ms-4 mt-2 d-flex justify-content-between me-4">
+                      <div>
+                          <label for="">
+                              <b>
+                                  Frete
+                              </b>
+                          </label>
+                      </div>
+                      <div>
+                          <label class="form-text text-warning"> R$ {{ 25 }}</label>
+                      </div>
+                  </div>
+
+                  <hr class="ms-4 me-4">
+              </div>
+
+              <div >
+                  <div class="ms-4 d-flex justify-content-between me-4">
+                      <div>
+                          <label class="fs-6">Cupons aplicados</label>
+                      </div>
+                  </div>
+
+                  <div class="ms-4 mt-4 d-flex justify-content-between me-4" v-for="item in coupons" v-bind:key="item.id">
+                      <div>
+                          <label class="text-danger" for="">{{ item.description }}</label>
+                      </div>
+                      <div>
+                          <label class="text-danger" for="">R$ {{ item.value }}</label>
+                      </div>
+                  </div>
+                  
+
+                  <hr class="ms-4 me-4">
+              </div>
+          </div>
+          
+          <div class="ms-4 mt-4 d-flex justify-content-between me-4">
+              <div>
+                  <label class="text-success" for="">
+                      <b>
+                          Total
+                      </b>
+                  </label>
+              </div>
+              <div>
+                  <label class="text-success" for="">R${{ finalPrice }}</label>
+              </div>
+          </div>
+      </div>
+  </div>
   </div>
 </template>
 
 <script>
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
 import { getCartStorage,getClientStorage } from '@/storage/module';
-import { getAddressById, createOrder } from '@/services/modules';
+import { getAddressById, createOrder, getAllCardsByClientId } from '@/services/modules';
 export default {
   name: "PurchaseVerify",
   components: {
@@ -117,17 +221,39 @@ export default {
   },
   data: function () {
     let cart = getCartStorage();
+    let client = getClientStorage();
     let address = {};
+    let cards = [];
+    let paymentComplete = false;
+    let coupon = '';
+    let coupons = [];
+    let finalPrice = 0;
+    let discount = 0;
+    let minValuePaymentInCreditCard = 10;
+
+    coupons = cart.coupons;
+    finalPrice = cart.finalPrice
+    discount = cart.coupons.reduce((acumulated, current) => acumulated + current.value, 0)
+    finalPrice += 25;
+    finalPrice -= discount;
+
     getAddressById(cart.id_delivery_adress)
       .then((result) => {
-
-        this.address = this.modelAddress(result)
+          this.address = this.modelAddress(result)
       })
       .catch((err) => {
-        console.log('Falha na consulta getAllAddressByClientId', err)
+          console.log('Falha na consulta getAllAddressByClientId', err)
       });
 
-    const client = getClientStorage();
+
+    getAllCardsByClientId(client.id)
+      .then((result) => {
+          this.cards = this.modelCreditCard(result)
+      })
+      .catch((err) => {
+          console.log('Falha na consulta getAllCardsByClientId', err)
+      })
+
     const modelItens = cart.itens.map((iten) => {
       iten.book_id = iten.id
 
@@ -148,10 +274,18 @@ export default {
       coupons: cart.coupons,
       payments: modelPayments
     };
-    
-    console.log("pedido", order);
+
     return {
-      cart, address, order
+        cards,
+        paymentComplete,
+        coupon,
+        coupons,
+        client,
+        cart,
+        address,
+        finalPrice,
+        minValuePaymentInCreditCard,
+        order
     }
   },
   methods: {
