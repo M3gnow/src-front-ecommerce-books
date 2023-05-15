@@ -108,7 +108,7 @@
 
 <script>
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
-import { getCartStorage,getClientStorage } from '@/storage/module';
+import { getCartStorage, getClientStorage } from '@/storage/module';
 import { getAddressById } from '@/services/modules';
 export default {
   name: "PurchaseVerify",
@@ -126,18 +126,22 @@ export default {
       .catch((err) => {
         console.log('Falha na consulta getAllAddressByClientId', err)
       });
-    
+
     const client = getClientStorage();
 
-    // criar o objeto JSON de pedido
+    const modelItens = cart.itens.map((iten) => {
+      iten.boook_id = iten.id
+
+      return iten;
+    })
     const pedido = {
       adress_delivery_id: cart.id_delivery_adress,
       client_id: client.id,
-      itens: cart.itens,
+      itens: modelItens,
       coupons: cart.coupons,
       payments: cart.payments
     };
-
+    console.log("pedido", pedido);
     return {
       cart, address
     }
@@ -157,7 +161,7 @@ export default {
       }
 
     },
-    
+
   }
 }
 </script>
