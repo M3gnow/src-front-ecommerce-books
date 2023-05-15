@@ -8,7 +8,7 @@ export const getCouponClient  = (id_client) => {
     return request;
 }
 
-export const getValidationCoupon = (id_client,description) => {
+export const getValidationCoupon = (id_client, description) => {
     const request = axiosInstance.get(`${apiLesBookCoupon}/${id_client}/${description}`)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))

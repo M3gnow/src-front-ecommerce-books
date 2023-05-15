@@ -24,7 +24,7 @@
 					<div class="input-group">
 						<select class="form-select" id="deliveryAddressTypeHomeAddress" name="deliveryAddressTypeHomeAddress" v-model="address.typeHomeAddress">
 						<option disabled value="">Escolha...</option>
-						<option v-for="option in options.typesHome" :value="option.id">
+						<option v-for="option in options.typesHome" :value="option.id" v-bind:key="option.id">
 							{{ option.description }}
 						</option>
 						</select>
@@ -36,7 +36,7 @@
 					<div class="input-group">
 						<select class="form-select" id="deliveryAddressTypePublicPlaceAddress" name="deliveryAddressTypePublicPlaceAddress" v-model="address.typePublicPlaceAddress">
 						<option disabled value="">Escolha...</option>
-						<option v-for="option in options.typesPublicPlace" :value="option.id">
+						<option v-for="option in options.typesPublicPlace" :value="option.id" v-bind:key="option.id">
 							{{ option.description }}
 						</option>
 						</select>

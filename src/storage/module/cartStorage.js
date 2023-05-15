@@ -89,3 +89,15 @@ export const RemoveCouponFromCartStorage = function(value){
       });
     cartStorage.value = JSON.stringify(cart);
 }
+
+export const AddPaymentsToCartStorage = function(payments){
+    console.log('payment storage', payments);
+
+    const cartStorage = useStorage('cart');
+
+    let cart = JSON.parse(cartStorage.value);
+
+    console.log('cart, BIGBIG', cart);
+    cart.payments = payments;
+    cartStorage.value = JSON.stringify(cart);
+}

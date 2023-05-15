@@ -96,7 +96,7 @@ export default {
     Cart
   },
   data: function () {
-    getClientById(5)
+    getClientById(1)
       .then((client) => {
         const { id, name, ranking } = client
 
