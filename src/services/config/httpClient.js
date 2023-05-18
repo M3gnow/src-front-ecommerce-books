@@ -20,6 +20,7 @@ export const apiLesbookPurchasesClientId = `${config.VUE_APP_API_LESBOOK}/api/or
 export const apiMockPurchases = `${config.MOCK_APP_API_LESBOOK_CLIENT_PURCHASES}`
 export const apiMockAllBooks = "https://localhost:7260/api/books";
 export const apiLesBookCoupon = "https://localhost:7260/api/coupon";
+export const apiLesBookStock = "https://localhost:7260/api/Stock";
 // MOCK
 
 // export const apiLesbookClientMock = config.VUE_APP_API_LESBOOK_CLIENT_MOCK

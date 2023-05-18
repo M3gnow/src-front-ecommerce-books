@@ -4,7 +4,7 @@
             <form class="container" v-on:submit.prevent="checkForm">
                 <div id="divDetailAddress" class="card mt-3 p-2 cardForm p-4">
                     <label for="basic-url" class="form-label fs-3">Adicione seu novo endereço</label>
-                    <div class="row mt-3" v-if="address.typeAdress === 1">
+                    <div class="row mt-3">
                         <div class="col-sm">
                             <label for="basic-url" class="form-label">Identificação</label>
                             <div class="input-group">
@@ -144,7 +144,7 @@
                     <div class="row d-flex justify-content-between p-3">
                         <div class="form-check d-flex">
                             <div class="p-3">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" v-model="salvarEndereco" id="salvarEndereco" >
                             </div>
                             <div class="p-3 me-5">
                                 <h5>Salvar endereço de entrega</h5>
@@ -155,7 +155,7 @@
             </form>
 
             <div class="col-md-12 d-flex justify-content-end mt-3">
-                <router-link to="/purchase/payments">
+                <router-link to="/purchase/payments" v-on:click="createAddress(address)">
                     <div class="btn btn-primary">
                         Continuar
                     </div>
@@ -171,7 +171,8 @@
 import CreateAddressDeliveryComponentVue from '@/components/CreateAddressDeliveryComponent.vue'
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
 import { getAddressByCep } from '../services/modules'
-import { getClientStorage } from '@/storage/module'
+import { createAddressByClientId } from '../services/modules'
+import { getClientStorage,setAdressDeliveryToCartStorage } from '@/storage/module'
 
 export default {
     name: "PurchaseCreateAddress",
@@ -182,6 +183,7 @@ export default {
     data: function () {
         //const { params } = useRoute();
         let errors = [];
+        let salvarEndereco = false;
         const typesHome = [{
             id: 0,
             description: 'Casa'
@@ -225,9 +227,49 @@ export default {
             typeAdress: 1
         }
 
-        return { address, options, errors }
+        return { address, options, errors, salvarEndereco }
     },
     methods: {
+        modelCreateAddress: function(clientId, address) {
+			const modelAddress = {
+				id_client: clientId,
+				street: address.publicPlaceAddress,
+				number: address.numberAddress,
+				obs: address.observationAddress || '',
+				zipCode: address.cepAddress,
+				neighborhood: address.neighborhoodAddress,
+				city: address.cityAddress,
+				state: address.stateAddress,
+				country: address.countryAddress,
+				typeAdress: parseInt(address.typeAdress),
+				typeResidence: parseInt(address.typeHomeAddress),
+				typeStreet: parseInt(address.typePublicPlaceAddress),
+                typeAdress: 1
+			}
+
+			if (modelAddress.typeAdress === 1) {
+				modelAddress.identification = address.nameIdentifier;
+			} else {
+				modelAddress.identification = ''
+			}
+
+			return modelAddress;
+        },
+        createAddress: function(address){
+            let clientId = 0;
+            if(salvarEndereco.isChecked){
+                console.log("salvar: ",salvarEndereco);
+                clientId = getClientStorage().id;
+            }
+            const data = this.modelCreateAddress(clientId, address)
+            createAddressByClientId(data).then((result) => {
+                    const id = result;
+                    setAdressDeliveryToCartStorage(id);
+                })
+                .catch((err) => {
+                    console.log('Falha na consulta getAllAddressByClientId', err)
+                })
+        },
         getAdress: function (cep) {
             getAddressByCep(cep)
                 .then((result) => {
@@ -256,7 +298,6 @@ export default {
             }
 
             return {
-                nameIdentifier: address.typeAdress === 1,
                 cepAddress: address.zipCode,
                 publicPlaceAddress: address.street,
                 countryAddress: 'Brasil',
