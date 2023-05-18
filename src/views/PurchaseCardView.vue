@@ -5,28 +5,22 @@
     </div>
     <div class="container d-flex mt-4">
         <div class="col-md-8 me-3">
-            <div>
-                <div class="col-md-12">
-                    <div class="card p-3">
+            <div class="col-md-12">
+                <div class="card p-4">
+                    <div>
+                        <h5>Digite um cupom promocionais ou de troca</h5>
+                    </div>
 
-                        <div>
-                            <h5>Adicione cupons promocionais ou de troca</h5>
-                        </div>
-                        <div>
-                            <label for="basic-url" class="form-label"><b>Digite seu cupom</b></label>
-                        </div>
-
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="col-md-6">
-                                <div class="input-group inputSize">
-                                    <input type="text" class="form-control inputColor" v-model="coupon" aria-describedby="basic-addon3">
-                                </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="col-md-6">
+                            <div class="input-group inputSize">
+                                <input type="text" class="form-control inputColor" v-model="coupon" aria-describedby="basic-addon3">
                             </div>
+                        </div>
 
-                            <div class="col-md-3 mt-2">
-                                <div class="btn btn-outline-primary" @click="$event => aplyCoupon()">
-                                    Aplicar Cupom
-                                </div>
+                        <div class="col-md-3 mt-2">
+                            <div class="btn btn-outline-primary" @click="$event => aplyCoupon()">
+                                Aplicar Cupom
                             </div>
                         </div>
                     </div>
@@ -39,52 +33,50 @@
 
             <div class="card mt-4" v-for="card in cards">
                 <div class="p-4 col-md-12">
-                    <div class="d-flex justify-content-between">
-                        <div class="d-flex justify-content-between">
-                            <div class="p-4">
-                                <input class="form-check-input" type="checkbox" name="radioNoLabel" id="radioNoLabel1" v-model="card.isChecked" aria-label="...">
-                            </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="p-4">
+                            <input class="form-check-input" type="checkbox" v-model="card.isChecked">
+                        </div>
 
-                            <div class="ms-3">
-                                <i class="bi bi-credit-card iconCard"></i>
-                            </div>
+                        <div class="ms-3">
+                            <i class="bi bi-credit-card iconCard"></i>
+                        </div>
 
-                            <div class="d-flex flexwrap row ms-5">
-                                <label for="">{{ card.flag }}</label>
-                                <label for="">Final {{ card.number }}</label>
+                        <div class="d-flex flexwrap ms-5">
+                            <label for="">{{ card.flag }}</label>
+                            <label for="">Final {{ card.number }}</label>
+                        </div>
 
-                            </div>
-
-                            <div>
-                                <div class="d-flex flexwrap row ms-5">
-                                    <label for="basic-url" class="form-label">Valor pago nesse cartão: </label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="deliveryAdressNumberAddress" name="deliveryAdressNumberAddress" aria-describedby="basic-addon3" v-model="card.value" v-bind:disabled="!card.isChecked">
-                                    </div>
+                        <div>
+                            <div class="d-flex ms-5">
+                                <label for="basic-url" class="form-label">Valor pago nesse cartão: </label>
+                                <div class="input-group">
+                                    <input type="number" v-model="card.value" v-bind:disabled="!card.isChecked">
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
 
-
-            <div class="col-md-12 d-flex justify-content-end mt-3">
-                <router-link to="/purchase/card">
-                    <div class="btn btn-light">
-                        Adicionar cartão
-                    </div>
-                </router-link>
+            <div class="d-flex justify-content-end mt-2" >
+                <h6 v-bind:class="labelStatusClass">{{  labelCheckPayment }}</h6>
             </div>
 
+            <div class="d-flex justify-content-between">
+                <div class="mt-2">
+                    <router-link to="/purchase/card">
+                        <div class="btn btn-light">
+                            Adicionar cartão
+                        </div>
+                    </router-link>
+                </div>
 
-            <div class="col-md-12 d-flex justify-content-end mt-3">
-                <button v-on:click="setPaymentToCart()" class="me-3 btn btn-primary">
-
-                    Continuar
-
-                </button>
+                <div class="mt-2">
+                    <button v-on:click="setPaymentToCart()" class="btn btn-primary">
+                        Continuar
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -217,6 +209,8 @@ export default {
         let finalPrice = 0;
         let discount = 0;
         let minValuePaymentInCreditCard = 10;
+        const labelCheckPayment = "Os valores preenchidos são validos";
+        const labelStatusClass = "text-success"
 
         coupons = cart.coupons;
         finalPrice = cart.finalPrice
@@ -251,7 +245,9 @@ export default {
             cart,
             address,
             finalPrice,
-            minValuePaymentInCreditCard
+            minValuePaymentInCreditCard,
+            labelCheckPayment,
+            labelStatusClass
         }
     },
     methods: {
@@ -323,22 +319,41 @@ export default {
         setPaymentToCart() {
             const cardsForPayments = [];
 
-            this.cards.forEach((card) => {
-                if (card.id && card.isChecked){
-                    cardsForPayments.push(card);
+            if (this.validateCardForPayment()) {
+                this.labelCheckPayment = 'Os valores preenchidos são validos';
+                this.labelStatusClass = 'text-success';
+
+                this.cards.forEach((card) => {
+                    if (card.id && card.isChecked){
+                        cardsForPayments.push(card);
+                    }
+                });
+
+                const totalPayment = cardsForPayments.reduce((acumulated, current) => acumulated + current.value, 0);
+
+                if (totalPayment === this.finalPrice) {
+                    AddPaymentsToCartStorage(cardsForPayments)
                 }
-            });
 
-            const totalPayment = cardsForPayments.reduce((acumulated, current) => acumulated + current.value, 0);
-
-            if (totalPayment === this.finalPrice) {
-                AddPaymentsToCartStorage(cardsForPayments)
+                this.$router.push('/purchase/verify');
+                return;
             }
-
-            this.$router.push('/purchase/verify');
+            this.labelCheckPayment = 'Os valores preenchidos são inferiores ao Total';
+            this.labelStatusClass = 'text-danger';
         },
         clickSelect() {
             console.log('checkecd');
+        },
+        validateCardForPayment() {
+            const totalPaymentInCreditCard = this.cards
+                .filter((card) => card.isChecked)
+                .reduce((acumulated, current) => parseFloat(acumulated)+ parseFloat(current.value), 0);
+
+            if (parseFloat(totalPaymentInCreditCard).toFixed(2) < parseFloat(this.finalPrice).toFixed(2)) {
+                return false;
+            }
+
+            return true;
         }
 
     }

@@ -212,7 +212,7 @@
 
 <script>
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
-import { getCartStorage,getClientStorage } from '@/storage/module';
+import { getCartStorage,getClientStorage, ClearCartStorage } from '@/storage/module';
 import { getAddressById, createOrder, getAllCardsByClientId } from '@/services/modules';
 export default {
   name: "PurchaseVerify",
@@ -290,7 +290,6 @@ export default {
   },
   methods: {
     modelAddress: function (result) {
-
       return {
         id: result.id,
         identification: result.identification,
@@ -306,7 +305,7 @@ export default {
     finishOrderPurchase() {
       createOrder(this.order)
         .then((result) => {
-          this.address = this.modelAddress(result)
+          this.ClearCartStorage()
         })
         .catch((err) => {
           console.log('Falha na consulta getAllAddressByClientId', err)
