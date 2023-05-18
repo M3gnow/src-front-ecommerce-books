@@ -18,6 +18,8 @@ export const getCartStorage = function () {
     return JSON.parse(useStorage('cart').value);
 }
 export const initCartStorage = function () {
+    const cartStorage = useStorage('cart');
+
     const cart = {
         itens : [],
         totalQuantity: 0,
@@ -29,8 +31,8 @@ export const initCartStorage = function () {
         discount: 0,
         expiration: 0
     };
-
-    useStorage('cart',JSON.stringify(cart));
+    if(cartStorage.value != undefined)
+    cartStorage.value = JSON.stringify(cart);
 }
 export const AddUnitToItemCartStorage = function(value){
     const cartStorage = useStorage('cart');
@@ -102,5 +104,28 @@ export const SetExpirationCart = function(value){
     const cartStorage = useStorage('cart');
     let cart = JSON.parse(cartStorage.value);
     cart.expiration = value;
+    cartStorage.value = JSON.stringify(cart);
+}
+export const ClearCartStorage =  function(){
+    const cart = {
+        itens : [],
+        totalQuantity: 0,
+        finalPrice : 0,
+        validation: 0,
+        id_delivery_adress: 0,
+        payments: [],
+        coupons: [],
+        discount: 0
+    };
+    const cartStorage = useStorage('cart');
+    cartStorage.value = JSON.stringify(cart);
+}
+
+export const AddPaymentsToCartStorage = function(payments){
+    const cartStorage = useStorage('cart');
+    let cart = JSON.parse(cartStorage.value);
+    payments.forEach((payment) => { 
+        cart.payments.push(payment);
+    });
     cartStorage.value = JSON.stringify(cart);
 }
