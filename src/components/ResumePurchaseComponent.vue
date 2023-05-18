@@ -14,6 +14,7 @@
                     <label for="">R${{ cart.finalPrice }}</label>
                 </div>
             </div>
+
             <div v-show="cart.id_delivery_adress !== 0">
                 <hr class="ms-4 me-4">
                 <div class="ms-4 mt-5 d-flex justify-content-between me-4">
@@ -21,14 +22,14 @@
                         <label class="fs-6">Endereço</label>
                     </div>
                     <div>
-                        <label class="form-text"> {{ deliveryAddress.identification }}</label>
-
+                        <label class="form-text"> {{ deliveryAddress.nameIdentifier }}</label>
                     </div>
                 </div>
-                <div class="ms-4 mt-5 d-flex justify-content-between me-4">
-                    <label class="form-text">{{ deliveryAddress.street }}, {{ deliveryAddress.number }} - {{ deliveryAddress.state }} - {{ deliveryAddress.neighborhood }}</label>
+                <div class="ms-4 mt-2 d-flex justify-content-between me-4">
+                    <label class="form-text">{{ deliveryAddress.publicPlaceAddress }}, {{ deliveryAddress.numberAddress }} - {{ deliveryAddress.stateAddress }} - {{ deliveryAddress.neighborhoodAddress }}</label>
                 </div>
-                </div>
+            </div>
+            
             <hr class="ms-4 me-4">
             <div class="ms-4 mt-4 d-flex justify-content-between me-4">
                 <div>
@@ -49,19 +50,19 @@ import { getAddressById } from '@/services/modules';
 export default {
     data: function () {
         let cart = getCartStorage();
-        let deliveryAddress = [];
-        console.log("cart",cart);
-        console.log("id",cart.id_delivery_adress);
+        let deliveryAddress= {};
+
         if(cart.id_delivery_address !== 0){
             getAddressById(cart.id_delivery_adress)
-            .then((result) => {
-                console.log('result',result);
-				this.deliveryAddress = this.modelDetailAddress(result)
-            })
-            .catch((err) => {
-                console.log('Falha na consulta getAddressById', err)
-            })
+                .then((result) => {
+                    console.log('result adress',result);
+                    this.deliveryAddress = this.modelDetailAddress(result)
+                })
+                .catch((err) => {
+                    console.log('Falha na consulta getAddressById', err)
+                })
         }
+
         return {
             cart,
             componentKey: 0,
@@ -70,21 +71,20 @@ export default {
     },
     methods: {
 		modelDetailAddress: function(address) {
-
 			return {
-				nameIdentifier: address.identification,
-				cepAddress: address.zipCode,
-				typeHomeAddress: address.typeResidence,
-				typePublicPlaceAddress: address.typeStreet,
-				publicPlaceAddress: address.street,
-				numberAddress: address.number,
-				countryAddress: 'Brasil',
-				stateAddress: address.state,
-				cityAddress: address.city,
-				neighborhoodAddress: address.neighborhood,
-				observationAddress: address.obs,
-				typeAdress: address.typeAdress,
-				id: address.id
+				nameIdentifier: address.identification || '',
+				cepAddress: address.zipCode || '',
+				typeHomeAddress: address.typeResidence || '',
+				typePublicPlaceAddress: address.typeStreet || '',
+				publicPlaceAddress: address.street || '',
+				numberAddress: address.number || '',
+				countryAddress: 'Brasil' || '',
+				stateAddress: address.state || '',
+				cityAddress: address.city|| '',
+				neighborhoodAddress: address.neighborhood|| '',
+				observationAddress: address.obs|| '',
+				typeAdress: address.typeAdress|| '',
+				id: address.id || ''
 			}
 		}
     }

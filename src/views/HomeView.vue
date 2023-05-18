@@ -39,7 +39,7 @@
   </div>
 
   <div class="container d-flex justify-content-between mt-3 p-3">
-    <div v-for="book in books" class="card border-warning  text-bg-light" style="width: 18rem;">
+    <div v-for="book in books" class="card border-warning  text-bg-light" style="width: 18rem;" v-bind:key="book.id">
       <img src="https://m.media-amazon.com/images/I/91y1jCIfhSL.jpg" class="img-fluid rounded-start card-img-top"
         alt="...">
       <div class="card-body">
@@ -135,7 +135,7 @@ export default {
             title: book.title,
             synopsis: book.synopsis,
             quantity: 1,
-            price: 100
+            price: book.value
           }
         }
       );

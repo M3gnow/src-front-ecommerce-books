@@ -23,10 +23,10 @@
                 <label for="">{{ address.street }} - {{ address.number }}</label>
                 <label for="">{{ address.city }} - CEP {{ address.zipCode }}</label>
               </div>
-              <div class="d-flex flexwrap row ms-5">
+              <!-- <div class="d-flex flexwrap row ms-5">
                 <label><b>Frete </b></label>
                 <label> R$: {{ address.street }},00</label>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
 
 <script>
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
-import { getAllAddressByClientId,getDeliveryPrice  } from '@/services/modules';
+import { getAllAddressByClientId, getDeliveryPrice  } from '@/services/modules';
 import { getClientStorage } from '@/storage/module';
 import { setAdressDeliveryToCartStorage } from '@/storage/module';
 export default {

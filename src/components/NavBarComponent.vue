@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <div class="d-flex">
+      <div class="d-flex mt-3">
 
         <div class="m-1" v-if="setAdm">
           <router-link class="p-2 nav-link active" type="button" href="#" to="/adm">
@@ -88,21 +88,7 @@
 
         <div class="btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" v-on:click="forceRerenderCart()" v-if="!setAdm">
           <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-
-          <!-- number itens in cart: add next -->
-          <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">24</span> -->
-        </div>
-
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" v-if="!setAdm">
-          <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasRightLabel">Meu carrinho 
-                <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-              </h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-              <Cart :key="componentKey"/>
-          </div>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ itensCart }}</span>
         </div>
       </div>
 
@@ -114,7 +100,6 @@
 
 <script>
 import Cart from './CartComponent.vue'
-import { ref } from 'vue';
 
 export default {
   name: 'NavBarComponent',
@@ -124,6 +109,7 @@ export default {
   data: function () {
     let setAdm = false;
     let typeUser = 'Cliente'
+    let itensCart = 10;
     if (this.setAdm) {
       console.log('setAdm', setAdm);
     }
@@ -133,6 +119,7 @@ export default {
       client_id: 1,
       typeUser,
       setAdm,
+      itensCart: itensCart || '',
     }
   },
   methods: {
