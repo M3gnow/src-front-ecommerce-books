@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel container">
+  <!-- <div class="carousel container">
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -36,15 +36,25 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
-  </div>
+  </div> -->
 
-  <div class="container d-flex justify-content-between mt-3 p-3">
-    <div v-for="book in books" class="card border-warning  text-bg-light" style="width: 18rem;" v-bind:key="book.id">
-      <img src="https://m.media-amazon.com/images/I/91y1jCIfhSL.jpg" class="img-fluid rounded-start card-img-top"
-        alt="...">
+  <div class="container d-flex flex-wrap justify-content-between mt-3">
+    <div v-for="book in books" class=" card border-warning text-bg-light p-3 mt-2" style="width: 25rem;" v-bind:key="book.id">
+      <div class="d-flex card-img-top">
+        <img src="https://m.media-amazon.com/images/I/91y1jCIfhSL.jpg" alt="...">
+      </div>
+
       <div class="card-body">
         <h5 class="card-title">{{ book.title }}</h5>
         <p class="card-text">{{ book.synopsis }}</p>
+      </div>
+
+      <div>
+        <p class="card-text priceBook d-flex justify-content-center mt-4">
+          <b>
+            R$ {{ (parseFloat((book.price)).toFixed(2)).replace('.', ',') }}
+          </b>
+        </p>
       </div>
       <div class="d-flex p-3">
         <a href="#" class="btn btn-outline-warning btn-lg col-md-12" data-bs-toggle="offcanvas"
@@ -65,11 +75,6 @@
         </router-link>
       </div>
     </div>
-
-
-
-
-
 
     <!-- Menu Right Cart Shopping -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -115,6 +120,7 @@ export default {
     let books = [];
     getAllBooks()
       .then((result) => {
+        console.log();
         this.books = this.modelBooks(result);
       })
       .catch((err) => {
@@ -175,7 +181,11 @@ export default {
 }
 
 .card-img-top {
-  height: 350px !important;
+  max-width:200px;
+  max-height:150px;
+  width: auto;
+  height: auto;
+  align-self: center;
 }
 
 .card-title {
@@ -183,4 +193,10 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis !important;
 }
+
+.priceBook {
+  font-size: 18px;
+  color: darkgreen;
+}
+
 </style>
