@@ -16,6 +16,7 @@ export const apiLesbookClientPassword = `${config.VUE_APP_API_LESBOOK}/client/ch
 export const apiLesbookClient = config.VUE_APP_API_LESBOOK_CLIENT
 export const apiLesbookAddress = `${config.VUE_APP_API_LESBOOK}/api/adress`
 export const apiLesbookOrder = `${config.VUE_APP_API_LESBOOK}/api/order`
+export const apiLesbookOrderReplacement = `${config.VUE_APP_API_LESBOOK}/api/order/replacement`
 export const apiLesbookPurchasesClientId = `${config.VUE_APP_API_LESBOOK}/api/order/client`
 export const apiMockPurchases = `${config.MOCK_APP_API_LESBOOK_CLIENT_PURCHASES}`
 export const apiMockAllBooks = "https://localhost:7260/api/books";
