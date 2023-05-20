@@ -22,8 +22,7 @@
                 </label>
 
                 <p class="fs-5 fw-semibold mt-2">Aguardando confirmação do pagamento.</p>
-                <p class="fs-6">Estamos aguardando a confirmação de pagamento da operadora do cartão.</p>
-                <p class="fs-6">Assim que recebermos a confirmação, seu pedido será preparado para envio.</p>
+                <p class="fs-6">{{ labelDescription }}</p>
               </div>
             </div>
           </div>
@@ -110,18 +109,19 @@ export default {
     let statusOrder;
     const orderId = params.purchase_id;
     const clientID = params.client_id;
+    let labelDescription;
+    
     getPurchaseById(orderId)
       .then((result) => {
         console.log(result);
-
         this.clientPurchases = result;
         this.totalQuantity = result.items.reduce((aculumador, item) => aculumador + item.quantity, 0);
         this.identificationAddress = result.adress.identification;
         this.labelAdress = `${result.adress.street},  ${result.adress.number} -  ${result.adress.state} -  ${result.adress.city}`;
-
-        this.labelStatusClass = this.getStatusClass(result.statusOrder)
-        this.labelStatusDescription = this.getStatusDescription(result.statusOrder)
         this.statusOrder = result.statusOrder;
+        this.labelStatusClass = this.getStatusClass(this.statusOrder)
+        this.labelStatusDescription = this.getStatusDescription(this.statusOrder)
+        this.labelDescription = this.getLabelDescription(this.statusOrder)
 
       })
       .catch((err) => {
@@ -138,7 +138,8 @@ export default {
       orderId,
       clientID,
       statusOrder,
-      params
+      params,
+      labelDescription
     };
   },
   methods: {
@@ -200,7 +201,28 @@ export default {
           return "Trocado"
         default:
       }
-    }
+    },
+    getLabelDescription: function(statusOrderId) {
+        switch (statusOrderId) {
+            case 1:
+                return "Estamos aguardando a confirmação de pagamento da operadora do cartão."
+            case 2:
+                return "Quase lá. Estamos aguardando processo de embalagem para enviar seus produtos"
+            case 3:
+                return "Infelizmente não houve confirmação de pagamento da operadora do cartão."
+            case 4:
+                return "Quase lá. Seu produto já está a caminho"
+            case 5:
+                return "Show! Esperamos que seu produto tenha chegado em perfeito estado. Caso necessario pode trocar seu(s) produto(s)"
+            case 6:
+                return "Estamos avaliando o processo de troca, aguardando autorização"
+            case 7:
+                return "O processo de troca foi autorizado, agora é somente nos enviar os itens solicitados"
+            case 8:
+                return "Perfeito, troca concluida, foi gerado um cupom de troca na sua conta"
+            default:
+        }
+    },
   }
 }
 </script>

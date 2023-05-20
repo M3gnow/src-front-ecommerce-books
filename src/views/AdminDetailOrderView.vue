@@ -26,8 +26,7 @@
                   </label>
                   
                   <p class="fs-5 fw-semibold mt-2">Aguardando confirmação do pagamento.</p>
-                  <p class="fs-6">Estamos aguardando a confirmação de pagamento da operadora do cartão.</p>
-                  <p class="fs-6">Assim que recebermos a confirmação, seu pedido será preparado para envio.</p>
+                  <p class="fs-6">{{ labelDescription }}</p>
                 </div>
               </div>
             </div>
@@ -140,6 +139,7 @@
       let approved_replacement = false;
       let confirmed_replacement = false;
       let historyOrderStatus = [];
+      let labelDescription;
       
       this.loadingGetOrderById(params.order_id);
   
@@ -173,6 +173,7 @@
             this.labelStatusClass = this.getStatusClass(result.statusOrder)
             this.labelStatusDescription = this.getStatusDescription(result.statusOrder)
             this.labelTypeOrder = result.type === 2 ? 'compra': 'troca';
+            this.labelDescription = this.getLabelDescription(result.statusOrder)
         })
         .catch((err) => {
             console.log('Falha na consulta getAllAddressByClientId', err)
@@ -269,7 +270,28 @@
           identity++
           return hisotry;
         })
-      }
+      },
+      getLabelDescription: function(statusOrderId) {
+        switch (statusOrderId) {
+            case 1:
+                return "Estamos aguardando a confirmação de pagamento da operadora do cartão."
+            case 2:
+                return "Quase lá. Estamos aguardando processo de embalagem para enviar seus produtos"
+            case 3:
+                return "Infelizmente não houve confirmação de pagamento da operadora do cartão."
+            case 4:
+                return "Quase lá. Seu produto já está a caminho"
+            case 5:
+                return "Show! Esperamos que seu produto tenha chegado em perfeito estado. Caso necessario pode trocar seu(s) produto(s)"
+            case 6:
+                return "Estamos avaliando o processo de troca, aguardando autorização"
+            case 7:
+                return "O processo de troca foi autorizado, agora é somente nos enviar os itens solicitados"
+            case 8:
+                return "Perfeito, troca concluida, foi gerado um cupom de troca na sua conta"
+            default:
+        }
+      },
     }
   }
 </script>
