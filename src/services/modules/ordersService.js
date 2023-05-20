@@ -1,4 +1,4 @@
-import { axiosInstance, apiLesbookOrder,apiLesBookStock } from '../config'
+import { axiosInstance, apiLesbookOrder,apiLesBookStock, apiLesbookOrderReplacement } from '../config'
 
 export const getOrders  = () => {
     const request = axiosInstance.get(apiLesbookOrder)
@@ -38,6 +38,14 @@ export const updateStatusOrder = (data) => {
 
 export const createOrder = (data) => {
     const request = axiosInstance.post(apiLesbookOrder, data)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))
+
+    return request;
+}
+
+export const createOrderReplacement = (data) => {
+    const request = axiosInstance.post(apiLesbookOrderReplacement, data)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 

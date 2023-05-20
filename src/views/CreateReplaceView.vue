@@ -22,8 +22,9 @@
             <div class="col-sm-2">
               <label for="basic-url" class="form-label">Quantidade:</label>
               <div class="input-group">
-                <input type="number" class="form-control" id="validityCard" v-bind:disabled="!item.isReplace" v-model="item.replaceQuantity" min="1" max="{{ item.quantity }}"
-                  name="validityCard" aria-describedby="basic-addon3">
+                <input type="number" class="form-control" id="validityCard" v-bind:disabled="!item.isReplace"
+                  v-model="item.replaceQuantity" min="1" max="{{ item.quantity }}" name="validityCard"
+                  aria-describedby="basic-addon3">
               </div>
             </div>
           </div>
@@ -99,8 +100,9 @@
 </template>
 
 <script>
-import { getPurchaseById } from '../services/modules'
-import { useRoute } from 'vue-router'
+import { getClientStorage } from '@/storage/module';
+import { getPurchaseById,createOrderReplacement } from '../services/modules'
+import { useRoute,useRouter } from 'vue-router'
 
 export default {
   name: "CreateReplaceView",
@@ -113,6 +115,8 @@ export default {
     let labelStatusClass;
     let labelStatusDescription;
     let itens;
+    const order_id = params.purchase_id;
+    const client_id = getClientStorage().id;
     getPurchaseById(params.purchase_id)
       .then((result) => {
         console.log(result);
@@ -139,19 +143,24 @@ export default {
       labelAdress,
       labelStatusClass,
       labelStatusDescription,
-      itens
+      itens,
+      client_id,
+      order_id
     };
   },
   methods: {
-    modelItens: function(itens){
-      return itens.map((item)=>{
-      return {
-        quantity: item.quantity,
-        replaceQuantity: item.quantity,
-        title: item.book.title,
-        totalValu: item.totalValue,
-        isReplace: false
-      }})
+    modelItens: function (itens) {
+      return itens.map((item) => {
+        return {
+          id: item.id,
+          quantity: item.quantity,
+          replaceQuantity: item.quantity,
+          title: item.book.title,
+          totalValu: item.totalValue,
+          isReplace: false,
+          book: item.book
+        }
+      })
     },
     getStatusClass: function (statusOrderId) {
       switch (statusOrderId) {
@@ -183,8 +192,28 @@ export default {
         default:
       }
     },
-    sendReplace: function(){
-      
+    sendReplace: function () {
+      const itensReplace = this.itens.filter((item) =>
+        item.isReplace
+      ).map((item) => {
+        return {
+          id: item.id,
+          quantity: item.replaceQuantity,
+          book: item.book 
+        }
+      })
+      const data = {
+        order_Id: this.order_id,
+        items: itensReplace
+      }
+      console.log("itens",itensReplace);
+      createOrderReplacement(data)
+        .then((result) => {
+          useRouter.push(`/client/${this.client_id}/purchases`);
+        })
+        .catch((err) => {
+          console.log('Falha na consulta getAllAddressByClientId', err)
+        });
     }
   }
 }
