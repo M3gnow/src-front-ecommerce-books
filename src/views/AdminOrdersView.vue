@@ -83,7 +83,7 @@ export default {
                 }
             })
         },
-        getStatusClass: function(statusOrderId) {
+        getStatusClass: function (statusOrderId) {
             switch (statusOrderId) {
                 case 1:
                     return "text-warning"
@@ -95,10 +95,16 @@ export default {
                     return " text-warning"
                 case 5:
                     return "text-success"
+                case 6:
+                    return "text-warning"
+                case 7:
+                    return "text-success"
+                case 8:
+                    return "text-success"
                 default:
             }
         },
-        getStatusDescription: function(statusOrderId) {
+        getStatusDescription: function (statusOrderId) {
             switch (statusOrderId) {
                 case 1:
                     return "Em processamento"
@@ -110,6 +116,12 @@ export default {
                     return "Em transporte"
                 case 5:
                     return "Entregue"
+                case 6:
+                    return "Em troca"
+                case 7:
+                    return "Troca aprovada"
+                case 8:
+                    return "Trocado"
                 default:
             }
         },
