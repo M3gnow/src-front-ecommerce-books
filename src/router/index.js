@@ -21,7 +21,7 @@ import PurchaseVerifyView from '../views/PurchaseVerifyView'
 import CouponClientView from '../views/CouponClientView'
 import NewCardClientView from '../views/NewCardClientView'
 import NewAddressClientView from '../views/NewAddressClientView'
-
+import CreateReplaceView from '../views/CreateReplaceView'
 import AdminOrdersView from '../views/AdminOrdersView'
 import AdminDetailOrderView from '../views/AdminDetailOrderView'
 
@@ -57,6 +57,11 @@ const router = createRouter({
       path: '/client/:client_id/purchases/:purchase_id',
       name: 'DetailPurchase',
       component: DetailPurchaseView
+    },
+    {
+      path: '/client/:client_id/purchases/:purchase_id/replace',
+      name: 'DetailReplace',
+      component: CreateReplaceView
     },
     {
       path: '/adm',

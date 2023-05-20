@@ -96,6 +96,18 @@ export default {
                         purchase.statusClass = "text-success"
                         purchase.statusDescription = "Entregue"
                         break;
+                    case 6:
+                        purchase.statusClass = "text-warning"
+                        purchase.statusDescription = "Em Troca"
+                        break;
+                    case 7:
+                        purchase.statusClass = "text-success"
+                        purchase.statusDescription = "Troca aprovada"
+                        break;
+                    case 8:
+                        purchase.statusClass = "text-success"
+                        purchase.statusDescription = "Trocado"
+                        break;
                     default:
 
                 }
