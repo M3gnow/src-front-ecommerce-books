@@ -2,15 +2,29 @@
   <div class="container">
     <div class="row mt-5">
       <div class="col-sm-8">
-        <div v-for="item in clientPurchases.items" class="alert alert-secondary" role="alert" v-bind:key="item.id">
+        <h1>Troca de itens da compra</h1>
+        <h3>Selecione os itens e a quantidade que deseja trocar:</h3>
+        <div v-for="item in itens" class="alert alert-secondary" role="alert" v-bind:key="item.id">
           <div class="row">
-            <div class="col-sm-10">
-              <label class="fs-6 text-center">{{ item.book.title }}</label>
-              <p class="form-text">{{ item.quantity }} unidades - R${{ parseFloat(item.totalValue).toFixed(2) }}</p>
+            <div class="col-sm-1">
+              <div class="p-4">
+                <input class="form-check-input" type="checkbox" v-model="item.isReplace">
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <label class="fs-6 text-center">{{ item.title }}</label>
+              <p class="form-text">{{ item.quantity }} unidades</p>
             </div>
             <div class="col-sm-1">
               <img src="../assets/img/livro1.jpeg" class="d-block w-100 h-100" style="width: 100px; height: 200px;"
                 alt="...">
+            </div>
+            <div class="col-sm-2">
+              <label for="basic-url" class="form-label">Quantidade:</label>
+              <div class="input-group">
+                <input type="number" class="form-control" id="validityCard" v-bind:disabled="!item.isReplace" v-model="item.replaceQuantity" min="1" max="{{ item.quantity }}"
+                  name="validityCard" aria-describedby="basic-addon3">
+              </div>
             </div>
           </div>
         </div>
@@ -18,29 +32,21 @@
           <div class="card">
             <div class="card-body">
               <div class="col-sm">
-                <label class="fs-4 text-center" v-bind:class="labelStatusClass">{{ labelStatusDescription }}
+                <label class="fs-4 text-center" v-bind:class="labelStatusClass">Informações:
                 </label>
 
-                <p class="fs-5 fw-semibold mt-2">Aguardando confirmação do pagamento.</p>
-                <p class="fs-6">{{ labelDescription }}</p>
+                <p class="fs-6">Após a solicitação da troca, ela estará sujeita a aprovação.</p>
+                <p class="fs-6">Você pode acompanhar o status da sua troca no menu "Compras".</p>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="row" v-show="statusOrder == 5">
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action disabled text-reset fs-5">
-              Ajuda com a compra
-            </a>
-            <button class="list-group-item list-group-item-action" v-on:click="updateStatus(6, orderId)">Trocar compra completa</button>
-            <RouterLink :to="{ path: `/client/${ clientID }/purchases/${ orderId }/replace` }" class="list-group-item list-group-item-action">Trocar itens da compra</RouterLink>
-          </div>
+        <div class="row d-flex justify-content-between p-3">
+          <button class="btn btn-outline-warning" v-on:click="sendReplace()">Trocar</button>
         </div>
-
       </div>
       <div class="col-sm-4">
-        <label class="fs-5 ">Detalhe da compra</label>
+        <label class="fs-5 ">Detalhe da compra de origem:</label>
         <p>
           <label class="form-text">
             {{ clientPurchases.dateOrder }}
@@ -93,11 +99,11 @@
 </template>
 
 <script>
-import { getPurchaseById,updateStatusOrder } from '../services/modules'
-import { useRoute, useRouter } from 'vue-router'
+import { getPurchaseById } from '../services/modules'
+import { useRoute } from 'vue-router'
 
 export default {
-  name: "DetailPurchaseView",
+  name: "CreateReplaceView",
   data: function () {
     let clientPurchases = {};
     const { params } = useRoute()
@@ -106,22 +112,20 @@ export default {
     let labelAdress = '';
     let labelStatusClass;
     let labelStatusDescription;
-    let statusOrder;
-    const orderId = params.purchase_id;
-    const clientID = params.client_id;
-    let labelDescription;
-    
-    getPurchaseById(orderId)
+    let itens;
+    getPurchaseById(params.purchase_id)
       .then((result) => {
         console.log(result);
+
         this.clientPurchases = result;
+        this.itens = this.modelItens(result.items);
         this.totalQuantity = result.items.reduce((aculumador, item) => aculumador + item.quantity, 0);
         this.identificationAddress = result.adress.identification;
         this.labelAdress = `${result.adress.street},  ${result.adress.number} -  ${result.adress.state} -  ${result.adress.city}`;
-        this.statusOrder = result.statusOrder;
-        this.labelStatusClass = this.getStatusClass(this.statusOrder)
-        this.labelStatusDescription = this.getStatusDescription(this.statusOrder)
-        this.labelDescription = this.getLabelDescription(this.statusOrder)
+
+        this.labelStatusClass = this.getStatusClass(result.statusOrder)
+        this.labelStatusDescription = this.getStatusDescription(result.statusOrder)
+
 
       })
       .catch((err) => {
@@ -135,14 +139,20 @@ export default {
       labelAdress,
       labelStatusClass,
       labelStatusDescription,
-      orderId,
-      clientID,
-      statusOrder,
-      params,
-      labelDescription
+      itens
     };
   },
   methods: {
+    modelItens: function(itens){
+      return itens.map((item)=>{
+      return {
+        quantity: item.quantity,
+        replaceQuantity: item.quantity,
+        title: item.book.title,
+        totalValu: item.totalValue,
+        isReplace: false
+      }})
+    },
     getStatusClass: function (statusOrderId) {
       switch (statusOrderId) {
         case 1:
@@ -155,31 +165,8 @@ export default {
           return " text-warning"
         case 5:
           return "text-success"
-        case 6:
-          return "text-warning"
-        case 7:
-          return "text-success"
-        case 8:
-          return "text-success"
         default:
       }
-    },
-    updateStatus(statusId, orderId) {
-      console.log('paarams,', statusId, orderId);
-      const data = {
-        OrderId: orderId,
-        statusId,
-        admId: 0
-      };
-
-      updateStatusOrder(data)
-        .then((result) => {
-          console.log('Request with sucess {updateStatusOrder}', JSON.stringify(result));
-          useRouter.push({ path: `/client/${ params.client_id }/purchases/${ purchase.id }` });
-        })
-        .catch((err) => {
-          console.log('Request with faild {updateStatusOrder}', err);
-        })
     },
     getStatusDescription: function (statusOrderId) {
       switch (statusOrderId) {
@@ -193,36 +180,12 @@ export default {
           return "Em transporte"
         case 5:
           return "Entregue"
-        case 6:
-          return "Em troca"
-        case 7:
-          return "Troca aprovada"
-        case 8:
-          return "Trocado"
         default:
       }
     },
-    getLabelDescription: function(statusOrderId) {
-        switch (statusOrderId) {
-            case 1:
-                return "Estamos aguardando a confirmação de pagamento da operadora do cartão."
-            case 2:
-                return "Quase lá. Estamos aguardando processo de embalagem para enviar seus produtos"
-            case 3:
-                return "Infelizmente não houve confirmação de pagamento da operadora do cartão."
-            case 4:
-                return "Quase lá. Seu produto já está a caminho"
-            case 5:
-                return "Show! Esperamos que seu produto tenha chegado em perfeito estado. Caso necessario pode trocar seu(s) produto(s)"
-            case 6:
-                return "Estamos avaliando o processo de troca, aguardando autorização"
-            case 7:
-                return "O processo de troca foi autorizado, agora é somente nos enviar os itens solicitados"
-            case 8:
-                return "Perfeito, troca concluida, foi gerado um cupom de troca na sua conta"
-            default:
-        }
-    },
+    sendReplace: function(){
+      
+    }
   }
 }
 </script>

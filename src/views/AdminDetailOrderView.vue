@@ -106,7 +106,7 @@
       </div>
 
       <div v-for="history of historyOrderStatus" v-bind:key="history.id" class="m-1 col-md-8">
-        <div class="d-flex justify-content-around mt-5">
+        <div class="d-flex justify-content-between mt-5">
           <div class="circulo d-flex align-items-center justify-content-center">
             # {{ history.id }}
           </div>
@@ -259,11 +259,12 @@
       },
       getFieldsHistory(history) {
         let identity = 1;
-        return history.map((item) => {
+        return history.sort((a, b) => a.idStatus - b.idStatus).map((item) => {
           const hisotry =  {
             'id': identity,
             'status': this.getStatusDescription(item.idStatus, true),
-            'dateUpdate': item.dateUpdate
+            'dateUpdate': item.dateUpdate,
+            'idStatus':item.idStatus
           }
           
           identity++

@@ -4,7 +4,7 @@
         <div class="form-label fs-3">
             Compras
         </div>
-        <div v-for="purchase in clientPurchases">
+        <div v-for="purchase in clientPurchases" v-bind:key="purchase.id">
             <div class="card">
                 <div class="card-header">
                     {{ purchase.date }}
