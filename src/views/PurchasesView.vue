@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-sm-9">
                             <label class="fs-5 text-center" v-bind:class="[purchase.statusClass]">{{ purchase.statusDescription }}</label>
-                            <p class="fs-6">Estamos aguardando a confirmação de pagamento da operadora do cartão.</p>
+                            <p class="fs-6">{{ purchase.labelDescription }}</p>
                         </div>
                         <div class="col-sm-2">
                             <RouterLink class="btn btn-outline-warning" :to="{ path: `/client/${ params.client_id }/purchases/${ purchase.id }` }" >Ver detalhes</RouterLink>
@@ -75,41 +75,81 @@ export default {
     methods: {
         modelPurchases: function (allPurchases) {
             const result = allPurchases.map((purchase) => {
-                switch (purchase.statusOrder) {
-                    case 1:
-                        purchase.statusClass = " text-warning"
-                        purchase.statusDescription = "Em processamento"
-                        break;
-                    case 2:
-                        purchase.statusClass = "text-success"
-                        purchase.statusDescription = "Pagamento aprovado"
-                        break;
-                    case 3:
-                        purchase.statusClass = "text-danger"
-                        purchase.statusDescription = "Pagamento reprovado"
-                        break;
-                    case 4:
-                        purchase.statusClass = " text-warning"
-                        purchase.statusDescription = "Em transporte"
-                        break;
-                    case 5:
-                        purchase.statusClass = "text-success"
-                        purchase.statusDescription = "Entregue"
-                        break;
-                    default:
-
-                }
                 return {
                     id: purchase.id,
                     status: purchase.status,
-                    statusDescription: purchase.statusDescription,
+                    statusDescription: this.getStatusDescription(purchase.statusOrder),
                     date: purchase.dateOrder,
-                    statusClass: purchase.statusClass
+                    statusClass: this.getStatusClass(purchase.statusOrder),
+                    labelDescription: this.getLabelDescription(purchase.statusOrder)
                 }
             })
 
             return result;
+        },
+        getStatusDescription: function(statusOrderId) {
+            switch (statusOrderId) {
+                case 1:
+                    return "Em processamento"
+                case 2:
+                    return "Pagamento aprovado"
+                case 3:
+                    return "Pagamento reprovado"
+                case 4:
+                    return "Em transporte"
+                case 5:
+                    return "Entregue"
+                case 6:
+                    return "Em troca"
+                case 7:
+                    return "Troca Aprovada"
+                case 8:
+                    return "Trocado"
+                default:
         }
+        },
+        getStatusClass: function(statusOrderId) {
+            switch (statusOrderId) {
+                case 1:
+                    return "text-warning"
+                case 2:
+                    return "text-success"
+                case 3:
+                    return "text-danger"
+                case 4:
+                    return "text-warning"
+                case 5:
+                    return "text-success"
+                case 6:
+                    return "text-warning"
+                case 7:
+                    return "text-success"
+                case 8:
+                    return "text-success"
+                default:
+            }
+        },
+        getLabelDescription: function(statusOrderId) {
+            switch (statusOrderId) {
+                case 1:
+                    return "Estamos aguardando a confirmação de pagamento da operadora do cartão."
+                case 2:
+                    return "Quase lá. Estamos aguardando processo de embalagem para enviar seus produtos"
+                case 3:
+                    return "Infelizmente não houve confirmação de pagamento da operadora do cartão."
+                case 4:
+                    return "Quase lá. Seu produto já está a caminho"
+                case 5:
+                    return "Show! Esperamos que seu produto tenha chegado em perfeito estado. Caso necessario pode trocar seu(s) produto(s)"
+                case 6:
+                    return "Estamos avaliando o processo de troca, aguardando autorização"
+                case 7:
+                    return "O processo de troca foi autorizado, agora é somente nos enviar os itens solicitados"
+                case 8:
+                    return "Perfeito, troca concluida, foi gerado um cupom de troca na sua conta"
+                default:
+            }
+        },
     }
 }
 
