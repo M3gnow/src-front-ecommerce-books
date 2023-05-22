@@ -689,12 +689,10 @@ export default {
       const data = this.modelToClient(client)
       createClient(data)
         .then((result) => {
-          console.log('MEU NOBRE, CADASTREI');
           alert('Sucesso cadastro de cliente')
         })
         .catch((err) => {
           alert('Falha cadastro de cliente')
-          console.log('Falha na consulta createClient', err)
         })
     },
     modelToAddress: function(client) {

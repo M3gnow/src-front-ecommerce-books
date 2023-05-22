@@ -1,5 +1,5 @@
 <template :key="componentKey">
-    <div class="card border-success mb-3 p-2" v-for="item in cart.itens">
+    <div class="card border-success mb-3 p-2" v-for="item in cart.itens" v-bind:key="item.id">
         <div class="card-header bg-transparent border-success">{{ item.title }}</div>
 
         <div class="card-body text-success">
@@ -54,13 +54,15 @@
 </template>
 
 <script>
-import { getCartStorage, AddUnitToItemCartStorage, RemoveUnitToItemCartStorage } from '@/storage/module';
-import { ref } from 'vue';
+import { initCartStorage, AddUnitToItemCartStorage, RemoveUnitToItemCartStorage, getCartStorage } from '@/storage/module';
+import { ref, onMounted } from 'vue'
+
 export default {
     name: "CartComponent",
 
     data: function () {
-        let cart = getCartStorage();
+        let cart = initCartStorage();
+
         return {
             cart,
             componentKey: 0,
@@ -69,18 +71,20 @@ export default {
     methods: {
         AddUnit: function (item) {
             AddUnitToItemCartStorage(item);
-            console.log('add', getCartStorage());
+            this.cart = getCartStorage();
             this.forceRerender();
         },
-        RemoveItem: function (item) {
+        RemoveItem: function async (item) {
             RemoveUnitToItemCartStorage(item);
-            console.log('remove', getCartStorage());
+            this.cart = getCartStorage();
             this.forceRerender();
         },
         forceRerender() {
             this.componentKey += 1;
         }
-
+    },
+    mounted() {
+        this.cart = getCartStorage();
     }
 }
 

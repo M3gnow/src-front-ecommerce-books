@@ -116,7 +116,7 @@ export default {
                 this.client = this.modelDetailClient(result)
             })
             .catch((err) => {
-                console.log('Falha na consulta getAllCardsByClientId', err)
+                console.log('Falha na consulta getClientById', err)
             })
 
         return {

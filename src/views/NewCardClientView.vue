@@ -99,11 +99,9 @@ export default {
             if (this.errors.length) {
                 this.notify()
             } else {
+                //pending redirect page
                 this.createToCard(this.params.client_id, this.creditCard)
-                    .then((result) => {
-                        console.log('sucess create')
-                        //redirect page
-                    })
+                    .then((result) => console.log('sucess create'))
                     .catch((err) => console.log('error create'))
             }
         },
@@ -117,14 +115,14 @@ export default {
         },
         createToCard: function(clientId, card) {
             const data = this.modelCreateToCard(clientId, card)
+
             createCardByClientId(data)
                 .then((result) => {
-                    console.log('MEU NOBRE, CADASTREI');
                     alert('Sucesso cadastro de cartão')
                 })
                 .catch((err) => {
                     alert('Falha cadastro de cartão')
-                    console.log('Falha na consulta getAllCardFlags', err)
+                    console.log('Falha na consulta createCardByClientId', err)
                 })
         },
         modelCreateToCard: function(clientId, card) {

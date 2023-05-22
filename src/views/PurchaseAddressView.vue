@@ -65,6 +65,7 @@ export default {
     let addressSelected = 0;
     let deliveryAddress = [];
     const client = getClientStorage();
+    
     getAllAddressByClientId(client.id)
       .then((result) => {
         const deliveryFilter = result.filter((address) => address.typeAdress === 1)

@@ -258,29 +258,27 @@ export default {
         createAddress: function(address){
             let clientId = 0;
             if(salvarEndereco.isChecked){
-                console.log("salvar: ",salvarEndereco);
                 clientId = getClientStorage().id;
             }
             const data = this.modelCreateAddress(clientId, address)
+
             createAddressByClientId(data).then((result) => {
                     const id = result;
                     setAdressDeliveryToCartStorage(id);
                 })
                 .catch((err) => {
-                    console.log('Falha na consulta getAllAddressByClientId', err)
+                    console.log('Falha na consulta createAddressByClientId', err)
                 })
         },
         getAdress: function (cep) {
             getAddressByCep(cep)
                 .then((result) => {
-                    console.log('RESULT', result);
-
                     this.address = this.modelDetailAddress(result);
                     result.zipCode = cep;
                     return this.address;
                 })
                 .catch((err) => {
-                    console.log('Falha na consulta getAllAddressByClientId', err)
+                    console.log('Falha na consulta getAddressByCep', err)
                 })
         },
         modelDetailAddress: function (address) {

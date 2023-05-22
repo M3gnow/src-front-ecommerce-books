@@ -223,7 +223,7 @@ export default {
                 this.address = this.modelAddress(result)
             })
             .catch((err) => {
-                console.log('Falha na consulta getAllAddressByClientId', err)
+                console.log('Falha na consulta getAddressById', err)
             });
 
 
@@ -285,7 +285,7 @@ export default {
                         })
                     })
                     .catch((err) => {
-                        console.log('Falha na consulta getAllCardsByClientId', err)
+                        console.log('Falha na consulta getValidationCoupon', err)
                     })
             } else {
                 this.coupon = '';
@@ -340,9 +340,6 @@ export default {
             }
             this.labelCheckPayment = 'Os valores preenchidos são inferiores ao Total';
             this.labelStatusClass = 'text-danger';
-        },
-        clickSelect() {
-            console.log('checkecd');
         },
         validateCardForPayment() {
             const totalPaymentInCreditCard = this.cards

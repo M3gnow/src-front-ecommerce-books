@@ -19,7 +19,7 @@
                     <div class="input-group">
                         <select class="form-select" id="creditCardFlagCard" name="creditCardFlagCard" v-model="creditCard.flagCard">
                             <option disabled value="">Escolha...</option>
-                            <option v-for="option in options.flags" :value="option.id">
+                            <option v-for="option in options.flags" :value="option.id" v-bind:key="option.id">
                                 {{ option.description }}
                             </option>
                         </select>
@@ -85,8 +85,6 @@ export default {
                 }
 
                 this.creditCard = this.modelDetailCard(result);
-
-                console.log('this.creditCard', this.creditCard)
             })
             .catch((err) => {
                 console.log('Falha na consulta getCardById', err)
@@ -132,19 +130,16 @@ export default {
             if (this.errors.length) {
                 this.notify()
             } else {
+                //pending redirect page
                 this.changeCard(this.creditCard)
-					.then((result) => {
-                        console.log('sucess update')
-                        //redirect page
-                    })
+					.then((result) => console.log('sucess update'))
                     .catch((err) => console.log('error update'))
             }
         },
         changeCard: function(card) {
             const data = this.modelChangeCard(card)
             changeCardById(data)
-                .then((result) => {
-                    console.log('MEU NOBRE, CADASTREI');
+                .then(() => {
                     alert('Sucesso alteracao de cartao')
                 })
                 .catch((err) => {

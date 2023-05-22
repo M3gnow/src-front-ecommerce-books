@@ -38,7 +38,7 @@
     </div>
   </div> -->
 
-  <div class="container d-flex flex-wrap justify-content-between mt-3">
+  <div class="container d-flex flex-wrap justify-content-between mt-3 mb-3">
     <div v-for="book in books" class=" card border-warning text-bg-light p-3 mt-2" style="width: 25rem;" v-bind:key="book.id">
       <div class="d-flex card-img-top">
         <img src="https://m.media-amazon.com/images/I/91y1jCIfhSL.jpg" alt="...">
@@ -59,7 +59,7 @@
       <div class="d-flex p-3">
         <a href="#" class="btn btn-outline-warning btn-lg col-md-12" data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
-          v-on:click="AddToCart(book), forceRerenderCart()">
+          v-on:click="AddToCart(book)">
           <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           Adicionar ao Carrinho
         </a>
@@ -85,7 +85,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <Cart :key="componentKey" />
+        <Cart :key="componentKey"/>
       </div>
     </div>
 
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { setClientStorage, initCartStorage, setItemToCartStorage, getCartStorage,SetExpirationCart } from '@/storage/module'
+import { setClientStorage, setItemToCartStorage, SetExpirationCart } from '@/storage/module'
 import Cart from '../components/CartComponent.vue'
 import { getClientById, getAllBooks, setLockBook } from '../services/modules'
 
@@ -103,28 +103,29 @@ export default {
     Cart
   },
   data: function () {
-    let client
-    getClientById(5)
-      .then((result) => {
-        const { id, name, ranking } = result
-        this.client = result;
-        if (!id) {
-          throw 'ERROR CLIENT ID';
-        }
-        setClientStorage(result);
-
-      })
-      .catch((err) => {
-        console.log('Falha na consulta getClientById', err);
-      });
+    const CLIENT_ID_HARD_CODE = 1
+    let client = {};
     let books = [];
+
+    getClientById(CLIENT_ID_HARD_CODE)
+      .then(async (result) => {
+        this.client = result;
+
+        if (this.client.id) {
+          setClientStorage(result);
+          return
+        }
+        
+        throw 'ERROR CLIENT NOT FOUND';
+      })
+      .catch((err) => console.log('Falha na consulta getClientById', err));
+
     getAllBooks()
       .then((result) => {
-        console.log();
         this.books = this.modelBooks(result);
       })
       .catch((err) => {
-        console.log('Falha na consulta getClientById', err);
+        console.log('Falha na consulta getAllBooks', err);
       });
     return {
       client,
@@ -148,11 +149,11 @@ export default {
       return result;
     },
     AddToCart: async function (book) {
-      console.log(this.client)
       setLockBook(this.client.id,book.id)
         .then((result) => {
           setItemToCartStorage(book);
           SetExpirationCart(result);
+          this.forceRerenderCart()
         })
         .catch((err) => {
           alert('Não há livros em estoque no momento.')

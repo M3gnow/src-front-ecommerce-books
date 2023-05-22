@@ -15,12 +15,17 @@ export const setItemToCartStorage = function (value) {
 }
 export const getCartStorage = function () {
     UpdateFinalPriceCartStorage();
-    return JSON.parse(useStorage('cart').value);
+    return JSON.parse(localStorage.getItem('cart'));
 }
-export const initCartStorage = function () {
-    const cartStorage = useStorage('cart');
 
-    const cart = {
+export const initCartStorage = () => {
+    const cartNow = localStorage.getItem('cart');
+
+    if (cartNow !== null) {
+        return getCartStorage();
+    }
+
+    const cart = JSON.stringify({
         itens : [],
         totalQuantity: 0,
         finalPrice : 0,
@@ -30,9 +35,10 @@ export const initCartStorage = function () {
         coupons: [],
         discount: 0,
         expiration: 0
-    };
-    if(cartStorage.value != undefined)
-    cartStorage.value = JSON.stringify(cart);
+    });
+
+    localStorage.setItem('cart', cart);
+    return getCartStorage();
 }
 export const AddUnitToItemCartStorage = function(value){
     const cartStorage = useStorage('cart');

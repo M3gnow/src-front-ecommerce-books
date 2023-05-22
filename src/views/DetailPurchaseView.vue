@@ -113,7 +113,6 @@ export default {
     
     getPurchaseById(orderId)
       .then((result) => {
-        console.log(result);
         this.clientPurchases = result;
         this.totalQuantity = result.items.reduce((aculumador, item) => aculumador + item.quantity, 0);
         this.identificationAddress = result.adress.identification;
@@ -125,7 +124,7 @@ export default {
 
       })
       .catch((err) => {
-        console.log('Falha na consulta getAllAddressByClientId', err)
+        console.log('Falha na consulta getPurchaseById', err)
       })
 
     return {
@@ -165,7 +164,6 @@ export default {
       }
     },
     updateStatus(statusId, orderId) {
-      console.log('paarams,', statusId, orderId);
       const data = {
         OrderId: orderId,
         statusId,

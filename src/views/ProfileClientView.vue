@@ -57,18 +57,14 @@ import { useStorage } from '@vueuse/core'
 export default {
     name: "ProfileClientView",
     data: function() {
-        const teste = JSON.parse(useStorage('client').value);
-        teste.id = 12345;
-        useStorage('client').value = teste;
-        const teste2 = JSON.parse(useStorage('client').value);
-        console.log(teste2);
-        
         const { params } = useRoute();
+        // forced error = not exist client 1
+        const CLIENT_ID_HARD_CODE = 0
 
         let client = {
             name: '',
             lesBookPoints: '',
-            client_id: '0'
+            client_id: CLIENT_ID_HARD_CODE
         };
 
         getClientById(params.client_id)

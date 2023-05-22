@@ -55,7 +55,6 @@ export default {
         if(cart.id_delivery_address !== 0){
             getAddressById(cart.id_delivery_adress)
                 .then((result) => {
-                    console.log('result adress',result);
                     this.deliveryAddress = this.modelDetailAddress(result)
                 })
                 .catch((err) => {
