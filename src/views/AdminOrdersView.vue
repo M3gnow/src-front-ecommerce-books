@@ -30,7 +30,7 @@
                 <th scope="row">{{ order.id }}</th>
                 <td>{{ order.clientName }}</td>
                 <td v-bind:class="order.labelStatusClass">{{ order.labelStatusDescription }}</td>
-                <td>{{ order.date  }}</td>
+                <td>{{ formatDate(order.date)  }}</td>
                 <td>{{ order.total  }}</td>
                 <td>
                     <RouterLink class="btn btn-outline-warning" :to="{ path: `/adm/orders/${ order.id }` }">Detalhes</RouterLink>
@@ -53,13 +53,11 @@ export default {
 
         getOrders()
             .then((data) =>{
-                console.log('data, wo', data)
                 this.orders = this.formatOrderFromTable(data)
                 this.allOrders = this.formatOrderFromTable(data)
-                console.log('data,', this.orders)
             })
             .catch((err) => {
-                console.log('Falha na consulta getAllCardsByClientId', err)
+                console.log('Falha na consulta getOrders', err)
             })
 
         
@@ -69,9 +67,6 @@ export default {
     methods: {
         formatOrderFromTable(ordersData) {
             return ordersData.map((order) => {
-
-                console.log('megnow item',order);
-
                 return { 
                     id: order.id || 0,
                     date: order.dateOrder || '',
@@ -126,12 +121,22 @@ export default {
             }
         },
         getOnlyPurchases() {
-            console.log('purchase');
             this.orders = this.allOrders.filter((order) => order.type === 2)
         },
         getOnlyReplacement() {
-            console.log('replacement');
             this.orders = this.allOrders.filter((order)=> order.type === 1)
+        },
+        formatDate(dateForFormat) {
+            const dateTime = new Date(dateForFormat);
+            const day = dateTime.getDay() > 9 ? dateTime.getDay() : `0${dateTime.getDay()}`;
+            const mounth = (dateTime.getMonth() + 1) <= 9 ? `0${dateTime.getMonth() + 1}` : dateTime.getMonth() + 1;
+            const year = dateTime.getFullYear();
+            const hours = dateTime.getHours();
+            const minutes = dateTime.getMinutes() <= 9 ? `0${dateTime.getMinutes()}` : dateTime.getMinutes();
+
+            const date = `${day}/${mounth}/${year} - ${hours}:${minutes}`
+
+            return date;
         }
     }
 }

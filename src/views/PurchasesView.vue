@@ -55,15 +55,14 @@ export default {
     data: function () {
         let clientPurchases = []
         const { params } = useRoute()
-        console.log("params",params)
+
         getClientPurchases(params.client_id)
             .then((result) => {
                 const filter = result;
-                console.log("result", result)
                 this.clientPurchases = this.modelPurchases(filter)
             })
             .catch((err) => {
-                console.log('Falha na consulta getAllAddressByClientId', err)
+                console.log('Falha na consulta getClientPurchases', err)
             })
 
 

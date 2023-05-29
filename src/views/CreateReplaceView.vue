@@ -117,23 +117,20 @@ export default {
     let itens;
     const order_id = params.purchase_id;
     const client_id = getClientStorage().id;
+
     getPurchaseById(params.purchase_id)
       .then((result) => {
-        console.log(result);
-
         this.clientPurchases = result;
         this.itens = this.modelItens(result.items);
         this.totalQuantity = result.items.reduce((aculumador, item) => aculumador + item.quantity, 0);
         this.identificationAddress = result.adress.identification;
         this.labelAdress = `${result.adress.street},  ${result.adress.number} -  ${result.adress.state} -  ${result.adress.city}`;
-
         this.labelStatusClass = this.getStatusClass(result.statusOrder)
         this.labelStatusDescription = this.getStatusDescription(result.statusOrder)
 
-
       })
       .catch((err) => {
-        console.log('Falha na consulta getAllAddressByClientId', err)
+        console.log('Falha na consulta getPurchaseById', err)
       })
 
     return {
@@ -206,13 +203,13 @@ export default {
         order_Id: this.order_id,
         items: itensReplace
       }
-      console.log("itens",itensReplace);
+
       createOrderReplacement(data)
         .then((result) => {
           useRouter.push(`/client/${this.client_id}/purchases`);
         })
         .catch((err) => {
-          console.log('Falha na consulta getAllAddressByClientId', err)
+          console.log('Falha na consulta createOrderReplacement', err)
         });
     }
   }

@@ -208,11 +208,9 @@ export default {
             if (this.errors.length) {
                 this.notify()
             } else {
+				//pending redirect page
                 this.createToAddress(this.params.client_id, this.address)
-					.then((result) => {
-                        console.log('sucess create')
-                        //redirect page
-                    })
+					.then((result) => console.log('sucess create'))
                     .catch((err) => console.log('error create'))
             }
         },
@@ -228,7 +226,6 @@ export default {
             const data = this.modelCreateAddress(clientId, address)
             createAddressByClientId(data)
                 .then((result) => {
-                    console.log('MEU NOBRE, CADASTREI');
                     alert('Sucesso cadastro de endereço')
                 })
                 .catch((err) => {

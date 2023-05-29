@@ -135,13 +135,15 @@ export default {
         let client = getClientStorage();
         const { params } = useRoute();
         let zipcode = "", deliveryPrice = 0, book = {};
+
         getBook(params.book_id)
             .then((result) => {
                 this.book = result;
             })
             .catch((err) => {
-                console.log('Falha na consulta getDeliveryPrice', err)
+                console.log('Falha na consulta getBook', err)
             })
+
         return { text: 'Ticta', textMegnow: '', zipcode, deliveryPrice, book,client }
     },
     methods: {
@@ -154,13 +156,7 @@ export default {
                     console.log('Falha na consulta getDeliveryPrice', err)
                 })
         },
-        megnowAction() {
-            setTimeout(() => {
-
-            })
-        },
         AddToCart: async function (book) {
-            console.log(this.client)
             setLockBook(this.client.id, book.id)
                 .then((result) => {
                     setItemToCartStorage(book);

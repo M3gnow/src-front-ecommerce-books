@@ -107,16 +107,15 @@ export default {
     Cart
   },
   data: function () {
+    const CLIENT_ID_HARD_CODE = 1;
+    let client_id = CLIENT_ID_HARD_CODE;
     let setAdm = false;
     let typeUser = 'Cliente'
     let itensCart = 10;
-    if (this.setAdm) {
-      console.log('setAdm', setAdm);
-    }
 
     return {
       componentKey: 0,
-      client_id: 5,
+      client_id,
       typeUser,
       setAdm,
       itensCart: itensCart || '',

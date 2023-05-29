@@ -87,7 +87,7 @@ export default {
           this.client.userId = result.user.id
       })
       .catch((err) => {
-          console.log('Falha na consulta getAllCardsByClientId', err)
+          console.log('Falha na consulta getClientById', err)
       })
 
     return { client, errors };
@@ -124,9 +124,7 @@ export default {
         this.notify()
       } else {
         this.changePassword(this.client)
-          .then((result) => {
-              console.log('sucess update password')
-          })
+          .then((result) => console.log('sucess update password'))
           .catch((err) => console.log('error update password'))
       }
     },
@@ -159,7 +157,6 @@ export default {
 
       changePasswordByClientId(data)
         .then((result) => {
-            console.log('MEU NOBRE, CADASTREI');
             alert('Alteração de senha com sucesso')
         })
         .catch((err) => {

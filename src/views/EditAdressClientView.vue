@@ -166,12 +166,10 @@ export default {
 
 		getAddressById(params.address_id)
             .then((result) => {
-				console.log('RESULT', result);
-
 				this.address = this.modelDetailAddress(result)
             })
             .catch((err) => {
-                console.log('Falha na consulta getAllAddressByClientId', err)
+                console.log('Falha na consulta getAddressById', err)
             })
 
 		return { address, options, errors, params }
@@ -239,11 +237,9 @@ export default {
             if (this.errors.length) {
                 this.notify()
             } else {
+				//pending redirect page
                 this.changeAddress(this.address)
-					.then((result) => {
-                        console.log('sucess update')
-                        //redirect page
-                    })
+					.then((result) => console.log('sucess update'))
                     .catch((err) => console.log('error update'))
             }
         },
@@ -252,7 +248,6 @@ export default {
 			
             changeAddressById(data)
                 .then((result) => {
-                    console.log('MEU NOBRE, CADASTREI');
                     alert('Sucesso alteracao de endereço')
                 })
                 .catch((err) => {

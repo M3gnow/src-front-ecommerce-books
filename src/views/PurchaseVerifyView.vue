@@ -242,7 +242,7 @@ export default {
           this.address = this.modelAddress(result)
       })
       .catch((err) => {
-          console.log('Falha na consulta getAllAddressByClientId', err)
+          console.log('Falha na consulta getAddressById', err)
       });
 
 
@@ -308,7 +308,7 @@ export default {
           this.ClearCartStorage()
         })
         .catch((err) => {
-          console.log('Falha na consulta getAllAddressByClientId', err)
+          console.log('Falha na consulta createOrder', err)
         });
     }
   }

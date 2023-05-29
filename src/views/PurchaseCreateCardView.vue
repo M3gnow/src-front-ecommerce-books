@@ -99,6 +99,7 @@ export default {
         createCard: function(card){
             const clientId = getClientStorage().id;
             const data = this.modelCreateToCard(clientId, card)
+
             createCardByClientId(data)
                 .then((result) => {
                     alert('Sucesso cadastro de cartão');
@@ -107,7 +108,7 @@ export default {
                 })
                 .catch((err) => {
                     alert('Falha cadastro de cartão')
-                    console.log('Falha na consulta getAllCardFlags', err)
+                    console.log('Falha na consulta createCardByClientId', err)
                 })
         },
         modelCreateToCard: function(clientId, card) {
