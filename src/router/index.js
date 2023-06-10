@@ -24,6 +24,9 @@ import NewAddressClientView from '../views/NewAddressClientView'
 import CreateReplaceView from '../views/CreateReplaceView'
 import AdminOrdersView from '../views/AdminOrdersView'
 import AdminDetailOrderView from '../views/AdminDetailOrderView'
+import DashboardView from  '../views/DashboardView'
+import SelectDateDashboardView from  '../views/SelectDateDashboardView'
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -158,6 +161,16 @@ const router = createRouter({
       name: 'AdminDetailOrder',
       component: AdminDetailOrderView
     },
+    {
+      path: '/dashboard',
+      name: 'SelectDateDashboard',
+      component: SelectDateDashboardView
+    },
+    {
+      path: '/dashboard/:initMounth/:initYear/:endMounth/:endYear',
+      name: 'dashboard',
+      component: DashboardView
+    }
 
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },

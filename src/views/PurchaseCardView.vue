@@ -200,7 +200,7 @@ export default {
     data: function () {
         let client = getClientStorage();
         const cart = getCartStorage();
-
+        let promotionalUsed = false;
         let cards = [];
         let paymentComplete = false;
         let coupon = '';
@@ -247,7 +247,8 @@ export default {
             finalPrice,
             minValuePaymentInCreditCard,
             labelCheckPayment,
-            labelStatusClass
+            labelStatusClass,
+            promotionalUsed
         }
     },
     methods: {
@@ -270,19 +271,24 @@ export default {
             if (!existCouponInList.length) {
                 getValidationCoupon(this.client.id, this.coupon)
                     .then((result) => {
-                        this.coupons.push(result);
-                        AddCouponToCartStorage(result);
+                        if(result.typeCoupon == 2 || (result.typeCoupon == 1 && !this.promotionalUsed) )
+                        {
+                            this.coupons.push(result);
+                            AddCouponToCartStorage(result);
+                            this.promotionalUsed = result.typeCoupon == 1;
+                            this.finalPrice -= result.value
+                            this.minValuePaymentInCreditCard = 0;
 
-                        this.finalPrice -= result.value
-                        this.minValuePaymentInCreditCard = 0;
+                            this.cards = this.cards.map((card) => {
+                                if (card.isChecked) {
+                                    card.value -= result.value;
+                                }
 
-                        this.cards = this.cards.map((card) => {
-                            if (card.isChecked) {
-                                card.value -= result.value;
-                            }
-
-                            return card;
-                        })
+                                return card;
+                            })
+                        }else{
+                            alert("Não é possivel utilizar mais de um cupom promocional.");
+                        }
                     })
                     .catch((err) => {
                         console.log('Falha na consulta getValidationCoupon', err)

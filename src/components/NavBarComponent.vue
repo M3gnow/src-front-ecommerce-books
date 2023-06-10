@@ -107,7 +107,7 @@ export default {
     Cart
   },
   data: function () {
-    const CLIENT_ID_HARD_CODE = 1;
+    const CLIENT_ID_HARD_CODE = 5;
     let client_id = CLIENT_ID_HARD_CODE;
     let setAdm = false;
     let typeUser = 'Cliente'

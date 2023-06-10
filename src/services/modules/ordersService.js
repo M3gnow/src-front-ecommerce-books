@@ -8,10 +8,10 @@ export const getOrders  = () => {
     return request;
 }
 
-export const setLockBook = (clientId,BookId) => {
+export const setLockBook = (clientId,BookId,quantity) => {
     const request = axiosInstance.post(`${apiLesBookStock}/lock`,{
         "idBooks": BookId,
-        "quantity": 1,
+        "quantity": quantity,
         "idClient": clientId
       })
         .then((res) => Promise.resolve(res.data))
@@ -30,6 +30,14 @@ export const getDeliveryPrice = (zipcode) => {
 
 export const updateStatusOrder = (data) => {
     const request = axiosInstance.patch(apiLesbookOrder, data)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))
+
+    return request;
+}
+export const getDashboard = (data) => {
+    console.log("data",data);
+    const request = axiosInstance.post("https://localhost:7260/api/order/dashboard",data)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 

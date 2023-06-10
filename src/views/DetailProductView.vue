@@ -157,7 +157,7 @@ export default {
                 })
         },
         AddToCart: async function (book) {
-            setLockBook(this.client.id, book.id)
+            setLockBook(this.client.id, book.id,1)
                 .then((result) => {
                     setItemToCartStorage(book);
                     SetExpirationCart(result);

@@ -103,7 +103,7 @@ export default {
     Cart
   },
   data: function () {
-    const CLIENT_ID_HARD_CODE = 1
+    const CLIENT_ID_HARD_CODE = 5
     let client = {};
     let books = [];
 
@@ -149,7 +149,7 @@ export default {
       return result;
     },
     AddToCart: async function (book) {
-      setLockBook(this.client.id,book.id)
+      setLockBook(this.client.id,book.id,1)
         .then((result) => {
           setItemToCartStorage(book);
           SetExpirationCart(result);

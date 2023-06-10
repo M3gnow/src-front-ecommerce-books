@@ -54,28 +54,48 @@
 </template>
 
 <script>
-import { initCartStorage, AddUnitToItemCartStorage, RemoveUnitToItemCartStorage, getCartStorage } from '@/storage/module';
+import { initCartStorage, AddUnitToItemCartStorage, RemoveUnitToItemCartStorage, getCartStorage,getClientStorage } from '@/storage/module';
 import { ref, onMounted } from 'vue'
+import {setLockBook} from '../services/modules'
 
 export default {
     name: "CartComponent",
 
     data: function () {
         let cart = initCartStorage();
-
+        const client = getClientStorage();
         return {
             cart,
             componentKey: 0,
+            client
         }
     },
     methods: {
         AddUnit: function (item) {
-            AddUnitToItemCartStorage(item);
+            console.log("client",this.client);
+            console.log("book",item);
+
+            setLockBook(this.client.id, item.id,1)
+                .then((result) => {
+                    setItemToCartStorage(item);
+                    SetExpirationCart(result);
+                })
+                .catch((err) => {
+                    alert('Não há livros em estoque no momento.')
+                })
             this.cart = getCartStorage();
             this.forceRerender();
         },
         RemoveItem: function async (item) {
-            RemoveUnitToItemCartStorage(item);
+            setLockBook(this.client.id, item.id,-1)
+                .then((result) => {
+                    RemoveUnitToItemCartStorage(item);
+                    SetExpirationCart(result);
+                })
+                .catch((err) => {
+                    alert('Falaha ao remover item do carrinho.')
+                })
+            
             this.cart = getCartStorage();
             this.forceRerender();
         },
