@@ -160,7 +160,6 @@ export default {
             setLockBook(this.client.id, book.id,1)
                 .then((result) => {
                     setItemToCartStorage(book);
-                    SetExpirationCart(result);
                 })
                 .catch((err) => {
                     alert('Não há livros em estoque no momento.')
