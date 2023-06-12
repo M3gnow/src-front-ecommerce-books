@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <div class="row" v-show="statusOrder == 5">
+        <div class="row p-3" v-show="statusOrder == 5">
           <div class="list-group">
             <a href="#" class="list-group-item list-group-item-action disabled text-reset fs-5">
               Ajuda com a compra

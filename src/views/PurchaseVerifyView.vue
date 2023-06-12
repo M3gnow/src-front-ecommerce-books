@@ -1,18 +1,22 @@
 <template>
-  <div class="container d-flex mt-2 mb-5">
-    <div class="col-md-8 me-3">
-      <div>
-        <h5>
-          Finalize sua compra
-        </h5>
+  <div class="container d-flex justify-content-between">
+    <div class="col-md-8 mt-2 pe-2">
+      
+      <div class="card p-3">
+        <h5>Finalize sua compra</h5>
+
+        <div class="d-flex mt-2">
+            <i class="bi bi-trophy ms-5"></i>
+            <label class="ms-3" for="">Benefício Lesbooks Pontos</label>
+          </div>
       </div>
 
       <div class="card mt-3">
-        <div class="p-4 col-md-12">
+        <div class="p-4">
           <div class="d-flex justify-content-between">
             <div class="d-flex">
-              <div class="ms-3">
-                <i class="bi bi-geo-alt iconGeo "></i>
+              <div class="ms-3 imgItem d-flex justify-content-center">
+                <i class="bi bi-geo-alt iconGeo"></i>
               </div>
 
               <div class="d-flex flexwrap row ms-5">
@@ -25,8 +29,8 @@
         </div>
       </div>
 
-      <div class="card mt-3" v-for="item in cart.itens">
-        <div class="p-4 col-md-12">
+      <div class="card mt-3" v-for="item in cart.itens" v-bind:key="item.id">
+        <div class="p-4">
           <div class="d-flex justify-content-between">
             <div class="d-flex">
               <div class="ms-3 ">
@@ -42,69 +46,9 @@
           </div>
         </div>
       </div>
-
-
-
-      <div class="card mt-3 p-3">
-        <div class="d-flex">
-          <i class="bi bi-trophy ms-5"></i>
-          <label class="ms-3" for="">Benefício Lesbooks Pontos</label>
-        </div>
-      </div>
-
-      <div class="col-md-12 d-flex justify-content-end mt-3">
-        <router-link to="/">
-          <div class="btn btn-primary" @click="finishOrderPurchase">
-            Finalizar
-          </div>
-        </router-link>
-      </div>
     </div>
 
-    <!-- <div class="card cardResume col-md-4">
-      <div class="card-title">
-        <div class="ms-4 mt-5">
-          <label for=""><b>Resumo da compra</b></label>
-        </div>
-        <hr class="ms-4 me-4">
-
-        <div class="ms-4 mt-5 d-flex justify-content-between me-4">
-          <div>
-            <label for="">Produtos ({{ cart.totalQuantity }})</label>
-          </div>
-          <div>
-            <label for="">R${{ cart.finalPrice }}</label>
-          </div>
-        </div>
-        <div>
-          <hr class="ms-4 me-4">
-          <div class="ms-4 mt-5 d-flex justify-content-between me-4">
-            <div>
-              <label class="fs-6">Endereço</label>
-            </div>
-            <div>
-              <label class="form-text"> {{ address.identification }}</label>
-
-            </div>
-          </div>
-          <div class="ms-4 mt-5 d-flex justify-content-between me-4">
-            <label class="form-text">{{ address.street }}, {{ address.number }} - {{ address.state }} - {{
-              address.neighborhood }}</label>
-          </div>
-        </div>
-        <hr class="ms-4 me-4">
-        <div class="ms-4 mt-4 d-flex justify-content-between me-4">
-          <div>
-            <label for="">Total </label>
-          </div>
-          <div>
-            <label for="">R${{ cart.finalPrice }}</label>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <div class="card cardResume col-md-4">
+    <div class="card col-md-4 mt-2">
       <div class="card-title">
           <div class="ms-4 mt-5">
               <label for=""><b>Resumo da compra</b></label>
@@ -112,35 +56,37 @@
           <hr class="ms-4 me-4">
       </div>
       <div class="card-body">
-          <div>
-              <div>
-                  <div class="ms-4 d-flex justify-content-between me-4">
-                      <div>
-                          <label for="">Produtos ({{ cart.totalQuantity }})</label>
-                      </div>
-                      <div>
-                          <label for="">R${{ cart.finalPrice }}</label>
-                      </div>
+        <div>
+            <div class="mb-5">
+                <div class="ms-4 d-flex justify-content-between me-4">
+                    <div>
+                        <label for="">Produtos ({{ cart.totalQuantity }})</label>
+                    </div>
+                    <div>
+                        <label for="">R${{ cart.finalPrice }}</label>
+                    </div>
+                </div>
+
+                <hr class="ms-4 me-4">
+            </div>
+
+            <div>
+                <div class="mb-5">
+                  <div class="d-flex justify-content-between me-4 ms-4">
+                    <div>
+                        <label class="fs-6">
+                            <b>
+                                Endereço
+                            </b>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="form-text">
+                            <b>{{ address.identification }}</b>
+                        </label>
+                    </div>
                   </div>
 
-                  <hr class="ms-4 me-4">
-              </div>
-
-              <div>
-                  <div class="ms-4 d-flex justify-content-between me-4">
-                      <div>
-                          <label class="fs-6">
-                              <b>
-                                  Endereço
-                              </b>
-                          </label>
-                      </div>
-                      <div>
-                          <label class="form-text">
-                              <b>{{ address.identification }}</b>
-                          </label>
-                      </div>
-                  </div>
                   <div>
                       <div class="ms-4 mt-1 d-flex justify-content-between me-4">
                           <label class="form-text"> {{ address.street }}</label>
@@ -155,65 +101,97 @@
                           <label class="form-text">CEP {{ address.zipCode }}</label>
                       </div>
                   </div>
+                  <hr class="ms-4 me-4">
+                </div>
 
+                <div class="mb-5">
                   <div class="ms-4 mt-2 d-flex justify-content-between me-4">
-                      <div>
-                          <label for="">
-                              <b>
-                                  Frete
-                              </b>
-                          </label>
-                      </div>
-                      <div>
-                          <label class="form-text text-warning"> R$ {{ 25 }}</label>
-                      </div>
+                    <div>
+                        <label for=""> <b> Frete </b> </label>
+                    </div>
+                    <div>
+                        <label class="form-text text-warning"> R$ {{ 25 }}</label>
+                    </div>
                   </div>
 
                   <hr class="ms-4 me-4">
-              </div>
+                </div>
+            </div>
 
-              <div >
-                  <div class="ms-4 d-flex justify-content-between me-4">
-                      <div>
-                          <label class="fs-6">Cupons aplicados</label>
-                      </div>
-                  </div>
+            <div v-if="coupons.length">
+                <div class="ms-4 d-flex justify-content-between me-4">
+                    <div>
+                        <label class="fs-6">Cupons aplicados</label>
+                    </div>
+                </div>
 
-                  <div class="ms-4 mt-4 d-flex justify-content-between me-4" v-for="item in coupons" v-bind:key="item.id">
-                      <div>
-                          <label class="text-danger" for="">{{ item.description }}</label>
-                      </div>
-                      <div>
-                          <label class="text-danger" for="">R$ {{ item.value }}</label>
-                      </div>
-                  </div>
-                  
+                <div class="ms-4 mt-4 d-flex justify-content-between me-4" v-for="item in coupons" v-bind:key="item.id">
+                    <div>
+                        <label class="text-danger" for="">{{ item.description }}</label>
+                    </div>
+                    <div>
+                        <label class="text-danger" for="">R$ {{ item.value }}</label>
+                    </div>
+                </div>
 
-                  <hr class="ms-4 me-4">
-              </div>
+                <hr class="ms-4 me-4">
+            </div>
+        </div>
+          
+        <div class="ms-4 mt-4 d-flex justify-content-between me-4">
+            <div>
+                <label class="text-success" for="">
+                    <b>
+                        Total
+                    </b>
+                </label>
+            </div>
+            <div>
+                <label class="text-success" for="">R${{ parseFloat(finalPrice).toFixed(2) }}</label>
+            </div>
+        </div>
+
+        <div class="mt-5 ms-4 mt-4" v-if="finalPrice <= 0">
+          <div>
+              <label class="text-success" for=""><b>Fique tranquilo</b></label>
           </div>
           
-          <div class="ms-4 mt-4 d-flex justify-content-between me-4">
+          <div class="d-flex jusitfy-content-between">
               <div>
-                  <label class="text-success" for="">
-                      <b>
-                          Total
-                      </b>
-                  </label>
-              </div>
-              <div>
-                  <label class="text-success" for="">R${{ finalPrice }}</label>
+                  <label class="text-success" for="">Será gerado um cupom com o valor restante</label>
               </div>
           </div>
+
+          <div class="d-flex justify-content-between mt-4 me-4">
+              <div>
+                  <label class="text-success" for="">Novo Cupom</label>
+              </div>
+
+              <div>
+                <label class="text-success" for="">TROCA{{ parseInt((finalPrice * -1)) }}</label>
+              </div>
+          </div>
+        </div>
+
+        <hr class="ms-4 me-4">
       </div>
+    </div>
   </div>
+
+  <div class="container d-flex justify-content-end mt-3 mb-3">
+    <button class="btn btn-outline-success mt-2" @click="finishOrderPurchase">
+      Finalizar Compra
+    </button>
   </div>
 </template>
 
 <script>
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
-import { getCartStorage,getClientStorage, ClearCartStorage } from '@/storage/module';
-import { getAddressById, createOrder, getAllCardsByClientId } from '@/services/modules';
+import { getCartStorage,getClientStorage, initCartStorage } from '@/storage/module';
+import { getAddressById, createOrder } from '@/services/modules';
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
 export default {
   name: "PurchaseVerify",
   components: {
@@ -223,7 +201,6 @@ export default {
     let cart = getCartStorage();
     let client = getClientStorage();
     let address = {};
-    let cards = [];
     let paymentComplete = false;
     let coupon = '';
     let coupons = [];
@@ -244,15 +221,6 @@ export default {
       .catch((err) => {
           console.log('Falha na consulta getAddressById', err)
       });
-
-
-    getAllCardsByClientId(client.id)
-      .then((result) => {
-          this.cards = this.modelCreditCard(result)
-      })
-      .catch((err) => {
-          console.log('Falha na consulta getAllCardsByClientId', err)
-      })
 
     const modelItens = cart.itens.map((iten) => {
       iten.book_id = iten.id
@@ -276,7 +244,6 @@ export default {
     };
 
     return {
-        cards,
         paymentComplete,
         coupon,
         coupons,
@@ -303,13 +270,24 @@ export default {
 
     },
     finishOrderPurchase() {
-      createOrder(this.order)
-        .then((result) => {
-          this.ClearCartStorage()
-        })
-        .catch((err) => {
-          console.log('Falha na consulta createOrder', err)
-        });
+      const promiseCreateOrder = createOrder(this.order);
+      
+      toast.promise(
+        promiseCreateOrder,
+        {
+          pending: 'Processando compra Promise is pending',
+          success: 'Compra finalizada com sucesso 👌',
+          error: 'Ocorreu um erro 🤯',
+        },
+        {
+          position: toast.POSITION.BOTTOM_CENTER,
+        },
+      );
+      localStorage.removeItem("cart");
+
+      setTimeout(() => {  
+        this.$router.push('/');
+      }, 5000)
     }
   }
 }
@@ -320,5 +298,11 @@ export default {
   border-radius: 50% !important;
   width: 90px;
   height: 90px;
+  background-color: khaki;
 }
+
+.iconGeo {
+  font-size: 50px;
+}
+
 </style>

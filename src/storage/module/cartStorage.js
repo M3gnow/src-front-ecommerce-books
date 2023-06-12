@@ -51,7 +51,15 @@ export const RemoveUnitToItemCartStorage = function(value){
     const cartStorage = useStorage('cart');
     const cart = JSON.parse(cartStorage.value);
     const index = cart.itens.findIndex((item) => item.id === value.id);
-    cart.itens[index].quantity--;
+
+    if (cart.itens[index].quantity <= 1) {
+        let removingItem = cart.itens.filter((item) => item.id !== value.id);
+
+        cart.itens = removingItem;
+    } else {
+        cart.itens[index].quantity--;
+    }
+
     cartStorage.value = JSON.stringify(cart);
 
 }

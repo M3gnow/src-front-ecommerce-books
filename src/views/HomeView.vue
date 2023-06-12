@@ -103,7 +103,7 @@ export default {
     Cart
   },
   data: function () {
-    const CLIENT_ID_HARD_CODE = 5
+    const CLIENT_ID_HARD_CODE = 7
     let client = {};
     let books = [];
 

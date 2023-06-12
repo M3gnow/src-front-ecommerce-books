@@ -1,6 +1,9 @@
 import { useStorage } from "@vueuse/core";
 
 export const setClientStorage = function (value) {
+    if (!value) { 
+        useStorage('client',JSON.stringify({}));
+    }
     useStorage('client',JSON.stringify(value));
     
 }
