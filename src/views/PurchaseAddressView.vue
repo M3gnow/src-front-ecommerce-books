@@ -1,11 +1,13 @@
 <template>
-  <div class="container d-flex mt-2">
-    <div class="col-md-8 me-3">
-      <div>
-        <h5>Meus endereços</h5>
+  <div class="container d-flex justify-content-around mt-2">
+    <div>
+      <div class="card p-3">
+        <div>
+          <h5>Meus endereços</h5>
+        </div>
       </div>
 
-      <div class="card mt-4" v-for="address in deliveryAddress">
+      <div class="card mt-3" v-for="address in deliveryAddress" v-bind:key="address.id">
         <div class="p-4 col-md-12">
           <div class="d-flex justify-content-between">
             <div class="d-flex">

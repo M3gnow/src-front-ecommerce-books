@@ -51,8 +51,7 @@
 </template>
 
 <script>
-import { initCartStorage, AddUnitToItemCartStorage, RemoveUnitToItemCartStorage, getCartStorage,getClientStorage } from '@/storage/module';
-import { ref, onMounted } from 'vue'
+import { initCartStorage, AddUnitToItemCartStorage, RemoveUnitToItemCartStorage, getCartStorage, getClientStorage } from '@/storage/module';
 import {setLockBook} from '../services/modules'
 
 export default {
@@ -60,7 +59,8 @@ export default {
 
     data: function () {
         let cart = initCartStorage();
-        const client = getClientStorage();
+        const client = {};
+
         return {
             cart,
             componentKey: 0,

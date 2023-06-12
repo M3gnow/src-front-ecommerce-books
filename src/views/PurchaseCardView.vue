@@ -1,57 +1,59 @@
 <template>
-
     <div class="container mt-3">
-        <h5>Forma de Pagamento</h5>
-    </div>
-    <div class="container d-flex mt-4">
-        <div class="col-md-8 me-3">
-            <div class="col-md-12">
-                <div class="card p-4">
-                    <div>
-                        <h5>Digite um cupom promocionais ou de troca</h5>
-                    </div>
+        <div class="card p-3 col-md-12">
+            <h5>Forma de Pagamento</h5>
+        </div>
 
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="col-md-6">
-                            <div class="input-group inputSize">
-                                <input type="text" class="form-control inputColor" v-model="coupon" aria-describedby="basic-addon3">
-                            </div>
+        <div class="d-flex justify-content-between mt-3">
+            <div class="col-md-8 pe-2">
+                <div class="col-md-12">
+                    <div class="card p-4">
+                        <div>
+                            <h5>Digite um cupom promocionais ou de troca</h5>
                         </div>
 
-                        <div class="col-md-3 mt-2">
-                            <div class="btn btn-outline-primary" @click="$event => aplyCoupon()">
-                                Aplicar Cupom
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="col-md-6">
+                                <div class="input-group inputSize">
+                                    <input type="text" class="form-control inputColor" v-model="coupon" aria-describedby="basic-addon3">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mt-2">
+                                <div class="btn btn-outline-primary" @click="$event => aplyCoupon()">
+                                    Aplicar Cupom
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="mt-3">
-                <h5>Como você prefere pagar?</h5>
-            </div>
+                
+                <div class="card p-3 mt-3">
+                    <h5>Como você prefere pagar?</h5>
+                </div>
 
-            <div class="card mt-4" v-for="card in cards">
-                <div class="p-4 col-md-12">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="p-4">
-                            <input class="form-check-input" type="checkbox" v-model="card.isChecked">
-                        </div>
+                <div class="card mt-3" v-for="card in cards" v-bind:key="card.id">
+                    <div class="p-4 col-md-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="p-4">
+                                <input class="form-check-input" type="checkbox" v-model="card.isChecked">
+                            </div>
 
-                        <div class="ms-3">
-                            <i class="bi bi-credit-card iconCard"></i>
-                        </div>
+                            <div class="ms-3">
+                                <i class="bi bi-credit-card iconCard"></i>
+                            </div>
 
-                        <div class="d-flex flexwrap ms-5">
-                            <label for="">{{ card.flag }}</label>
-                            <label for="">Final {{ card.number }}</label>
-                        </div>
+                            <div class="d-flex flexwrap ms-5">
+                                <label for="">{{ card.flag }}</label>
+                                <label for="">Final {{ card.number }}</label>
+                            </div>
 
-                        <div>
-                            <div class="d-flex ms-5">
-                                <label for="basic-url" class="form-label">Valor pago nesse cartão: </label>
-                                <div class="input-group">
-                                    <input type="number" v-model="card.value" v-bind:disabled="!card.isChecked">
+                            <div>
+                                <div class="d-flex ms-5">
+                                    <label for="basic-url" class="form-label me-3">Valor à pagar neste cartão</label>
+                                    <div class="input-group">
+                                        <input class="text-center" type="number" v-model="card.value" v-bind:disabled="!card.isChecked">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -59,129 +61,148 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-end mt-2" >
-                <h6 v-bind:class="labelStatusClass">{{  labelCheckPayment }}</h6>
-            </div>
-
-            <div class="d-flex justify-content-between">
-                <div class="mt-2">
-                    <router-link to="/purchase/card">
-                        <div class="btn btn-light">
-                            Adicionar cartão
-                        </div>
-                    </router-link>
+            <div class="card col-md-4">
+                <div class="card-title">
+                    <div class="ms-4 mt-5">
+                        <label for=""><b>Resumo da compra</b></label>
+                    </div>
+                    <hr class="ms-4 me-4">
                 </div>
+                <div class="card-body">
+                    <div>
+                        <div>
+                            <div class="ms-4 d-flex justify-content-between me-4">
+                                <div>
+                                    <label for="">Produtos ({{ cart.totalQuantity }})</label>
+                                </div>
+                                <div>
+                                    <label for="">R${{ cart.finalPrice }}</label>
+                                </div>
+                            </div>
 
-                <div class="mt-2">
-                    <button v-on:click="setPaymentToCart()" class="btn btn-primary">
-                        Continuar
-                    </button>
+                            <hr class="ms-4 me-4">
+                        </div>
+
+                        <div>
+                            <div class="ms-4 d-flex justify-content-between me-4">
+                                <div>
+                                    <label class="fs-6">
+                                        <b>
+                                            Endereço
+                                        </b>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="form-text">
+                                        <b>{{ address.identification }}</b>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="ms-4 mt-1 d-flex justify-content-between me-4">
+                                    <label class="form-text"> {{ address.street }}</label>
+                                
+                                    <label class="form-text">N° {{ address.number }}</label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="ms-4 mt-1 d-flex justify-content-between me-4">
+                                    <label class="form-text"> {{ address.city }} - {{ address.state }}</label>
+                                    <label class="form-text">CEP {{ address.zipCode }}</label>
+                                </div>
+                            </div>
+
+                            <div class="ms-4 mt-2 d-flex justify-content-between me-4">
+                                <div>
+                                    <label for="">
+                                        <b>
+                                            Frete
+                                        </b>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="form-text text-warning"> R$ {{ 25 }}</label>
+                                </div>
+                            </div>
+
+                            <hr class="ms-4 me-4">
+                        </div>
+
+                        <div v-if="coupons.length">
+                            <div class="ms-4 d-flex justify-content-between me-4">
+                                <div>
+                                    <label class="fs-6">Cupons aplicados</label>
+                                </div>
+                            </div>
+
+                            <div class="ms-4 mt-4 d-flex justify-content-between me-4" v-for="item in coupons" v-bind:key="item.id">
+                                <div>
+                                    <label class="text-danger" for="">{{ item.description }}</label>
+                                </div>
+                                <div>
+                                    <label class="text-danger" for="">R$ {{ item.value }}</label>
+                                </div>
+                            </div>
+                            
+
+                            <hr class="ms-4 me-4">
+                        </div>
+                    </div>
+                    
+                    <div class="ms-4 mt-4 d-flex justify-content-between me-4">
+                        <div>
+                            <label class="text-success" for=""><b>Total</b></label>
+                        </div>
+                        <div>
+                            <label class="text-success" for=""><b>R${{ parseFloat(finalPrice).toFixed(2) }}</b></label>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 ms-4 mt-4" v-if="finalPrice <= 0">
+                        <div>
+                            <label class="text-success" for=""><b>Fique tranquilo</b></label>
+                        </div>
+                        
+                        <div class="d-flex jusitfy-content-between">
+                            <div>
+                                <label class="text-success" for="">Será gerado um cupom com o valor restante</label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4 me-4">
+                            <div>
+                                <label class="text-success" for="">Novo Cupom</label>
+                            </div>
+
+                            <div>
+                                <label class="text-success" for="">TROCA{{ parseInt((finalPrice * -1)) }}</label>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="card cardResume col-md-4">
-            <div class="card-title">
-                <div class="ms-4 mt-5">
-                    <label for=""><b>Resumo da compra</b></label>
+    <div class="container d-flex justify-content-end mt-2" >
+        <h6 v-bind:class="labelStatusClass">{{  labelCheckPayment }}</h6>
+    </div>
+
+    <div class="container d-flex justify-content-between mt-3 mb-2">
+        <div class="mt-2">
+            <router-link to="/purchase/card">
+                <div class="btn btn-light">
+                    Adicionar cartão
                 </div>
-                <hr class="ms-4 me-4">
-            </div>
-            <div class="card-body">
-                <div>
-                    <div>
-                        <div class="ms-4 d-flex justify-content-between me-4">
-                            <div>
-                                <label for="">Produtos ({{ cart.totalQuantity }})</label>
-                            </div>
-                            <div>
-                                <label for="">R${{ cart.finalPrice }}</label>
-                            </div>
-                        </div>
+            </router-link>
+        </div>
 
-                        <hr class="ms-4 me-4">
-                    </div>
-
-                    <div>
-                        <div class="ms-4 d-flex justify-content-between me-4">
-                            <div>
-                                <label class="fs-6">
-                                    <b>
-                                        Endereço
-                                    </b>
-                                </label>
-                            </div>
-                            <div>
-                                <label class="form-text">
-                                    <b>{{ address.identification }}</b>
-                                </label>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="ms-4 mt-1 d-flex justify-content-between me-4">
-                                <label class="form-text"> {{ address.street }}</label>
-                            
-                                <label class="form-text">N° {{ address.number }}</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="ms-4 mt-1 d-flex justify-content-between me-4">
-                                <label class="form-text"> {{ address.city }} - {{ address.state }}</label>
-                                <label class="form-text">CEP {{ address.zipCode }}</label>
-                            </div>
-                        </div>
-
-                        <div class="ms-4 mt-2 d-flex justify-content-between me-4">
-                            <div>
-                                <label for="">
-                                    <b>
-                                        Frete
-                                    </b>
-                                </label>
-                            </div>
-                            <div>
-                                <label class="form-text text-warning"> R$ {{ 25 }}</label>
-                            </div>
-                        </div>
-
-                        <hr class="ms-4 me-4">
-                    </div>
-
-                    <div v-if="coupons.length">
-                        <div class="ms-4 d-flex justify-content-between me-4">
-                            <div>
-                                <label class="fs-6">Cupons aplicados</label>
-                            </div>
-                        </div>
-
-                        <div class="ms-4 mt-4 d-flex justify-content-between me-4" v-for="item in coupons" v-bind:key="item.id">
-                            <div>
-                                <label class="text-danger" for="">{{ item.description }}</label>
-                            </div>
-                            <div>
-                                <label class="text-danger" for="">R$ {{ item.value }}</label>
-                            </div>
-                        </div>
-                        
-
-                        <hr class="ms-4 me-4">
-                    </div>
-                </div>
-                
-                <div class="ms-4 mt-4 d-flex justify-content-between me-4">
-                    <div>
-                        <label class="text-success" for="">
-                            <b>
-                                Total
-                            </b>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="text-success" for="">R${{ finalPrice }}</label>
-                    </div>
-                </div>
-            </div>
+        <div class="mt-2">
+            <button v-on:click="setPaymentToCart()" class="btn btn-primary">
+                Continuar
+            </button>
         </div>
     </div>
 </template>
@@ -191,6 +212,7 @@ import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
 import PurchaseCouponComponent from '../components/PurchaseCouponComponent.vue'
 import { getAllCardsByClientId, getAddressById, getValidationCoupon } from '@/services/modules'
 import { getClientStorage, AddPaymentsToCartStorage, getCartStorage, AddCouponToCartStorage } from '@/storage/module'
+
 export default {
     name: "PurchaseCardView",
     components: {
@@ -280,10 +302,14 @@ export default {
                             this.minValuePaymentInCreditCard = 0;
 
                             this.cards = this.cards.map((card) => {
-                                if (card.isChecked) {
-                                    card.value -= result.value;
+                                if (this.finalPrice <= 0) {
+                                    card.value = 0;
+                                } else {
+                                    if (card.isChecked) {
+                                        card.value -= result.value;
+                                        card.value = parseFloat(card.value).toFixed(2)
+                                    }
                                 }
-
                                 return card;
                             })
                         }else{
@@ -301,6 +327,8 @@ export default {
             const result = allCards.map((card) => {
                 let item = {};
 
+                console.log('this.finalPrice',this.finalPrice);
+
                 item = {
                     id: card.id,
                     flag: card.flag.description,
@@ -309,7 +337,7 @@ export default {
                     name: card.name,
                     principal: card.principal,
                     isChecked: true,
-                    value: this.finalPrice,
+                    value: this.finalPrice > 0 ? parseFloat(this.finalPrice).toFixed(2) : 0,
                 }
 
                 if (!item.principal) {
@@ -337,7 +365,7 @@ export default {
 
                 const totalPayment = cardsForPayments.reduce((acumulated, current) => acumulated + current.value, 0);
 
-                if (totalPayment === this.finalPrice) {
+                if (parseFloat(totalPayment).toFixed(2) === parseFloat(this.finalPrice).toFixed(2)) {
                     AddPaymentsToCartStorage(cardsForPayments)
                 }
 

@@ -1,4 +1,4 @@
-import { axiosInstance, apiLesbookOrder,apiLesBookStock, apiLesbookOrderReplacement } from '../config'
+import { axiosInstance, apiLesbookOrder, apiLesBookStock, apiLesbookOrderReplacement } from '../config'
 
 export const getOrders  = () => {
     const request = axiosInstance.get(apiLesbookOrder)
@@ -21,7 +21,7 @@ export const setLockBook = (clientId,BookId,quantity) => {
 }
 
 export const getDeliveryPrice = (zipcode) => {
-    const request = axiosInstance.get(`${apiLesBookStock}/lock`)
+    const request = axiosInstance.get(`${apiLesbookOrder}/delivery/${zipcode}`)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 
@@ -45,11 +45,9 @@ export const getDashboard = (data) => {
 }
 
 export const createOrder = (data) => {
-    const request = axiosInstance.post(apiLesbookOrder, data)
+    return axiosInstance.post(apiLesbookOrder, data)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
-
-    return request;
 }
 
 export const createOrderReplacement = (data) => {

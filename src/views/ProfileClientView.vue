@@ -59,7 +59,7 @@ export default {
     data: function() {
         const { params } = useRoute();
         // forced error = not exist client 1
-        const CLIENT_ID_HARD_CODE = 0
+        const CLIENT_ID_HARD_CODE = 7
 
         let client = {
             name: '',

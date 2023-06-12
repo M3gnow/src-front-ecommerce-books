@@ -107,11 +107,11 @@ export default {
     Cart
   },
   data: function () {
-    const CLIENT_ID_HARD_CODE = 5;
+    const CLIENT_ID_HARD_CODE = 7;
     let client_id = CLIENT_ID_HARD_CODE;
     let setAdm = false;
     let typeUser = 'Cliente'
-    let itensCart = 10;
+    let itensCart = 0;
 
     return {
       componentKey: 0,
@@ -131,7 +131,6 @@ export default {
       } else {
         this.typeUser = 'Cliente'
       }
-
     }
   }
 }

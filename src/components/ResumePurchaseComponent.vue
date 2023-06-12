@@ -1,5 +1,5 @@
 <template>
-    <div class="card cardResume col-md-4">
+    <div class="card cardResume col-md-4 minHeightCard">
         <div class="card-title">
             <div class="ms-4 mt-5">
                 <label for=""><b>Resumo da compra</b></label>
@@ -90,4 +90,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+
+.minHeightCard {
+    min-height: 400px;
+}
+</style>
