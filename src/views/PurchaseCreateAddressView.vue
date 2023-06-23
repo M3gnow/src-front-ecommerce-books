@@ -140,13 +140,12 @@
                         </div>
                     </div>
 
-
-                    <div class="row d-flex justify-content-between p-3">
+                    <div class="d-flex justify-content-start">
                         <div class="form-check d-flex">
                             <div class="p-3">
-                                <input class="form-check-input" type="checkbox" v-model="salvarEndereco" id="salvarEndereco" >
+                                <input class="p-3 form-check-input" type="checkbox" v-model="salvarEndereco" id="salvarEndereco" >
                             </div>
-                            <div class="p-3 me-5">
+                            <div class="p-3 me-5 mt-2">
                                 <h5>Salvar endereço de entrega</h5>
                             </div>
                         </div>
@@ -257,7 +256,7 @@ export default {
         },
         createAddress: function(address){
             let clientId = 0;
-            if(salvarEndereco.isChecked){
+            if (this.salvarEndereco){
                 clientId = getClientStorage().id;
             }
             const data = this.modelCreateAddress(clientId, address)

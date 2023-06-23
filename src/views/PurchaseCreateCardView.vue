@@ -9,7 +9,7 @@
                 <div class="input-group">
                     <select class="form-select" id="creditCardFlagCard" name="creditCardFlagCard" v-model="creditCard.flagCard">
                         <option disabled value="">Escolha...</option>
-                        <option v-for="option in options.flags" :value="option.id">
+                        <option v-for="option in options.flags" :value="option.id" v-bind:key="option.id">
                             {{ option.description }}
                         </option>
                     </select>
@@ -43,6 +43,18 @@
                 </div>
             </div>
             <br>
+
+            <div class="d-flex justify-content-end">
+                <div class="form-check d-flex">
+                    <div class="p-3 mt-2 me-5">
+                        <h5>Vincular cartão à sua conta</h5>
+                    </div>
+
+                    <div class="p-3">
+                        <input class="p-3 form-check-input" type="checkbox" v-model="salvarCartao" id="salvarEndereco" >
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-12 d-flex justify-content-end mt-3">
@@ -69,8 +81,6 @@ export default {
         ResumePurchaseComponent
     },
     data: function() {
-        
-
         let errors = [];
         const flags = [];
         const options = { flags }
@@ -83,6 +93,7 @@ export default {
             codeSecurityCard: '',
             isMainCard: ''
         }
+        const salvarCartao = false;
 
         getAllCardFlags()
             .then((result) => {
@@ -93,18 +104,17 @@ export default {
             })
             const router = useRouter();
 
-        return { creditCard, options, errors, router}
+        return { creditCard, options, errors, router, salvarCartao}
     },
     methods:{
         createCard: function(card){
             const clientId = getClientStorage().id;
             const data = this.modelCreateToCard(clientId, card)
-
+            
             createCardByClientId(data)
-                .then((result) => {
+                .then((resultNewCardId) => {
                     alert('Sucesso cadastro de cartão');
-                    
-                    this.router.push('/purchase/payments');
+                    this.router.push(`/purchase/payments?temporary_card=${resultNewCardId}`);        
                 })
                 .catch((err) => {
                     alert('Falha cadastro de cartão')
@@ -113,7 +123,7 @@ export default {
         },
         modelCreateToCard: function(clientId, card) {
             return {
-                id_client: clientId,
+                id_client: this.salvarCartao ? clientId : 0,
                 number: card.numberCard,
                 name: card.nameCard,
                 securityCode: card.codeSecurityCard,

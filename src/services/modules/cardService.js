@@ -20,7 +20,7 @@ export const getCardById = (id) => {
     const request = axiosInstance.get(`${apiLesbookCard}/${id}`)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
-
+        
     return request;
 }
 

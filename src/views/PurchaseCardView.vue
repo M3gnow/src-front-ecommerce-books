@@ -210,9 +210,10 @@
 <script>
 import ResumePurchaseComponent from '../components/ResumePurchaseComponent.vue'
 import PurchaseCouponComponent from '../components/PurchaseCouponComponent.vue'
-import { getAllCardsByClientId, getAddressById, getValidationCoupon } from '@/services/modules'
+import { getAllCardsByClientId, getAddressById, getValidationCoupon, getCardById } from '@/services/modules'
 import { getClientStorage, AddPaymentsToCartStorage, getCartStorage, AddCouponToCartStorage } from '@/storage/module'
-
+import { useRoute } from 'vue-router'
+  
 export default {
     name: "PurchaseCardView",
     components: {
@@ -220,6 +221,7 @@ export default {
         PurchaseCouponComponent
     },
     data: function () {
+        const { params, query } = useRoute()
         let client = getClientStorage();
         const cart = getCartStorage();
         let promotionalUsed = false;
@@ -251,10 +253,23 @@ export default {
 
         getAllCardsByClientId(client.id)
             .then((result) => {
-                this.cards = this.modelCreditCard(result)
+                if (query.temporary_card) {
+                    getCardById(this.query.temporary_card)
+                        .then((resultTemporaryCard) => {
+                            result.push(resultTemporaryCard)
+
+                            this.cards = this.modelCreditCard(result)
+                        })
+                        .catch((err) => {
+                            console.log('Falha na consulta getAllCardsByClientId', err)
+                        })
+                        
+                } else {
+                    this.cards = this.modelCreditCard(result)
+                }
             })
             .catch((err) => {
-                console.log('Falha na consulta getAllCardsByClientId', err)
+                console.log('Falha na consulta getAllCardsByClientIdMegnow', err)
             })
 
         return {
@@ -270,7 +285,9 @@ export default {
             minValuePaymentInCreditCard,
             labelCheckPayment,
             labelStatusClass,
-            promotionalUsed
+            promotionalUsed,
+            params,
+            query
         }
     },
     methods: {
@@ -326,8 +343,6 @@ export default {
         modelCreditCard: function (allCards) {
             const result = allCards.map((card) => {
                 let item = {};
-
-                console.log('this.finalPrice',this.finalPrice);
 
                 item = {
                     id: card.id,
