@@ -12,3 +12,7 @@ export const changePasswordByClientId = (data) =>
     axiosInstance.post(`${apiLesbookClientPassword}`, data)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
+
+export const getAllClientes = () => axiosInstance.get(apiLesbookClient)
+    .then((res) => Promise.resolve(res.data))
+    .catch((error) => Promise.reject(error))

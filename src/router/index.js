@@ -26,6 +26,8 @@ import AdminOrdersView from '../views/AdminOrdersView'
 import AdminDetailOrderView from '../views/AdminDetailOrderView'
 import DashboardView from  '../views/DashboardView'
 import SelectDateDashboardView from  '../views/SelectDateDashboardView'
+import AdmListBooksView from  '../views/AdmListBooksView'
+import AdmListClientesView from  '../views/AdmListClientesView'
 
 
 const router = createRouter({
@@ -170,7 +172,17 @@ const router = createRouter({
       path: '/dashboard/:initMounth/:initYear/:endMounth/:endYear',
       name: 'dashboard',
       component: DashboardView
-    }
+    },
+    {
+      path: '/adm/books',
+      name: 'AdmListBooks',
+      component: AdmListBooksView
+    },
+    {
+      path: '/adm/clientes',
+      name: 'AdmListClientes',
+      component: AdmListClientesView
+    },
 
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },
