@@ -47,7 +47,8 @@ export default {
     Buscar : function() {
       getDashboard({
       "init": `${this.params.initMounth}/${this.params.initYear}`,
-      "end": `${this.params.endMounth}/${this.params.endYear}`
+      "end": `${this.params.endMounth}/${this.params.endYear}`,
+      "type": `${this.params.type}`
     })
       .then((result) => {
 

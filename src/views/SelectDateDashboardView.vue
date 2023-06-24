@@ -11,7 +11,8 @@
       </div>
       <p v-if="erro" class="error">{{ erro }}</p>
       <div class="row d-flex justify-content-between p-3">
-        <button class="btn btn-outline-warning" v-bind:disabled="erro != ''" v-on:click="Buscar(mesAnoInicio,mesAnoFinal)">Buscar</button>
+        <button class="btn btn-outline-warning" v-bind:disabled="erro != ''" v-on:click="Buscar(mesAnoInicio,mesAnoFinal,1)"> <i class="bi bi-tag"></i> Buscar por categoria</button>
+        <button class="btn btn-outline-warning" v-bind:disabled="erro != ''" v-on:click="Buscar(mesAnoInicio,mesAnoFinal,1)"><i class="bi bi-book"></i> Buscar por produto</button>
       </div>
     </div>
   </div>
@@ -25,6 +26,7 @@ export default {
   data() {
     let mesAnoInicio = '';
     let mesAnoFinal = '';
+    let type = '';
     let erro = '';
     let router = useRouter()
     return {
@@ -36,7 +38,7 @@ export default {
     
   },
   methods: {
-    Buscar: function (initDate,endDate) {
+    Buscar: function (initDate,endDate,type) {
       const regex = /^(0[1-9]|1[0-2])\/\d{4}$/;
       if (!regex.test(initDate)) {
         alert(initDate + ' não é um formato inválido. Utilize o formato MM/AAAA.')
@@ -44,7 +46,7 @@ export default {
       if (!regex.test(endDate)) {
         alert(endDate + ' não é um formato inválido. Utilize o formato MM/AAAA.')
       }
-      this.router.push(`/dashboard/${initDate}/${endDate}`);
+      this.router.push(`/dashboard/${initDate}/${endDate}/${type}`);
     }
   }
 }
