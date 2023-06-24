@@ -16,3 +16,8 @@ export const changePasswordByClientId = (data) =>
 export const getAllClientes = () => axiosInstance.get(apiLesbookClient)
     .then((res) => Promise.resolve(res.data))
     .catch((error) => Promise.reject(error))
+
+export const updateStatusClient = (id) =>
+    axiosInstance.post(`${apiLesbookClient}/${id}/status`)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))

@@ -6,11 +6,6 @@
                 <div>
                     Lista de Livros    
                 </div>
-
-                <!-- <div class="d-flex justify-content-between">
-                    <button type="button" class="btn btn-warning m-1">Compras</button>
-                    <button type="button" class="btn btn-warning m-1">Trocas</button>
-                </div> -->
             </div>
         </div>
 
@@ -19,21 +14,31 @@
                 <tr>
                     <th scope="col">Livro</th>
                     <th scope="col">Author</th>
-                    <th scope="col">Editora</th>
                     <th scope="col">Data de publicação</th>
-                    <th scope="col">Quantidade em Estoque</th>
-                    <th scope="col">Ações</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Status</th>
+                    <th class="text-center" scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="book in books" v-bind:key="book.id">
                     <td>{{ book.title }}</td>
                     <td>{{ book.author.description }}</td>
-                    <td>{{ book.publisher.description  }}</td>
                     <td>{{ formatDate(book.publicationYear)  }}</td>
-                    <td class="text-center">{{ book.stock.quantity  }}</td>
+                    <td>{{ book.stock.quantity  }}</td>
+                    <td class="text-center">{{ book.active ? 'Ativo' : 'Inativo'  }}</td>
                     <td>
-                        <RouterLink class="btn btn-danger" :to="{ path: `/adm/orders/{{ book.id }}` }">Inativar</RouterLink>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-outline-warning">
+                                Detalhe
+                            </button>
+                            <button type="button" class="btn btn-outline-danger" @click="changeStatus(book.id)" :disabled="!book.active">
+                                Inativar
+                            </button>
+                            <button type="button" class="btn btn-outline-success" @click="changeStatus(book.id)" :disabled="book.active">
+                                Ativar
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -42,7 +47,7 @@
 </template>
 
 <script>
-import { getAllBooks } from './../services/modules/bookService'
+import { getAllBooks, updateStatusBook } from './../services/modules/bookService'
 
 export default {
     name: 'AdmListBooksView',
@@ -63,6 +68,22 @@ export default {
 
             return date;
         },
+        changeStatus(bookId) {
+            updateStatusBook(bookId)
+                .then((data) => {
+                    this.getAllBooksNextChangeStatus();
+                }).catch((err) => {
+                    console.log('error update status');
+                })
+        },
+        getAllBooksNextChangeStatus() {
+            getAllBooks()
+                .then((result) => {
+                    this.books = result; 
+                }).catch(() => {
+
+                })
+        }  
     },
     mounted() {
         getAllBooks()

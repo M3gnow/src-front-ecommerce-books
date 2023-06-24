@@ -15,3 +15,11 @@ export const getBook = (id) => {
 
     return request;
 }
+
+export const updateStatusBook = (id) => {
+    const request = axiosInstance.post(`${apiMockAllBooks}/${id}/status`)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))
+
+    return request;
+}
