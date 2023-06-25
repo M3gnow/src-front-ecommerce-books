@@ -16,8 +16,16 @@ export const getBook = (id) => {
     return request;
 }
 
-export const updateStatusBook = (id) => {
-    const request = axiosInstance.post(`${apiMockAllBooks}/${id}/status`)
+export const updateStatusBook = (id, data) => {
+    const request = axiosInstance.post(`${apiMockAllBooks}/${id}/status`, data)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))
+
+    return request;
+}
+
+export const entryStokBookId = (id, data) => {
+    const request = axiosInstance.post(`${apiMockAllBooks}/${id}/stock`, data)
         .then((res) => Promise.resolve(res.data))
         .catch((error) => Promise.reject(error))
 

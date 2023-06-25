@@ -28,7 +28,9 @@ import DashboardView from  '../views/DashboardView'
 import SelectDateDashboardView from  '../views/SelectDateDashboardView'
 import AdmListBooksView from  '../views/AdmListBooksView'
 import AdmListClientesView from  '../views/AdmListClientesView'
-
+import AdmDetailBookView from  '../views/AdmDetailBookView'
+import AdmEntryStockBookView from  '../views/AdmEntryStockBookView'
+import AdmUpdateStatusBookView from  '../views/AdmUpdateStatusBookView'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -183,6 +185,22 @@ const router = createRouter({
       name: 'AdmListClientes',
       component: AdmListClientesView
     },
+    {
+      path: '/adm/books/:book_id',
+      name: 'AdmDetailBook',
+      component: AdmDetailBookView
+    },
+    {
+      path: '/adm/books/:book_id/status',
+      name: 'AdmUpdateStatusBook',
+      component: AdmUpdateStatusBookView
+    },
+    {
+      path: '/adm/books/:book_id/stock',
+      name: 'AdmEntryStockBook',
+      component: AdmEntryStockBookView
+    }
+
 
     // { path: '/dashboard', component: Dashboard, meta: { authorization:  false } },
     // { path: '/passengers', component: Passengers, meta: { authorization:  false } },

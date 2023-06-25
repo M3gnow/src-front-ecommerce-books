@@ -4,7 +4,7 @@
         <div class="form-label fs-3">
             <div class="d-flex justify-content-between">
                 <div>
-                    Lista de Livros    
+                    Painel Livros    
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
                     <th scope="col">Livro</th>
                     <th scope="col">Author</th>
                     <th scope="col">Data de publicação</th>
-                    <th scope="col">Quantidade</th>
+                    <th scope="col">Estoque</th>
                     <th scope="col">Status</th>
                     <th class="text-center" scope="col">Ações</th>
                 </tr>
@@ -25,11 +25,11 @@
                     <td>{{ book.title }}</td>
                     <td>{{ book.author.description }}</td>
                     <td>{{ formatDate(book.publicationYear)  }}</td>
-                    <td>{{ book.stock.quantity  }}</td>
+                    <td>{{ book.stock.quantity  }} un.</td>
                     <td class="text-center">{{ book.active ? 'Ativo' : 'Inativo'  }}</td>
                     <td>
                         <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-outline-warning">
+                            <button type="button" class="btn btn-outline-warning" @click="goToAdmBookId(book.id)">
                                 Detalhe
                             </button>
                             <button type="button" class="btn btn-outline-danger" @click="changeStatus(book.id)" :disabled="!book.active">
@@ -61,9 +61,6 @@ export default {
             const day = dateTime.getDay() > 9 ? dateTime.getDay() : `0${dateTime.getDay()}`;
             const mounth = (dateTime.getMonth() + 1) <= 9 ? `0${dateTime.getMonth() + 1}` : dateTime.getMonth() + 1;
             const year = dateTime.getFullYear();
-            const hours = dateTime.getHours();
-            const minutes = dateTime.getMinutes() <= 9 ? `0${dateTime.getMinutes()}` : dateTime.getMinutes();
-
             const date = `${day}/${mounth}/${year}`
 
             return date;
@@ -83,7 +80,10 @@ export default {
                 }).catch(() => {
 
                 })
-        }  
+        },
+        goToAdmBookId(bookId) {
+            this.$router.push(`/adm/books/${bookId}`);
+        }
     },
     mounted() {
         getAllBooks()
