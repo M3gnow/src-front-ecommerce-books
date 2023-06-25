@@ -171,7 +171,7 @@ const router = createRouter({
       component: SelectDateDashboardView
     },
     {
-      path: '/dashboard/:initMounth/:initYear/:endMounth/:endYear',
+      path: '/dashboard/:initMounth/:initYear/:endMounth/:endYear/:type',
       name: 'dashboard',
       component: DashboardView
     },
