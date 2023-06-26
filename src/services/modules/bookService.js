@@ -31,3 +31,11 @@ export const entryStokBookId = (id, data) => {
 
     return request;
 }
+
+export const updateBook = (id, data) => {
+    const request = axiosInstance.put(`${apiMockAllBooks}/${id}`, data)
+        .then((res) => Promise.resolve(res.data))
+        .catch((error) => Promise.reject(error))
+
+    return request;
+}
