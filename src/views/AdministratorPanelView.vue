@@ -29,12 +29,6 @@
                 </router-link>
             </div>
 
-            <div class="d-flex justify-content-between p-4">
-                <router-link to="/" type="button" class="btn btn-light border border-warning text-reset p-5">
-                    <label for="basic-url" class="form-label fs-3">Estoque</label>
-                    <div class="form-text">Gerencie estoque de livros</div>
-                </router-link>
-            </div>
         </div>
     </div>
 </template>

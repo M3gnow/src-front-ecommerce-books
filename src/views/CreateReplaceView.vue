@@ -206,7 +206,7 @@ export default {
 
       createOrderReplacement(data)
         .then((result) => {
-          useRouter.push(`/client/${this.client_id}/purchases`);
+          this.$router.push(`/client/${this.client_id}/purchases`);
         })
         .catch((err) => {
           console.log('Falha na consulta createOrderReplacement', err)

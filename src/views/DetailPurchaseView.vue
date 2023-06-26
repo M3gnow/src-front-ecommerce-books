@@ -110,22 +110,6 @@ export default {
     const orderId = params.purchase_id;
     const clientID = params.client_id;
     let labelDescription;
-    
-    getPurchaseById(orderId)
-      .then((result) => {
-        this.clientPurchases = result;
-        this.totalQuantity = result.items.reduce((aculumador, item) => aculumador + item.quantity, 0);
-        this.identificationAddress = result.adress.identification;
-        this.labelAdress = `${result.adress.street},  ${result.adress.number} -  ${result.adress.state} -  ${result.adress.city}`;
-        this.statusOrder = result.statusOrder;
-        this.labelStatusClass = this.getStatusClass(this.statusOrder)
-        this.labelStatusDescription = this.getStatusDescription(this.statusOrder)
-        this.labelDescription = this.getLabelDescription(this.statusOrder)
-
-      })
-      .catch((err) => {
-        console.log('Falha na consulta getPurchaseById', err)
-      })
 
     return {
       clientPurchases,
@@ -173,7 +157,7 @@ export default {
       updateStatusOrder(data)
         .then((result) => {
           console.log('Request with sucess {updateStatusOrder}', JSON.stringify(result));
-          useRouter.push({ path: `/client/${ params.client_id }/purchases/${ purchase.id }` });
+          this.getData(this.params.purchase_id);
         })
         .catch((err) => {
           console.log('Request with faild {updateStatusOrder}', err);
@@ -221,6 +205,26 @@ export default {
             default:
         }
     },
+    getData(orderId) {
+      getPurchaseById(orderId)
+        .then((result) => {
+          this.clientPurchases = result;
+          this.totalQuantity = result.items.reduce((aculumador, item) => aculumador + item.quantity, 0);
+          this.identificationAddress = result.adress.identification;
+          this.labelAdress = `${result.adress.street},  ${result.adress.number} -  ${result.adress.state} -  ${result.adress.city}`;
+          this.statusOrder = result.statusOrder;
+          this.labelStatusClass = this.getStatusClass(this.statusOrder)
+          this.labelStatusDescription = this.getStatusDescription(this.statusOrder)
+          this.labelDescription = this.getLabelDescription(this.statusOrder)
+
+        })
+        .catch((err) => {
+          console.log('Falha na consulta getPurchaseById', err)
+        })
+    }
+  },
+  mounted() {
+    this.getData(this.params.purchase_id);
   }
 }
 </script>

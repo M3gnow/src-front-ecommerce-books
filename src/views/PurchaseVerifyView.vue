@@ -270,6 +270,18 @@ export default {
 
     },
     finishOrderPurchase() {
+      localStorage.setItem("cart", JSON.stringify({
+        itens : [],
+        totalQuantity: 0,
+        finalPrice : 0,
+        validation: 0,
+        id_delivery_adress: 0,
+        payments: [],
+        coupons: [],
+        discount: 0,
+        expiration: 0
+      }));
+      
       const promiseCreateOrder = createOrder(this.order);
       
       toast.promise(
@@ -283,11 +295,8 @@ export default {
           position: toast.POSITION.BOTTOM_CENTER,
         },
       );
-      localStorage.removeItem("cart");
 
-      setTimeout(() => {  
-        this.$router.push('/');
-      }, 5000)
+      setTimeout(() => this.$router.push('/'), 5000);
     }
   }
 }
