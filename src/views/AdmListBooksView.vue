@@ -32,12 +32,6 @@
                             <button type="button" class="btn btn-outline-warning" @click="goToAdmBookId(book.id)">
                                 Detalhe
                             </button>
-                            <button type="button" class="btn btn-outline-danger" @click="changeStatus(book.id)" :disabled="!book.active">
-                                Inativar
-                            </button>
-                            <button type="button" class="btn btn-outline-success" @click="changeStatus(book.id)" :disabled="book.active">
-                                Ativar
-                            </button>
                         </div>
                     </td>
                 </tr>
